@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\WebApp.csproj": {}
+    "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\WebApp.csproj": {
+    "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\WebApp.csproj",
         "projectName": "WebApp",
-        "projectPath": "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\WebApp.csproj",
+        "projectPath": "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\WebApp.csproj",
         "packagesPath": "C:\\Users\\saudi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\obj\\",
+        "outputPath": "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
