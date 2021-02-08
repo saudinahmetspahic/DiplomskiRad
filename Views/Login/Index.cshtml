@@ -1,0 +1,49 @@
+﻿@using WebApp.ViewModels.Login
+@model Login_VM
+
+@{
+    var msg = ViewData["msg"];
+}
+@if (msg != null)
+{
+    <p class="Msg_P">@msg</p>
+}
+
+<div id="SignIn_Div_Ajax">
+
+</div>
+<div class="LogForms">
+    <form asp-action="LogIn" asp-controller="Login" method="post">
+
+        <div class="form-group row">
+            <label>Enter your mail</label>
+            <div class="col-sm-12">
+                <input asp-for="Email" type="email" required />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label>Enter your password</label>
+            <div class="col-sm-12">
+                <input asp-for="Password" type="password" required />
+            </div>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Log In" />
+        <input class="btn btn-primary" type="button" value="Sign In" onclick="javascript: GetSignInForm();" />
+    </form>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Welcome back!</h4>
+        <p>We are glad we have you back. Login to your account with email and password before you start using the app.</p>
+        <hr>
+        <p class="mb-0"> Don't tell anyone your password, because that is first step to security.</p>
+    </div>
+</div>
+
+<script>
+    function GetSignInForm() {
+        $.get("/Login/GetSingInFields_Ajax", function (rezultat, status) {
+            $(".LogForms").remove();
+            $("#SignIn_Div_Ajax").html(rezultat);
+        });
+    }
+</script>

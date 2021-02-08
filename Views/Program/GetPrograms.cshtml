@@ -1,0 +1,36 @@
+﻿@using WebApp.ViewModels.Program
+@model List<GetPrograms_VM>
+
+
+
+<h6>Check out these plans</h6>
+
+@foreach (var i in Model)
+{
+    <div class="card">
+        <div class="card-header" id="heading_@i.Id">
+            <h5 class="mb-0">
+                <button class="btn btn-info collapsed" data-toggle="collapse" data-target="#collapse_@i.Id" aria-expanded="false" aria-controls="collapse_@i.Id">
+                    @i.Name
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapse_@i.Id" class="collapse" aria-labelledby="heading_@i.Id" data-parent="#PlansList">
+            <div class="card-body">
+                <div class="flex-column">
+                    <div>
+                        @i.Description
+                    </div>
+                    <div>
+                        <a class="btn btn-outline-info float-md-right margin-5 cursor">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

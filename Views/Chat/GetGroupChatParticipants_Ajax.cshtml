@@ -1,0 +1,9 @@
+﻿@using WebApp.ViewModels.Chat
+@model List<ChatParticipants_VM>
+
+
+@foreach (var i in Model)
+{
+    @*<p class="border-bottom cursor"><a class="text-decoration-none text-secondary" onclick="javascript: AddNewUser(@i.UserId.ToString(), @i.UserName);" >@i.UserName</a></p>*@
+    <p class="border-bottom cursor" onclick="javascript: AddNewUser('@i.UserId.ToString()', '@i.UserName');"><a class="text-decoration-none text-secondary">@i.UserName</a></p>
+}

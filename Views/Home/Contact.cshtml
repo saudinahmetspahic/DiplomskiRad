@@ -1,0 +1,113 @@
+﻿<div class="flex-section-row ">
+    <div class="flex-section-row-child-25 padding-5">
+
+        <div class="panel-group border-right padding-5" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="text-color-black text-decoration-none" onclick="javascript: ShowGroupChatOptions();">
+                            GROUP CHAT
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <input class="text-color-darkgray d-block w-100" type="button" value="+ New group" onclick="javascript: CreateNewGroupChat();" />
+                        <div id="groupChatParticipantsList" class="div-section-list-item text-color-darkgray">
+                            <div class="spinner-border w-auto h-auto div-align-center padding-5" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="text-color-black text-decoration-none">
+                            CHAT
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <input id="chatSearch" placeholder="search.." oninput="javascript: getChatParticipants();" class="w-100" />
+                        <div id="chatParticipantsList" class="div-section-list-item text-color-darkgray">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="flex-section-row-child-75 padding-5 position-relative h-500" id="ChatAjaxDiv">
+        <img src="~/Images/Embedded/messaging.png" class="img-size-400 d-block h-100 w-100" />
+    </div>
+</div>
+
+<script>
+    function CreateNewGroupChat() {
+        $.get("/Chat/CreateNewGroupChat", function (result, status) {
+            $("#ChatAjaxDiv").html(result);
+        });
+    }
+
+    function getChatParticipants() {
+        var filter = $("#chatSearch").val();
+        $.get("/Chat/GetChatParticipants?AjaxView=GetChatParticipants_Ajax&NameFilter=" + filter, function (result, status) {
+            $("#chatParticipantsList").html(result);
+        });
+    }
+
+    function ShowGroupChatOptions() {
+        $.get("/Chat/GetGroupChatParticipants", function (result, status) {
+            $("#groupChatParticipantsList").html(result);
+        });
+    }
+    function ShowChatOptions() {
+        $("#chatOptionsDiv").toggle("display");
+    }
+
+    function GetChatInfo(UserId, IsGroupChat) {
+        if (IsGroupChat == true) {
+            $.get("/Chat/OpenGroupChatBox?GroupChatId=" + UserId, function (result, status) {
+                $("#ChatAjaxDiv").html(result);
+            });
+        }
+        else {
+            $.get("/Chat/OpenChatBox?UserId=" + UserId, function (result, status) {
+                $("#ChatAjaxDiv").html(result);
+            });
+        }
+    }
+
+
+    // signalR
+    var connection = new signaR.HubConnectionBuilder().withUrl().configureLogging(signalR.LogLevel.Information).build();
+
+    connection.on("RecieveMessage", function (Message) {
+        var div = document.createElement("div");
+        div.className = "d-block";
+
+        var div2 = document.createElement("div");
+        div2.className = "background-dark margin-left-25 div-align-right text-align-right border-radius-right w-75 d-inline-block margin-5 padding-20 text-color-white";
+
+        var p = document.createElement("p");
+        p.className = "small-text text-color-darkgray";
+        var time = new Date();
+        var day = today.getDay();
+        var daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday"];
+        p.innerHTML = time.getDay() + "/" + time.getMonth() + "/" + time.getFullYear() + " " + time.getHours + ":" + time.getMinutes() + " " + daylist[day];
+
+        var p2 = document.createElement("p");
+        p2.innerHTML = Message;
+
+        div2.appendChild(p);
+        div2.appendChild(p2);
+
+        div.appendChild(div2);
+        document.getElementById("ChatAjaxDiv").appendChild(div);
+    });
+
+</script>

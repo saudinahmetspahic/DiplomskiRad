@@ -1,0 +1,31 @@
+﻿<div class="flex-section-row">
+
+    <div class="flex-section-row-child-25 padding-5">
+        <div class="border-right">
+            <h4 class="text-color-black text-decoration-none cursor text-over-blue" onclick="javascript: GetSearchPlansOptions();">
+                SEARCH PLANS
+            </h4>
+            <h4 class="text-color-black text-decoration-none cursor text-over-blue" onclick="javascript: GetCustomPlanOptions();">
+                CREATE CUSTOM
+            </h4>
+        </div>
+    </div>
+    <div class="flex-section-row-child-75 padding-5 position-relative h-500" id="ProgramAjaxDiv">
+        <img src="~/Images/Embedded/plan.png" alt="" class="img-size-400 d-block h-100 w-100" />
+    </div>
+
+</div>
+
+<script>
+    function GetSearchPlansOptions() {
+        $.get("/Program/GetSearchPlansOptions", function (result, status) {
+            if (status == "success") {
+                $("#ProgramAjaxDiv").html(result);
+            }
+        });
+    }
+
+    function GetCustomPlanOptions() {
+
+    }
+</script>

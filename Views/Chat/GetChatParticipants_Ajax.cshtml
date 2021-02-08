@@ -1,0 +1,8 @@
+﻿@using WebApp.ViewModels.Chat
+@model List<ChatParticipants_VM>
+
+
+@foreach (var i in Model)
+{
+    <p class="border-bottom cursor" onclick="javascript: GetChatInfo(@i.UserId, @ViewData["IsGroupChat"]);"><a class="text-decoration-none text-secondary" >@i.UserName</a></p>
+}

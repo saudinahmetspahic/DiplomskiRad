@@ -1,0 +1,141 @@
+﻿@using WebApp.ViewModels.Login
+@model Registration_VM
+
+<div class="LogForms">
+    <form id="FormId" asp-action="SignIn" asp-controller="Login">
+        <div class="form-group row">
+            <label>Enter your first name <span class="text-red">*</span></label>
+            <div class="col-sm-10">
+                <input asp-for="Name" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label>Enter your last name <span class="text-red">*</span></label>
+            <div class="col-sm-10">
+                <input asp-for="Surname" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label>Enter your email adress <span class="text-red">*</span></label>
+            <div class="col-sm-10">
+                <input asp-for="Email" type="email" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label>Enter your password <span class="text-red">*</span></label>
+            <div class="col-sm-10">
+                <input asp-for="Password" type="password" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label>Enter your password again <span class="text-red">*</span></label>
+            <div class="col-sm-10">
+                <input asp-for="ConfirmPassword" type="password" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label>Enter your country</label>
+            <div class="col-sm-10">
+                <input asp-for="Country" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label>Enter your city</label>
+            <div class="col-sm-10">
+                <input asp-for="City" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label>Enter your age <span class="text-red">*</span></label>
+            <div class="col-sm-10">
+                <input asp-for="Age" type="number" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label>Enter your phone</label>
+            <div class="col-sm-10">
+                <input asp-for="Phone" />
+            </div>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Sign In" />
+    </form>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Registration!</h4>
+        <p>
+            After you click on Sign In button you will recieve email for confirmation of your newly created account. You wont be able to use your account until you are finished with confirmation.
+            <br />
+            <br />
+            Registration progress
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+            </div>
+            <br />
+            <br />
+            If you have any problems send us an email on respectzajim@gmail.com.
+            If you dont recieve an email after registration click on 'Send again' and we will sand you a new email.
+            <br />
+        </p>
+        <hr>
+        <p class="mb-0"> Don't tell anyone your password, because that is first step to security.</p>
+    </div>
+
+</div>
+
+<script>
+
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },
+        "Please check your input."
+    );
+
+    var validator = $("#FormId").validate({
+        rules: {
+            Name: "required",
+            Surname: "required",
+            Email: "required",
+            Password: {
+                required: true,
+                minlength: 6
+            },
+            ConfirmPassword: {
+                required: true,
+                equalTo: "#Password"
+            },
+            Age: {
+                required: true,
+                min: 18
+            }
+        },
+        messages: {
+            Name: "This field is required.",
+            Surname: "This field is required.",
+            Email: "Please enter valid email format.",
+            Password: "Password is required (minimum: 6 characters)",
+            ConfirmPassword: "You entered two different passwords.",
+            Age: "This field is required (minimum value: 18)."
+        },
+        wrapper: 'span',
+        errorPlacement: function (label, element) {
+            label.addClass('errorClass');
+            label.insertAfter(element);
+        }
+    });
+
+
+    $("input").on("input", function () {
+        $("#FormId").valid();
+        var elements = validator.errorList.length;
+        var percetage = (((9 - elements) * 100) / 9).toFixed(0);
+
+        $(".progress-bar").css("width", percetage + "%");
+        $(".progress-bar").attr("aria-valuenow", percetage);
+        $(".progress-bar").html(percetage + "%");
+    });
+
+
+</script>

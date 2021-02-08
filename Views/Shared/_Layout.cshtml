@@ -1,0 +1,91 @@
+﻿@using WebApp.EntityModels;
+@using WebApp.Helper;
+@{
+    UserAccount account = Context.GetLoggedUser();
+    var text = "";
+    if (account != null)
+    {
+        text = "Account";
+    }
+    else
+    {
+        text = "Log In";
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/BootstrapAddiontal.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/mycss.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  @*icons*@
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/myjavascript.js"></script>
+
+
+</head>
+<body>
+
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <img class="navbar-brand" src="~/Images/Embedded/company_logo.png" />
+                <div class="navbar-brand collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                        </li>
+                        @if (account != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Program" asp-action="Index">Programs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Invoice" asp-action="Index">Invoices</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Administration" asp-action="Index">Administration</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary padding-5" asp-area="" asp-controller="Login" asp-action="Account">@text</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3 padding-20">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - New Respect - Agency
+        </div>
+    </footer>
+
+
+    @*@RenderSection("Scripts", required: false)*@
+</body>
+</html>

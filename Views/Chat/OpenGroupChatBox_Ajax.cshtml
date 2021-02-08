@@ -1,0 +1,23 @@
+﻿@using WebApp.ViewModels.Chat
+@model GroupChatListingMessages_VM
+
+<p class="header-text text-color-black"><i class="fa fa-commenting"></i> @Model.GroupName</p>
+<div class="flex-column padding-50 h-100 scroll-allow">
+
+    @foreach (var i in Model.Messages)
+    {
+        <div class="d-block">
+            <div class="@(i.SenderId != Model.UserId ? "background-light margin-right-25 div-align-left text-align-left border-radius-left" : "background-dark margin-left-25 div-align-right text-align-right border-radius-right") w-75 d-inline-block margin-5 padding-20 text-color-white">
+                <p class="small-text text-color-darkgray">@i.SenderName @i.SendingDate.ToString("dd/MM/yyyy hh:mm dddd")</p>
+                <p> @i.MessageContent</p>
+            </div>
+        </div>
+    }
+
+
+
+</div>
+
+<div class="d-block">
+    <input placeholder="Write your message.." class="w-75 h-100 padding-5" /> <button class="btn btn-secondary float-right w-25 h-100">Send <i class="fa fa-level-up"></i></button>
+</div>

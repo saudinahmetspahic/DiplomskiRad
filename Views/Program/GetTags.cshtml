@@ -1,0 +1,13 @@
+﻿@using WebApp.ViewModels.Util
+@model List<ComboBox>
+
+
+
+@foreach (var item in Model)
+{
+    <div class="d-flex justify-content-between align-items-center">
+        <p class="cursor margin-0" onclick="javascript: AddChoosenTag('@item.Id', '@item.Description');">@item.Description</p>
+        <span class="badge badge-primary badge-pill" onclick="javascript: GetTagInfo(@item.Id);"><a class="cursor" data-toggle="modal" data-target="#infoModal">i</a></span>
+    </div>
+}
+
