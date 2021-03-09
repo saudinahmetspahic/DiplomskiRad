@@ -91,6 +91,16 @@ img.img-size-400 {
         text-align: center;
     }
 
+.list-item {
+    margin-top: 5px;
+    border-top: 1px solid;
+    border-color: black;
+}
+
+.padding-0 {
+    padding: 0px;
+}
+
 .padding-5 {
     padding: 5px;
     box-sizing: border-box;
@@ -196,6 +206,10 @@ img.img-size-400 {
     height: 200px;
 }
 
+.h-300 {
+    height: 300px;
+}
+
 .h-500 {
     height: 500px;
 }
@@ -208,8 +222,28 @@ img.img-size-400 {
     margin-left: 25%;
 }
 
-.margin-top-50 {
+.margin-right-5 {
+    margin-right: 5%;
+}
+
+.margin-left-5 {
+    margin-left: 5%;
+}
+
+.marginTop0 {
+    margin-top: 0px;
+}
+
+.marginTop25 {
+    margin-top: 25px;
+}
+
+.marginTop50 {
     margin-top: 50px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
 }
 
 .margin-bottom-50 {
@@ -257,4 +291,80 @@ img.img-size-400 {
 
 .text-over-blue:hover {
     color: blue;
+}
+
+.margin-side-50 {
+    margin-left: 50px;
+    margin-right: 50px;
+    box-sizing: border-box;
+}
+
+.margin-side-10 {
+    margin-left: 10px;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.sectionMargin {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    box-sizing: border-box;
+}
+
+.zIndexDown {
+    z-index: 1 !important;
+}
+
+.zIndexUp {
+    z-index: 2 !important;
+}
+
+
+.custom-card {
+    padding: 2%;
+    color: rgb(11, 84, 96);
+    background-color: white;
+    border-radius: 10px;
+    width: 300px;
+    height: 250px;
+    overflow: hidden;
+    margin: 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 18px;
+}
+
+.focus-border {
+    border-left: 3px solid white;
+}
+
+.focus-border:hover {
+    border-color: black;
+}
+
+
+.box {
+    width: auto;
+    max-width: 400px;
+    min-width: 200px;
+    height: 200px;
+    padding: 30px;
+    box-sizing: border-box;
+    margin: 30px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 100%;
+    transition: linear .5s;
+    user-select: none;
+    overflow: hidden;
+}
+.active-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+ align-items: center;
+}
+.active-box:hover {
+    background-color: rgb(126, 193, 203);
+    cursor: pointer;
 }

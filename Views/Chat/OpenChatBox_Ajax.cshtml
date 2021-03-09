@@ -2,13 +2,13 @@
 @model ChatListingMessages_VM
 
 <p class="header-text text-color-black"><i class="fa fa-commenting"></i> Message @Model.RecieverName</p>
-<div class="flex-column padding-50 h-100 scroll-allow">
+<div class="flex-column padding-50 h-100 scroll-allow" id="messagesDiv">
 
 
     @foreach (var i in Model.MessagesList)
     {
         <div class="d-block">
-            <div class="@(i.SenderId == Model.RecieverId ? "background-light margin-right-25 div-align-left text-align-left border-radius-left" : "background-dark margin-left-25 div-align-right text-align-right border-radius-right") w-75 d-inline-block margin-5 padding-20 text-color-white">
+            <div class="@(i.SenderId != Model.RecieverId ? "background-light margin-right-25 div-align-left text-align-left border-radius-left" : "background-dark margin-left-25 div-align-right text-align-right border-radius-right") w-75 d-inline-block margin-5 padding-20 text-color-white">
                 <p class="small-text text-color-darkgray">@i.SendingDate.ToString("dd/MM/yyyy hh:mm dddd")</p>
                 <p> @i.MessageContent</p>
             </div>
@@ -19,13 +19,83 @@
 </div>
 
 <div class="d-block">
-    <input id="messageInput" placeholder="Write your message.." class="w-75 h-100 padding-5" /> <button class="btn btn-secondary float-right w-25 h-100" onclick="javasctipt: SendNewMessage();">Send <i class="fa fa-level-up"></i></button>
+    <input id="messageInput" placeholder="Write your message.." class="w-75 h-100 padding-5" /> <button id="sendMessageButton" class="btn btn-secondary float-right w-25 h-100" onclick="javasctipt: SendNewMessage();">Send <i class="fa fa-level-up"></i></button>
 </div>
 
+<button onclick="javascript: Test();">Test</button>
+
 <script>
+
+
+    const conn = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub/")
+        //.configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    $(window).on("load", function () {
+        conn.invoke("AddUserToGroup", '@Model.ChatId').catch(function (err) {
+            console.log(err.toString());
+        });
+    });
+
+    document.getElementById("sendMessageButton").disabled = true;
+
+    conn.on("RemovedFromGroup", function (Group, User) {
+        alert("Removed -> group=" + Group + " / user=" + User);
+    });
+    conn.on("AddedToGroup", function (Group, User) {
+        alert("Added -> group=" + Group + " / user=" + User);
+    });
+
+
+    conn.on("RecieveMessage", function (Group, Sender, Message) {
+        if ('@Model.ChatId' != Group)
+            return;
+
+        var div = document.createElement("div");
+        div.className = "d-block";
+
+        var div2 = document.createElement("div");
+        div2.className = "background-light margin-right-25 div-align-left text-align-left border-radius-left";
+        if (Sender != '@Model.SenderId')
+            div2.className = "background-dark margin-left-25 div-align-right text-align-right border-radius-right";
+        div2.className += " w-75 d-inline-block margin-5 padding-20 text-color-white";
+
+        var p = document.createElement("p");
+        p.className = "small-text text-color-darkgray";
+        var today = new Date();
+        var day = today.getDay();
+        var daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday"];
+        p.innerHTML = today.getDay() + "/" + today.getMonth() + "/" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + " " + daylist[day];
+
+        var p2 = document.createElement("p");
+        p2.innerHTML = Message;
+
+        div2.appendChild(p);
+        div2.appendChild(p2);
+
+        div.appendChild(div2);
+        var parent = document.getElementById("messagesDiv");
+        parent.appendChild(div);
+        parent.scrollTop = parent.scrollHeight;
+    });
+
+    conn.start().then(function () {
+        document.getElementById("sendMessageButton").disabled = false;
+        conn.invoke("AddUserToGroup", '@Model.ChatId').catch(function (err) {
+            console.log(err.toString());
+        });
+    }).catch(function (err) {
+        console.log(err.toString());
+    });
+
     function SendNewMessage() {
         var messageContent = $("#messageInput").val();
         $.post("/Chat/SendNewMessage?ChatId=" + '@Model.ChatId' + "&Message=" + messageContent + "&User2Id=" + '@Model.RecieverId');
+        conn.invoke("SendMessageToGroup", '@Model.ChatId', '@Model.SenderId', messageContent).catch(function (err) {
+            console.log(err.toString());
+        });
     }
+
 
 </script>

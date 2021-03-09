@@ -1,0 +1,8 @@
+﻿@using WebApp.ViewModels.Program
+@model GetActivityDetails_VM
+
+    <p>
+        @Model.Description
+    </p> 
+
+    <button class="btn-primary" onclick="javascript: AddActivityToDay(this, '@Model.Id', '@Model.Description');">Add this activity</button>

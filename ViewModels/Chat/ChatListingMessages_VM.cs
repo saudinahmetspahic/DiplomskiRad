@@ -8,8 +8,10 @@ namespace WebApp.ViewModels.Chat
     public class ChatListingMessages_VM
     {
         public int ChatId { get; set; }
+        public int SenderId { get; set; }
         public int RecieverId { get; set; }
         public string RecieverName { get; set; }
+        public string RecieverEmail { get; set; }
         public List<Messages> MessagesList { get; set; }
         public class Messages
         {

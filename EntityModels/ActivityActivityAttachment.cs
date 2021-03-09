@@ -8,6 +8,8 @@ namespace WebApp.EntityModels
 {
     public class ActivityActivityAttachment
     {
+        public int Id { get; set; }
+            
         [ForeignKey(nameof(ActivityId))]
         public int ActivityId { get; set; }
         public Activity Activity { get; set; }

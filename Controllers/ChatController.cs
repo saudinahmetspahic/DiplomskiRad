@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace WebApp.Controllers
     public class ChatController : Controller
     {
         MyContext _context;
-        MessageHub _messageHub = new MessageHub();
+
         public ChatController(MyContext context)
         {
             _context = context;
@@ -28,6 +29,7 @@ namespace WebApp.Controllers
 
             var model = new GroupChatListingMessages_VM
             {
+                GroupChatId = groupChat.Id,
                 UserId = user.Id,
                 GroupName = groupChat.Name
                 //Messages = new List<GroupChatListingMessages_VM.Message>(),
@@ -57,7 +59,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> OpenChatBox(int UserId)
         {
             var loggedUser = HttpContext.GetLoggedUser();
-            var participants = _context.User.Where(w => (w.Id == UserId && w.UserAccountId != loggedUser.Id) || (w.Id != UserId && w.UserAccountId == loggedUser.Id)).ToList();
+            var participants = _context.User.Include(i => i.UserAccount).Where(w => (w.Id == UserId && w.UserAccountId != loggedUser.Id) || (w.Id != UserId && w.UserAccountId == loggedUser.Id)).ToList();
             if (participants.Count() != 2)
                 return StatusCode(400);
 
@@ -68,8 +70,10 @@ namespace WebApp.Controllers
 
             var model = new ChatListingMessages_VM
             {
+                SenderId = sender.Id,
                 RecieverId = reciever.Id,
                 RecieverName = reciever.Name + " " + reciever.Surname,
+                RecieverEmail = reciever.UserAccount.Email,
                 MessagesList = new List<ChatListingMessages_VM.Messages>()
             };
 
@@ -184,13 +188,13 @@ namespace WebApp.Controllers
         {
             var loggedUser = HttpContext.GetLoggedUser();
             var user = _context.User.Where(w => w.UserAccountId == loggedUser.Id).FirstOrDefault();
-            var message = new Message
+            var msg = new Message
             {
                 MessageContent = Message,
                 SendingTime = DateTime.Now,
                 SenderId = user.Id
             };
-            await _context.Message.AddAsync(message);
+            await _context.Message.AddAsync(msg);
             await _context.SaveChangesAsync();
 
             PrivateChat privateChat = null;
@@ -207,13 +211,32 @@ namespace WebApp.Controllers
 
             var chatmessage = new PrivateChatMessage
             {
-                MessageId = message.Id,
+                MessageId = msg.Id,
                 PrivateChatId = ChatId != 0 ? ChatId : privateChat.Id
             };
             await _context.PrivateChatMessage.AddAsync(chatmessage);
             await _context.SaveChangesAsync();
+        }
 
-            await _messageHub.SendMessage(Message);
+        public async Task SendNewGroupMessage(int GroupChatId, string Message)
+        {
+            var loggedUser = HttpContext.GetLoggedUser();
+            var user = _context.User.Where(w => w.UserAccountId == loggedUser.Id).FirstOrDefault();
+            var msg = new Message
+            {
+                MessageContent = Message,
+                SendingTime = DateTime.Now,
+                SenderId = user.Id
+            };
+            await _context.Message.AddAsync(msg);
+            await _context.SaveChangesAsync();
+
+            _context.GroupChatMessage.Add(new GroupChatMessage
+            {
+                GroupChatId = GroupChatId,
+                MessageId = msg.Id
+            });
+            await _context.SaveChangesAsync();
         }
     }
 }

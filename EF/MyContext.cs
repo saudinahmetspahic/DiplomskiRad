@@ -31,20 +31,23 @@ namespace WebApp.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PrivateChatMessage>()
+             .HasKey(c => new { c.PrivateChatId, c.MessageId });
+
             modelBuilder.Entity<GroupChatMessage>()
               .HasKey(c => new { c.GroupChatId, c.MessageId });
 
-            modelBuilder.Entity<GroupChatParticipants>()
+            modelBuilder.Entity<GroupChatParticipants>()    
               .HasKey(c => new { c.GroupChatId, c.UserId });
 
             modelBuilder.Entity<ProgramProgramDay>()
               .HasKey(c => new { c.ProgramId, c.ProgramDayId });
 
             modelBuilder.Entity<ProgramDayActivity>()
-                .HasKey(c => new { c.ActivityId, c.ProgramDayId });
+                .HasKey(c => new { c.ActivityAttachmentId, c.ProgramDayId });
 
-            modelBuilder.Entity<ActivityActivityAttachment>()
-                .HasKey(c => new { c.ActivityId, c.ActivityAttachmentId });
+       
+
         }
     }
 }

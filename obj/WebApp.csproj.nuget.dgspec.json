@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\WebApp.csproj": {}
+    "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\WebApp.csproj": {
+    "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\WebApp.csproj",
         "projectName": "WebApp",
-        "projectPath": "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\WebApp.csproj",
+        "projectPath": "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\WebApp.csproj",
         "packagesPath": "C:\\Users\\saudi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\saudi\\source\\repos\\webapp\\WebApp\\obj\\",
+        "outputPath": "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -57,6 +57,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "System.IO.FileSystem": {
+              "target": "Package",
+              "version": "[4.3.0, )"
             }
           },
           "imports": [
@@ -77,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }

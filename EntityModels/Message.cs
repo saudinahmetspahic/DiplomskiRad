@@ -12,6 +12,7 @@ namespace WebApp.EntityModels
         public DateTime SendingTime { get; set; }
         public string MessageContent { get; set; } 
 
+
         [ForeignKey(nameof(SenderId))]
         public int SenderId { get; set; }   
         public User Sender { get; set; }

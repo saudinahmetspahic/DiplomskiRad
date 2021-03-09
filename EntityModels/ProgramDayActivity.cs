@@ -12,8 +12,8 @@ namespace WebApp.EntityModels
         public int ProgramDayId { get; set; }
         public ProgramDay ProgramDay { get; set; }
 
-        [ForeignKey(nameof(ActivityId))]
-        public int ActivityId { get; set; }
-        public Activity Activity { get; set; }
+        [ForeignKey(nameof(ActivityAttachmentId))]
+        public int ActivityAttachmentId { get; set; }
+        public ActivityActivityAttachment ActivityAttachment { get; set; }
     }
 }

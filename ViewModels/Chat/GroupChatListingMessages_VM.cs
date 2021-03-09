@@ -7,6 +7,7 @@ namespace WebApp.ViewModels.Chat
 {
     public class GroupChatListingMessages_VM
     {
+        public int GroupChatId { get; set; }
         public int UserId { get; set; } 
         public string GroupName { get; set; }
         public List<string> Participants { get; set; }

@@ -1,0 +1,9 @@
+﻿@using WebApp.ViewModels.Util
+@model List<ComboBox>
+
+@foreach (var item in Model)
+{   
+    <p class="cursor" onclick="javascript: ShowActivityDetails(this, @item.Id);">@item.Description</p>
+}
+
+ 

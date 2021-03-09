@@ -1,0 +1,58 @@
+﻿.custom-container {
+    position: absolute;
+    top: 130px;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.custom-section {
+    position: relative;
+    height: 70vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.custom-section img {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.bottom0 {
+    bottom: 0;
+}
+
+.left0 {
+    left: 0;
+}
+
+img.rounded-profile-img {
+    position: absolute;
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    left: calc(50% - 150px);
+    bottom: -100px;
+    overflow: hidden;
+    border: 5px solid white;
+}
+
+.h-100-vh{
+    height: 100vh;
+}
+
+
+/*animations*/
+.background-animation-1{
+    transition: ease-in-out;
+    transition-delay: 0.1s;
+    transition-duration: 1s;
+}
+.background-animation-1:hover {
+    background-color: rgb(117, 165, 165);
+    box-shadow: rgb(89, 187, 145) 5px 5px initial;
+}

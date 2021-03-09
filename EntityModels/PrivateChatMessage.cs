@@ -8,9 +8,6 @@ namespace WebApp.EntityModels
 {
     public class PrivateChatMessage
     {
-
-        public int Id { get; set; }
-        
         [ForeignKey(nameof(PrivateChatId))]
         public int PrivateChatId { get; set; }
         public PrivateChat PrivateChat { get; set; }

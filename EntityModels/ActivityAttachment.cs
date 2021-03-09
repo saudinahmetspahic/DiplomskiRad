@@ -16,5 +16,8 @@ namespace WebApp.EntityModels
         public string Description { get; set; }
         public double PriceToVisit { get; set; }
 
+        [ForeignKey(nameof(ActivityId))]
+        public int ActivityId { get; set; }
+        public Activity Activity { get; set; }
     }   
 }

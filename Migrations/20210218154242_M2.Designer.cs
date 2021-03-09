@@ -10,8 +10,8 @@ using WebApp.EF;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210203174316_M8")]
-    partial class M8
+    [Migration("20210218154242_M2")]
+    partial class M2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,12 +31,40 @@ namespace WebApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Time_Of_Activity")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Time_Of_Activity")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Activity");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.ActivityActivityAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ActivityAttachmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PlannedFinish")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PlannedStart")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityAttachmentId");
+
+                    b.HasIndex("ActivityId");
+
+                    b.ToTable("ActivityActivityAttachment");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.ActivityAttachment", b =>
@@ -54,12 +82,6 @@ namespace WebApp.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PlannedFinish")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PlannedStart")
-                        .HasColumnType("datetime2");
 
                     b.Property<double>("PriceToVisit")
                         .HasColumnType("float");
@@ -152,9 +174,6 @@ namespace WebApp.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("GroupChatId")
-                        .HasColumnType("int");
-
                     b.Property<string>("MessageContent")
                         .HasColumnType("nvarchar(max)");
 
@@ -165,8 +184,6 @@ namespace WebApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GroupChatId");
 
                     b.HasIndex("SenderId");
 
@@ -180,9 +197,6 @@ namespace WebApp.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("MessageId")
-                        .HasColumnType("int");
-
                     b.Property<int>("User1Id")
                         .HasColumnType("int");
 
@@ -191,13 +205,26 @@ namespace WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MessageId");
-
                     b.HasIndex("User1Id");
 
                     b.HasIndex("User2Id");
 
                     b.ToTable("PrivateChat");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.PrivateChatMessage", b =>
+                {
+                    b.Property<int>("PrivateChatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MessageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PrivateChatId", "MessageId");
+
+                    b.HasIndex("MessageId");
+
+                    b.ToTable("PrivateChatMessage");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.Program", b =>
@@ -213,8 +240,14 @@ namespace WebApp.Migrations
                     b.Property<DateTime>("Date_Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -246,13 +279,13 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.EntityModels.ProgramDayActivity", b =>
                 {
-                    b.Property<int>("ActivityId")
+                    b.Property<int>("ActivityAttachmentId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProgramDayId")
                         .HasColumnType("int");
 
-                    b.HasKey("ActivityId", "ProgramDayId");
+                    b.HasKey("ActivityAttachmentId", "ProgramDayId");
 
                     b.HasIndex("ProgramDayId");
 
@@ -290,9 +323,6 @@ namespace WebApp.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("GroupChatId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -306,8 +336,6 @@ namespace WebApp.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GroupChatId");
 
                     b.HasIndex("UserAccountId");
 
@@ -333,6 +361,25 @@ namespace WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserAccount");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.ActivityActivityAttachment", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.ActivityAttachment", "ActivityAttachment")
+                        .WithMany()
+                        .HasForeignKey("ActivityAttachmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApp.EntityModels.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("ActivityAttachment");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.ActivityAttachment", b =>
@@ -397,10 +444,6 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.EntityModels.Message", b =>
                 {
-                    b.HasOne("WebApp.EntityModels.GroupChat", null)
-                        .WithMany("Messages")
-                        .HasForeignKey("GroupChatId");
-
                     b.HasOne("WebApp.EntityModels.User", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
@@ -412,12 +455,6 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.EntityModels.PrivateChat", b =>
                 {
-                    b.HasOne("WebApp.EntityModels.Message", "Message")
-                        .WithMany()
-                        .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebApp.EntityModels.User", "User1")
                         .WithMany()
                         .HasForeignKey("User1Id")
@@ -430,11 +467,28 @@ namespace WebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Message");
-
                     b.Navigation("User1");
 
                     b.Navigation("User2");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.PrivateChatMessage", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.Message", "Message")
+                        .WithMany()
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApp.EntityModels.PrivateChat", "PrivateChat")
+                        .WithMany()
+                        .HasForeignKey("PrivateChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Message");
+
+                    b.Navigation("PrivateChat");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.Program", b =>
@@ -450,9 +504,9 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.EntityModels.ProgramDayActivity", b =>
                 {
-                    b.HasOne("WebApp.EntityModels.Activity", "Activity")
+                    b.HasOne("WebApp.EntityModels.ActivityActivityAttachment", "ActivityAttachment")
                         .WithMany()
-                        .HasForeignKey("ActivityId")
+                        .HasForeignKey("ActivityAttachmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -462,7 +516,7 @@ namespace WebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Activity");
+                    b.Navigation("ActivityAttachment");
 
                     b.Navigation("ProgramDay");
                 });
@@ -488,10 +542,6 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.EntityModels.User", b =>
                 {
-                    b.HasOne("WebApp.EntityModels.GroupChat", null)
-                        .WithMany("Users")
-                        .HasForeignKey("GroupChatId");
-
                     b.HasOne("WebApp.EntityModels.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
@@ -499,13 +549,6 @@ namespace WebApp.Migrations
                         .IsRequired();
 
                     b.Navigation("UserAccount");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.GroupChat", b =>
-                {
-                    b.Navigation("Messages");
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

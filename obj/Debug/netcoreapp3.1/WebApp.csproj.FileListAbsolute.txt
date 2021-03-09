@@ -74,8 +74,6 @@ C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.csproj.
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.dll
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.pdb
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.genruntimeconfig.cache
-C:\Users\saudi\source\repos\WebApp\WebApp\bin\Debug\netcoreapp3.1\ClassModels.dll
-C:\Users\saudi\source\repos\WebApp\WebApp\bin\Debug\netcoreapp3.1\ClassModels.pdb
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Login\SignIn_Ajax.cshtml.g.cs
@@ -86,8 +84,12 @@ C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Ch
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Chat\OpenGroupChatBox_Ajax.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Chat\CreateNewGroupChat.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Chat\GetGroupChatParticipants_Ajax.cshtml.g.cs
-C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.csprojAssemblyReference.cache
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\Index.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetSearchPlansOptions.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetTags.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetPrograms.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.csprojAssemblyReference.cache
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\CreateCustomnPlan.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetActivitiesAjax.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetActivityDetailsAjax.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Administration\Index.cshtml.g.cs

@@ -58,6 +58,7 @@ namespace WebApp.Controllers
             await _context.User.AddAsync(user);
             await _context.SaveChangesAsync();
 
+          
             return RedirectToAction("Index");
         }
 
@@ -140,7 +141,7 @@ namespace WebApp.Controllers
             loggedUser.City = recievedModel.City;
             loggedUser.Phone = recievedModel.Phone;
             _context.User.Update(loggedUser);
-            
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
