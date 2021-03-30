@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\Home\" />
-    <Folder Include="wwwroot\Images\Administration\" />
     <Folder Include="wwwroot\Images\Users\" />
     <Folder Include="wwwroot\lib\signalr\" />
   </ItemGroup>

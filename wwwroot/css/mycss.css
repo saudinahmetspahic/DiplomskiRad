@@ -5,8 +5,10 @@
     font-weight: bold;
 }
 
-main {
-    padding-top: 30px;
+
+a {
+    text-decoration: none;
+    color: none;
 }
 
 form {
@@ -74,7 +76,8 @@ img.img-size-200 {
 
 img.img-size-400 {
     width: 400px;
-    height: 400px;
+    height: auto;
+    max-height: 400px;
 }
 
 .div-section-list-item {
@@ -116,6 +119,12 @@ img.img-size-400 {
     box-sizing: border-box;
 }
 
+.padding-bottom-50 {
+    padding-bottom: 50px;
+    box-sizing: border-box;
+}
+
+
 .margin-0 {
     margin: 0;
 }
@@ -143,12 +152,20 @@ img.img-size-400 {
     border-radius: 50%;
 }
 
+background-white {
+    background-color: white;
+}
+
 .background-light {
     background-color: rgb(24, 133, 150);
 }
 
 .background-dark {
     background-color: rgb(11, 84, 96);
+}
+
+.background-lightcyan {
+    background-color: lightcyan;
 }
 
 .position-bottom {
@@ -194,6 +211,10 @@ img.img-size-400 {
     text-align: right;
 }
 
+.scroll-auto {
+    overflow-y: auto;
+}
+
 .scroll-allow {
     overflow-y: scroll;
 }
@@ -230,16 +251,44 @@ img.img-size-400 {
     margin-left: 5%;
 }
 
-.marginTop0 {
+.margin-left-25px {
+    margin-left: 25px;
+}
+
+.margin-right-25px {
+    margin-right: 25px;
+}
+
+.margin-left-50px {
+    margin-left: 50px;
+}
+
+.margin-right-50px {
+    margin-right: 50px;
+}
+
+.margin-top-0 {
     margin-top: 0px;
 }
 
-.marginTop25 {
+.margin-top-5 {
+    margin-top: 5px;
+}
+
+.margin-top-25 {
     margin-top: 25px;
 }
 
-.marginTop50 {
+.margin-top-50 {
     margin-top: 50px;
+}
+
+.margin-top.h-500 {
+    margin-top: 5px;
+}
+
+.margin-bottom-0 {
+    margin-bottom: 0px;
 }
 
 .margin-bottom-20 {
@@ -262,6 +311,29 @@ img.img-size-400 {
     border-radius: 10px;
 }
 
+.border-size-3 {
+    border: 3px solid;
+}
+
+.border-lightblue {
+    border-color: lightblue;
+}
+
+.border-dodgerblue {
+    border-color: dodgerblue;
+}
+
+.background-lightblue {
+    background-color: lightblue;
+}
+
+.background-dodgerblue {
+    background-color: dodgerblue;
+}
+
+.background-midnightblue {
+    background-color: midnightblue;
+}
 
 .text-color-white {
     color: white;
@@ -277,6 +349,18 @@ img.img-size-400 {
 
 .text-color-black {
     color: black;
+}
+
+.text-color-yellow {
+    color: yellow;
+}
+
+.text-color-red {
+    color: red;
+}
+
+.text-color-green {
+    color: green;
 }
 
 .small-text {
@@ -333,17 +417,24 @@ img.img-size-400 {
     font-size: 18px;
 }
 
+.focus-hover:hover {
+    font-weight: bold;
+}
+
 .focus-border {
     border-left: 3px solid white;
 }
 
-.focus-border:hover {
-    border-color: black;
+    .focus-border:hover {
+        border-color: black;
+    }
+
+.focus-background {
+    background-image: linear-gradient(to bottom, rgb(67, 88, 199, 1), rgb(67, 88, 199, 0), rgb(67, 88, 199, 0), rgb(67, 88, 199, 0), rgb(67, 88, 199, 0));
 }
 
-
 .box {
-    width: auto;
+    width: 33%;
     max-width: 400px;
     min-width: 200px;
     height: 200px;
@@ -358,13 +449,195 @@ img.img-size-400 {
     user-select: none;
     overflow: hidden;
 }
-.active-box{
+
+.active-box {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
- align-items: center;
+    align-items: center;
 }
-.active-box:hover {
-    background-color: rgb(126, 193, 203);
+
+    .active-box:hover {
+        background-color: rgb(126, 193, 203);
+        cursor: pointer;
+    }
+
+a.box {
+    text-decoration: none;
+    color: black;
+}
+
+.active-table-row:hover {
     cursor: pointer;
+    background-color: rgb(139, 201, 210);
+    color: white;
 }
+
+table {
+    user-select: none;
+}
+
+.user-select-none {
+    user-select: none;
+}
+
+.show-on-hover {
+    opacity: 0;
+}
+
+    .show-on-hover:hover {
+        opacity: 1;
+        background: rgba(184, 183, 183, 0.4);
+    }
+
+.min-h-200 {
+    min-height: 200px;
+}
+
+.flex-grow-2 {
+    flex-grow: 2;
+}
+
+.fixed-bottom-right {
+    right: 0px;
+    bottom: 0px;
+}
+
+.hidden {
+    display: none;
+}
+
+.horizontal-line {
+    height: 1px;
+    border: 1px solid black;
+    padding: 0px;
+}
+
+.w-80 {
+    width: 80%;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.activity {
+    margin-bottom: 20px;
+    user-select: none;
+}
+
+.h-50perc {
+    height: 50%;
+}
+
+.h-80perc {
+    height: 80%;
+}
+
+@keyframes indicator-animation {
+    from {
+        width: 3px;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.indicator-from-left::after {
+    content: '';
+    display: block;
+    height: 5px;
+    width: 5px;
+    background-color: red;
+    border-radius: 5px;
+}
+
+.indicator-from-left:hover::after {
+    animation-name: indicator-animation;
+    animation-delay: 0s;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: 3;
+}
+
+.indicator-from-right::after {
+    content: '';
+    display: block;
+    height: 5px;
+    width: 5px;
+    background-color: red;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+.indicator-from-right:hover::after {
+    animation-name: indicator-animation;
+    animation-delay: 0s;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: 3;
+}
+
+.cursor-animation-1 {
+    user-select: none;
+    transition-duration: 0.3s;
+}
+
+    .cursor-animation-1:hover {
+        transform: translateY(-20px);
+    }
+
+.cursor-animation-2 {
+    user-select: none;
+    transition-duration: 0.3s;
+}
+
+    .cursor-animation-2:hover {
+        transform: translateY(30px);
+    }
+
+        .cursor-animation-2:hover::after {
+            content: '';
+            display: inline-block;
+            height: 5px;
+            width: 3px;
+            background-color: yellow;
+            border-radius: 5px;
+            margin-right: 3px;
+        }
+
+.cursor-animation-grow {
+    width: 80%;
+    user-select: none;
+    transition-duration: 0.3s;
+}
+
+    .cursor-animation-grow:hover {
+        width: 90%;
+    }
+
+.font-sine-mono {
+    font-family: 'Syne Mono', monospace;
+}
+
+.font-patrick-hand {
+    font-family: 'Patrick Hand', monospace;
+}
+
+.font-josefin-sans {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.fixed-nav {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: white;
+}
+
+    .fixed-nav div {
+        margin-left: auto;
+    }

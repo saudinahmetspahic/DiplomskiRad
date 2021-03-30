@@ -29,6 +29,14 @@ namespace WebApp.ViewModels.Program
         }
 
 
+        public List<OldProgram> OldPrograms { get; set; }
+
+        public class OldProgram
+        {
+            public int Id { get; set; }
+            public string Title { get; set; }
+            public DateTime DateCreated { get; set; }   
+        }
     }
 
 

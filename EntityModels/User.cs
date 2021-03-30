@@ -14,7 +14,9 @@ namespace WebApp.EntityModels
         public string City { get; set; }
         public string Country { get; set; }
         public int Age { get; set; }
-        public string Phone { get; set; }
+        public string Phone { get; set; }   
+        public bool IsVIP { get; set; }
+        public DateTime DateRegistered { get; set; }
 
 
         [ForeignKey(nameof(UserAccountId))]

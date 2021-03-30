@@ -1,0 +1,12 @@
+﻿@using WebApp.ViewModels.Program
+@model GetActivityAttachments_VM
+
+
+<div class="card padding-20 w-33perc cursor" @*onclick="javascript: AddAttachmentToActivity();"*@>
+    <h6 class="text-align-left">@Model.TypeOfAttachment</h6>
+    <h3 class="text-align-left">@Model.Name</h3>
+    <p class="border-bottom border-info text-align-left">@Model.Description</p>
+
+    <h6 class="text-align-right padding-5">Price: @(Math.Round(Model.PriceToVisit, 2)) BAM (@(Math.Round(Model.PriceToVisit / 1.95, 2)) EUR)</h6>
+    <img class="w-100" alt="Image" src="~/Images/Administration/@Model.ImageName" />
+</div>

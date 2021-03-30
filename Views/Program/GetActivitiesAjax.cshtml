@@ -3,7 +3,7 @@
 
 @foreach (var item in Model)
 {   
-    <p class="cursor" onclick="javascript: ShowActivityDetails(this, @item.Id);">@item.Description</p>
+    <div class="cursor d-flex justify-content-between" onclick="javascript: ShowActivityDetails(this, @item.Id);"><p class="margin-0">@item.Description</p> <i class="bi bi-arrow-right-square"></i></div>
 }
 
  

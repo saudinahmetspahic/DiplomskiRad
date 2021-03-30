@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace WebApp.EntityModels
 {
-    public class ProgramProgramDay
+    public class ProgramActivity
     {
+        public int Id { get; set; } 
+
         [ForeignKey(nameof(ProgramId))]
         public int ProgramId { get; set; }
         public Program Program { get; set; }
 
-        [ForeignKey(nameof(ProgramDayId))]
-        public int ProgramDayId { get; set; }
-        public ProgramDay ProgramDay { get; set; }
+        public int DayOfProgram { get; set; }
+
+        [ForeignKey(nameof(ActivityId))]
+        public int ActivityId { get; set; }
+        public Activity Activity { get; set; }  
     }
 }

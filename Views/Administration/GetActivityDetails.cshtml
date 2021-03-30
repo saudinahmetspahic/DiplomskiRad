@@ -1,0 +1,95 @@
+﻿@using WebApp.ViewModels.Administration
+@model GetActivityDetails_VM
+
+
+<div class="flex-section-row align-content-around border border-secondary">
+    <div id="Activity_@Model.ActivityId" class="w-50 position-relative d-flex align-items-center min-h-200">
+        <img class="w-100 h-auto" src="@Model.ImageSrc" alt="Image" />
+        <div onclick="javascript: AddNewPhoto('Activity_@Model.ActivityId', 'Activity', '@Model.ActivityId', 0);" class="position-absolute left0 bottom0 w-100 h-100 show-on-hover cursor text-black-50 font-weight-bold text-uppercase d-flex justify-content-center align-items-center"><p class="padding-5 background-dark text-white">Add new image</p></div>
+    </div>
+    <div class="w-50 padding-5">
+        <div class="flex-section-row justify-content-between">
+            <h3>@Model.Title</h3>
+            <h2 class="cursor" onclick="location.href = '/Administration/RemoveActivity?ActivityId=@Model.ActivityId'"><i class="bi bi-trash"></i></h2>
+        </div>
+        <p class="padding-5 h-200 scroll-auto">@Model.Description</p>
+        <h6 class="border-top border-secondary padding-5">Number of available attachments: @Model.Attachments.Count()</h6>
+    </div>
+</div>
+
+
+<div>
+    @foreach (var item in Model.Attachments)
+    {
+        <div class="border border-secondary margin-top-5">
+            <div class="flex-section-row justify-content-around w-100 align-items-center padding-5">
+                <div class="font-weight-bold flex-grow-1 padding-5">@item.Name</div>
+                <div class="font-weight-bold flex-grow-1 padding-5">@item.TypeOfAttachment</div>
+                <div class="font-weight-bold flex-grow-2 padding-5 d-flex flex-row justify-content-center align-items-center"><i onclick="javascript: ChagePrice('@item.AttachmentId');" class="bi bi-pencil-square cursor margin-right-5"></i><p id="AttachmentPrice_@item.AttachmentId" class="margin-0">@(Math.Round(item.PriceToVisit, 2)) (BAM) - @(Math.Round(item.PriceToVisit / 1.95, 2)) (EUR)</p></div>
+                <div class="font-weight-bold flex-grow-1 cursor text-align-right" onclick="location.href = '/Administration/RemoveActivityAttachment?AttachmentId=@item.AttachmentId'"><i class="bi bi-trash"></i></div>
+            </div>
+            <div class="border-top border-info padding-5 flex-section-row">
+                <div id="Attachment_@item.AttachmentId" class="flex-section-row-child-50 padding-5 w-50 position-relative d-flex align-items-center min-h-200">
+                    <img class="w-100 h-auto" src="@item.ImageSrc" alt="" />
+                    <div onclick="javascript: AddNewPhoto('Attachment_@item.AttachmentId', 'Attachment', '@Model.ActivityId', '@item.AttachmentId');" class="position-absolute left0 bottom0 w-100 h-100 show-on-hover cursor text-black-50 font-weight-bold text-uppercase d-flex justify-content-center align-items-center"><p class="padding-5 background-dark text-white">Add new image</p></div>
+                </div>
+                <div class="flex-section-row-child-50 padding-5">
+                    @item.Description
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="CreateNewActivityAttachment_AjaxDiv"></div>
+<div class="text-center margin-top-25">
+    <p class="border-bottom focus-hover d-inline-block cursor padding-5" onclick="javascript: CreateNewActivityAttachment();">CREATE NEW ATTACHMENT</p>
+</div>
+
+<script>
+    function ChagePrice(AttachmentId) {
+        var p = document.getElementById('AttachmentPrice_' + AttachmentId);
+        p.innerHTML = "";
+
+        var input = document.createElement("input");
+        input.placeholder = "Enter new price (BAM)";
+        input.type = "number";
+        var button = document.createElement("button");
+        button.textContent = "Chage";
+        button.classList = "btn-primary";
+        button.style.padding = "2px 5px";
+        button.addEventListener("click", function () {
+            $.post("/Administration/SetNewAttachmentPrice?AttachmentId=" + AttachmentId + "&Price=" + input.value, function (result, status) {
+                if (status == "success") {
+                    p.innerHTML = "";
+                    var newp = document.createElement("p");
+                    newp.innerHTML = (parseFloat(input.value)).toFixed(2) + " (BAM) - " + (input.value / 1.95).toFixed(2) + " (EUR)";
+                    newp.className = "margin-0 text-wrap";
+                    newp.id = "AttachmentPrice_" + AttachmentId;
+                    p.appendChild(newp);
+                    Message("Attachment price is changed successfully to " + input.value + " BAM.");
+                }
+            });
+        });
+
+        p.appendChild(input);
+        p.appendChild(button);
+    }
+
+    function CreateNewActivityAttachment() {
+        $.get("/Administration/CreateNewActivityAttachment?ActivityId=" + @Model.ActivityId, function (result, status) {
+            if (status == "success") {
+                $("#CreateNewActivityAttachment_AjaxDiv").html(result);
+            }
+        });
+    }
+
+    function AddNewPhoto(id, Option, ActivityId, AttachmentId) {
+        var action = "/Administration/AddNewImageTo" + Option + "?ActivityId=" + ActivityId + "&AttachmentId=" + AttachmentId;
+        $.get(action, function (result, status) {
+            if (status == "success") {
+                $("#" + id).html(result);
+            }
+        });
+    }
+</script>

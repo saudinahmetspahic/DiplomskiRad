@@ -21,12 +21,12 @@ namespace WebApp.EF
         public DbSet<User> User { get; set; }
         public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<EntityModels.Program> Program { get; set; }
-        public DbSet<ProgramDay> ProgramDay { get; set; }
-        public DbSet<ProgramDayActivity> ProgramDayActivity { get; set; }
-        public DbSet<ProgramProgramDay> ProgramProgramDay { get; set; }
-        public DbSet<Activity> Activity { get; set; }
+        public DbSet<ProgramActivity> ProgramActivity { get; set; }
+        public DbSet<ProgramActivityAttachment> ProgramActivityAttachment { get; set; }
+        public DbSet<Activity> Activity { get; set; }   
         public DbSet<ActivityAttachment> ActivityAttachment { get; set; }
-        public DbSet<ActivityActivityAttachment> ActivityActivityAttachment { get; set; }
+
+        public DbSet<Rate> Rate { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,11 +40,6 @@ namespace WebApp.EF
             modelBuilder.Entity<GroupChatParticipants>()    
               .HasKey(c => new { c.GroupChatId, c.UserId });
 
-            modelBuilder.Entity<ProgramProgramDay>()
-              .HasKey(c => new { c.ProgramId, c.ProgramDayId });
-
-            modelBuilder.Entity<ProgramDayActivity>()
-                .HasKey(c => new { c.ActivityAttachmentId, c.ProgramDayId });
 
        
 

@@ -1,0 +1,32 @@
+﻿@using WebApp.ViewModels.Administration
+@model List<ActivityOptions_VM>
+
+
+<table class="table-bordered m-auto">
+    <thead>
+        <tr>
+            <th class="padding-5">Title</th>
+            <th class="padding-5">Number of available attachments</th>
+            <th class="padding-5">Max. expected price</th>
+            <th class="padding-5">Number of appearances in plans</th>
+            <th class="padding-5">Customer rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="active-table-row text-align-right focus-border" onclick="location.href = '/Administration/GetActivityDetails?ActivityId=@item.ActivityId'">
+                <td class="padding-5 text-align-left">@item.Title</td>
+                <td class="padding-5">@item.NumberOfAttachments</td>
+                <td class="padding-5">@item.ExpectedPrice</td>
+                <td class="padding-5">@item.NumberOfAppInPlans</td>
+                <td class="padding-5">@item.Rating</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-center margin-top-25">
+    <p class="border-bottom focus-hover d-inline-block cursor padding-5" onclick="location.href = '/Administration/CreateNewActivity'">CREATE NEW ACTIVITY</p>
+</div>
+

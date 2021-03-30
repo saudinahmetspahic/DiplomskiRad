@@ -1,0 +1,17 @@
+﻿@using WebApp.ViewModels.Administration
+@model AddNewPhoto_VM
+
+<div id="remove" class="w-100 h-100 background-white d-flex justify-content-center align-items-center">
+    <form enctype="multipart/form-data" asp-action="AddingNewImage" method="post">
+        <input hidden value="@Model.ActivityId" asp-for="ActivityId" />
+        <input hidden value="@Model.AttachmentId" asp-for="AttachmentId" />
+        <input hidden value="@Model.ActivityOrAttachment" asp-for="ActivityOrAttachment" />
+
+        <div class="custom-file w-100">
+            <input asp-for="Image" class="custom-file-input" />
+            <label class="custom-file-label">Select</label>
+        </div>
+
+        <button type="submit" onclick="javascript: ShowImage();" class="btn-primary padding-5 w-100 margin-top-5">Add</button>
+    </form>
+</div>

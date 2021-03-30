@@ -1,39 +1,55 @@
-﻿
-<div class="custom-container">
-    <div class="position-relative h-auto">
-        <div class="custom-section">
+﻿@{
+    Layout = "_LandingPageLayout";
+}
+
+<div>
+    <div class="position-relative h-100-vh">
+        <div class="custom-section h-80perc">
             <img src="~/Images/kravice.jpg" alt="Kravice" />
         </div>
+        <div class="d-flex justify-content-between background-midnightblue text-color-white user-select-none">
+            <div class="text-align-left padding-20 indicator-from-left font-josefin-sans">
+                <h2 class="margin-0">It's time to start your</h2>
+                <h1 class="font-weight-bold">ADVENTURE</h1> @*class="indicator cursor-animation-2"*@
+                <p class="font-patrick-hand">We can help you explore our homeland and culture.</p>
+            </div>
+            <div class="text-align-right padding-20 indicator-from-right font-josefin-sans">
+                <h2 class="margin-0">It's your up to you to</h2>
+                <h1 class="font-weight-bold">CHOOSE</h1>
+                <p class="font-patrick-hand">Register yourself to be able to design your program.</p>
+            </div>
+        </div>
+        <img class="logo-img border-radius-5" src="~/Images/Embedded/company_logo.jpg" />
         <img class="rounded-profile-img" src="~/Images/bascarsija.jpg" alt="Bascarsija" />
     </div>
 
     @* cards *@
     <div class="flex-section-row justify-content-around sectionMargin">
-        <div class="col-sm-4 cursor">
+        <div class="col-sm-4 cursor cursor-animation-1">
             <div class="card background-animation-1">
                 <div class="card-body">
-                    <h5 class="card-title">&#128222; Contact</h5>
+                    <h5 class="card-title text-center">&#128222; Contact</h5>
                     <p class="card-text">
                         Feel free to send us an email and we will reply at speed of light. You can contact us via facebook or call a phone number.
                         <br />
                         <ul>
                             <li><i class="fa fa-envelope"></i> Send an email on respectzajim@gmail.com</li>
                             <li><i class="fa fa-phone-square"></i> <i class="fa fa-comment"></i> Call us +387/62-973-830</li>
-                            <li><i class="fa fa-commenting"></i> Send a private message <a href="/Home/Contact">here</a></li>
-                            <li><a href="https://www.facebook.com/trenta.club"><i class="fa fa-facebook-official"></i></a> Send us private message on Facebook</li>
+                            <li><i class="fa fa-commenting"></i> Send a private message</li>
+                            <li><i class="fa fa-facebook-official"></i> Send us private message on Facebook</li>
                         </ul>
 
                         <br />
-                        <a asp-action="Contact" asp-controller="Home" class="btn btn-primary">Get in touch</a>
+                        <a asp-action="Contact" asp-controller="Home" class="d-block btn btn-primary div-align-center">Get in touch</a>
                     </p>
 
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 cursor">
+        <div class="col-sm-4 cursor cursor-animation-1">
             <div class="card background-animation-1">
                 <div class="card-body">
-                    <h5 class="card-title">&#127758; Location</h5>
+                    <h5 class="card-title text-center">&#127758; Location</h5>
                     <p class="card-text">
                         This is where you can find us!<br />
                         <br />
@@ -44,7 +60,7 @@
                             <li>Working time 09:00-17:00</li>
                         </ul>
                         <br />
-                        <a href="#" class="btn btn-primary">Where is it?</a>
+                        <a href="#" class="d-block btn btn-primary div-align-center">Where is it?</a>
                     </p>
                 </div>
             </div>
@@ -54,29 +70,29 @@
     @* info cards *@
     <div class="position-relative flex-section-column justify-content-center w-100 h-100-vh zIndexUp sectionMargin background-light">
         <div class="flex-section-row justify-content-around align-items-lg-center padding-5">
-            <div class="custom-card cursor">
+            <div class="custom-card cursor cursor-animation-1">
                 <h3>Plans</h3>
                 <p>Create your own plan for visiting our homeland, dynamically with help of our web app. Everything is one click away from you.</p>
             </div>
-            <div class="custom-card cursor">
+            <div class="custom-card cursor cursor-animation-1">
                 <h3>Invoices</h3>
                 <p>After you create your plan you will get an indepth view on economical side of your plan, which gives you rough amout of costs.</p>
             </div>
-            <div class="custom-card cursor">
+            <div class="custom-card cursor cursor-animation-1">
                 <h3>Chat<span class="glyphicon glyphicon-user"></span></h3>
                 <p>If you need some information from us, you can send us a message or you can create a group messaging room to talk to others if you come in groups.</p>
             </div>
         </div>
         <div class="flex-section-row justify-content-around align-items-lg-center padding-5">
-            <div class="custom-card cursor">
+            <div class="custom-card cursor cursor-animation-2">
                 <h3 class="">Monitoring</h3>
                 <p>You can always have a look at the details about group members and their current status and responsibilities.</p>
             </div>
-            <div class="custom-card cursor">
+            <div class="custom-card cursor cursor-animation-2">
                 <h3 class="">Notices</h3>
                 <p>Read newest notices to stay informed about your or your group daily activities.</p>
             </div>
-            <div class="custom-card cursor">
+            <div class="custom-card cursor cursor-animation-2">
                 <h3 class="">Referentives</h3>
                 <p>Find out who we suggest you for transportation, accommodation and nutrition.</p>
             </div>
@@ -93,12 +109,24 @@
 
     <footer class="padding-20 border-top text-muted">
         <div class="container">
-            &copy; 2021 - New Respect - Agency
+            &copy; 2021 - New Respect - Travel Agency
         </div>
     </footer>
 
 
+    <script>
+        $(document).scroll(function () {
 
+            var y = window.scrollY;
+            if (y > 50) {
+                $("nav").addClass("fixed-nav");
+            }
+            else {
+                $("nav").removeClass("fixed-nav");
+            }
+
+        });
+    </script>
 
 
 
@@ -148,7 +176,7 @@
 
 
         <div class="flex-section-row justify-content-around widerSection h-500 sectionMargin position-relative">
-            <div class="marginTop0 h-auto w-100 flex-section-row-child-50 d-flex justify-content-center align-items-center">
+            <div class="margin-top-0 h-auto w-100 flex-section-row-child-50 d-flex justify-content-center align-items-center">
                 <img class="border-radius-right position-absolute w-auto h-100 zIndexDown" src="~/Images/kravice.jpg" alt="Kravice" />
                 <div class="zIndexUp position-relative text-color-white padding-20">
                     <h3>Build plan by your preferences</h3>
@@ -156,7 +184,7 @@
                 </div>
             </div>
 
-            <div class="marginTop50 h-auto w-100 flex-section-row-child-50 d-flex justify-content-center align-items-center">
+            <div class="margin-top-50 h-auto w-100 flex-section-row-child-50 d-flex justify-content-center align-items-center">
                 <img class="border-radius-left position-absolute w-auto h-100 zIndexDown" src="~/Images/konjic.jpg" alt="Konjic" />
                 <div class="zIndexUp position-relative text-color-white padding-20">
                     <h3>Explore our homeland with one click</h3>

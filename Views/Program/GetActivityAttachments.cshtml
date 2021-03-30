@@ -1,0 +1,33 @@
+﻿@using WebApp.ViewModels.Program
+@model List<GetActivityAttachments_VM>
+
+
+
+
+<div class="position-relative d-flex flex-wrap justify-content-center w-100 border-size-3 border-dodgerblue">
+    <button onclick="javascript: ClearAttachments(this);" class="border-0 padding-5 position-absolute right0 top0 w-auto h-auto zIndexUp margin-0 background-dodgerblue text-color-white"><i class="bi bi-x"></i></button>
+
+    @foreach (var attachment in Model)
+    {
+        <div class="card padding-20 w-33perc d-flex flex-column justify-content-between cursor background-animation-2 overflow-auto" onclick="javascript: AddAttachmentToActivity(this, '@attachment.Id');">
+            <div class="h-25">
+                <h6 class="text-align-left">@attachment.TypeOfAttachment</h6>
+                <h3 class="text-align-left">@attachment.Name</h3>
+            </div>
+            <p class="border-bottom border-info padding-5 text-align-left">@attachment.Description</p>
+            <div class="d-flex flex-column justify-content-between">
+                <h6 class="text-align-right padding-5">Price: @Math.Round(attachment.PriceToVisit, 2) BAM (@(Math.Round(attachment.PriceToVisit / 1.95, 2)) EUR)</h6>
+                <img class="w-100 h-auto" alt="Image" src="~/Images/Administration/@attachment.ImageName" />
+            </div>
+        </div>
+    }
+
+
+</div>
+
+
+
+
+
+
+

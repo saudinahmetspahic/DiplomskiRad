@@ -1,0 +1,28 @@
+﻿@using WebApp.ViewModels.Administration
+@model List<ProgramsOptions_VM>
+
+
+<table class="table">
+    <thead class="table-primary">
+        <tr>
+            <th>Title</th>
+            <th>Creator</th>
+            <th>Created</th>
+            <th>Program access</th>
+            <th>Program status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="cursor focus-border" onclick="location.href = '/Administration/GetProgramDetails?ProgramId=@item.Id'">
+                <td>@item.Name</td>
+                <td>@item.Creator</td>
+                <td>@item.Date_Created.ToShortDateString()</td>
+                <td>@item.ProgramAccess</td>
+                <td>@item.ProgramStatus</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

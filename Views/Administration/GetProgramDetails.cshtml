@@ -1,0 +1,62 @@
+﻿@using WebApp.ViewModels.Administration
+@model GetProgramDetails_VM
+
+
+
+<div>
+    <table class="table">
+        <tr class="table-primary">
+            <th>Title</th>
+            <td>@Model.ProgramDetails.Name</td>
+            <th>Creator</th>
+            <td>@Model.ProgramDetails.Creator</td>
+            <th>Created</th>
+            <td>@Model.ProgramDetails.Date_Created.ToShortDateString()</td>
+            <th>Access</th>
+            <td>@Model.ProgramDetails.ProgramAccess</td>
+            <th>Status</th>
+            <td>@Model.ProgramDetails.ProgramStatus</td>
+        </tr>
+    </table>
+    <table class="table">
+        <tr class="table-primary">
+            <th>Number of sells</th>
+            <td>@Model.NumberOfSells</td>
+            <th>Expected price by program</th>
+            <td>@Model.ProgramPriceExpected</td>
+            <th>Total income of program sells</th>
+            <td>@Model.TotalPriceOfSellsExpected</td>
+        </tr>
+    </table>
+    @if (Model.ProgramDetails.ProgramStatus == WebApp.EntityModels.ProgramStatus.Approved)
+    {
+        <div class="padding-20 background-lightblue text-color-white">
+            <h4>Approved by @Model.ApprovedBy</h4>
+            <p>@Model.ApprovedDate?.ToShortDateString()</p>
+        </div>
+    }
+</div>
+
+<p class="margin-top-50">This is program made by @Model.ProgramDetails.Creator, that can be modified by administrators. Once administrator change program it will become private and change status to OnHold. Creator has to approve administrators changes before program can be applied. To modify program press the button at bottom of the page.</p>
+<div id="BuildProgramDiv">
+    <h3 id="ProgramNameID"></h3>
+    <div id="DaysDiv" class="div-section-list-item">
+    </div>
+</div>
+
+
+<div class="d-flex flex-row">
+    <button onclick="" class="w-100 padding-20 btn-danger"><i class="bi bi-arrow-bar-right"></i> Change state</button>
+    <button onclick="" class="w-100 padding-20 btn-danger"><i class="bi bi-binoculars-fill"></i> Change access</button>
+    <button onclick="location.href = '/Program/RemoveProgram?ProgramId=@Model.ProgramDetails.Id'" class="w-100 padding-20 btn-danger"><i class="bi bi-shield-fill-x"></i> REMOVE</button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        LoadProgram('@Model.ProgramDetails.Id', '@Model.ProgramDetails.Name', false);
+    });
+
+
+
+
+</script>

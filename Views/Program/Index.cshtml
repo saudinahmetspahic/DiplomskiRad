@@ -26,7 +26,7 @@
     }
 
     function GetCustomPlanOptions() {
-        $.get("/Program/CreateCustomnPlan", function (result, status) {
+        $.get("/Program/CreateCustomPlan", function (result, status) {
             if (status == "success") {
                 $("#ProgramAjaxDiv").html(result);
             }

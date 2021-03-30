@@ -53,12 +53,14 @@ namespace WebApp.Controllers
                 City = recivedModel.City,
                 Age = recivedModel.Age,
                 Phone = recivedModel.Phone,
-                UserAccountId = useraccount.Id
+                UserAccountId = useraccount.Id,
+                IsVIP = false,
+                DateRegistered = DateTime.Now
             };
             await _context.User.AddAsync(user);
             await _context.SaveChangesAsync();
 
-          
+
             return RedirectToAction("Index");
         }
 

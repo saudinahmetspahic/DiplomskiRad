@@ -15,11 +15,15 @@
     overflow: hidden;
 }
 
-.custom-section img {
-    position: relative;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
+    .custom-section img {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+.top0 {
+    top: 0;
 }
 
 .bottom0 {
@@ -30,29 +34,93 @@
     left: 0;
 }
 
+.right0 {
+    right: 0;
+}
+
+img.logo-img {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
 img.rounded-profile-img {
     position: absolute;
     border-radius: 50%;
-    width: 300px;
-    height: 300px;
-    left: calc(50% - 150px);
-    bottom: -100px;
+    width: 400px;
+    height: 400px;
+    left: calc(50% - 200px);
+    bottom: 5%;
     overflow: hidden;
     border: 5px solid white;
 }
 
-.h-100-vh{
+.h-100-vh {
     height: 100vh;
+}
+
+.w-300px {
+    width: 300px;
+}
+
+.w-33perc {
+    width: 33%;
+}
+
+.border-radius-50 {
+    border-radius: 50px;
+}
+
+.background-white {
+    background-color: white;
 }
 
 
 /*animations*/
-.background-animation-1{
+.background-animation-1 {
     transition: ease-in-out;
-    transition-delay: 0.1s;
-    transition-duration: 1s;
+    transition-duration: 0.4s;
 }
-.background-animation-1:hover {
-    background-color: rgb(117, 165, 165);
-    box-shadow: rgb(89, 187, 145) 5px 5px initial;
+
+    .background-animation-1:hover {
+        color: white;
+        background-color: rgb(24, 133, 150);
+        box-shadow: rgb(89, 187, 145) 5px 5px initial;
+    }
+
+    .background-animation-1:hover a {
+        background-color: red;
+    }
+
+.background-animation-2 {
+    transition: ease-in-out;
+    transition-duration: 0.4s;
 }
+
+    .background-animation-2:hover {
+        color: white;
+        background-color: rgb(169, 186, 222);
+        box-shadow: rgb(38, 105, 179) 5px 5px initial;
+    }
+
+
+/*scrollbar*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }

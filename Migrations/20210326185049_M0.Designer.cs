@@ -10,8 +10,8 @@ using WebApp.EF;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210302142603_M3")]
-    partial class M3
+    [Migration("20210326185049_M0")]
+    partial class M0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,37 +34,12 @@ namespace WebApp.Migrations
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Activity");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.ActivityActivityAttachment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("ActivityAttachmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PlannedFinish")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PlannedStart")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ActivityAttachmentId");
-
-                    b.HasIndex("ActivityId");
-
-                    b.ToTable("ActivityActivityAttachment");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.ActivityAttachment", b =>
@@ -78,6 +53,9 @@ namespace WebApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -234,6 +212,12 @@ namespace WebApp.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<DateTime>("ApprovedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ApproverId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
 
@@ -243,68 +227,100 @@ namespace WebApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProgramAccess")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProgramStatus")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ApproverId");
 
                     b.HasIndex("CreatorId");
 
                     b.ToTable("Program");
                 });
 
-            modelBuilder.Entity("WebApp.EntityModels.ProgramDay", b =>
+            modelBuilder.Entity("WebApp.EntityModels.ProgramActivity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("Date_Day")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("IsOver")
-                        .HasColumnType("bit");
+                    b.Property<int>("DayOfProgram")
+                        .HasColumnType("int");
 
-                    b.Property<int>("NumberOfDay")
+                    b.Property<int>("ProgramId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProgramDay");
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("ProgramId");
+
+                    b.ToTable("ProgramActivity");
                 });
 
-            modelBuilder.Entity("WebApp.EntityModels.ProgramDayActivity", b =>
+            modelBuilder.Entity("WebApp.EntityModels.ProgramActivityAttachment", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
                     b.Property<int>("ActivityAttachmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramDayId")
+                    b.Property<DateTime>("PlannedFinish")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PlannedStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProgramActivityId")
                         .HasColumnType("int");
 
-                    b.HasKey("ActivityAttachmentId", "ProgramDayId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ProgramDayId");
+                    b.HasIndex("ActivityAttachmentId");
 
-                    b.ToTable("ProgramDayActivity");
+                    b.HasIndex("ProgramActivityId");
+
+                    b.ToTable("ProgramActivityAttachment");
                 });
 
-            modelBuilder.Entity("WebApp.EntityModels.ProgramProgramDay", b =>
+            modelBuilder.Entity("WebApp.EntityModels.Rate", b =>
                 {
-                    b.Property<int>("ProgramId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("ActivityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramDayId")
+                    b.Property<int>("RateValue")
                         .HasColumnType("int");
 
-                    b.HasKey("ProgramId", "ProgramDayId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ProgramDayId");
+                    b.HasKey("Id");
 
-                    b.ToTable("ProgramProgramDay");
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Rate");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.User", b =>
@@ -322,6 +338,12 @@ namespace WebApp.Migrations
 
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateRegistered")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsVIP")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -361,25 +383,6 @@ namespace WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserAccount");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.ActivityActivityAttachment", b =>
-                {
-                    b.HasOne("WebApp.EntityModels.ActivityAttachment", "ActivityAttachment")
-                        .WithMany()
-                        .HasForeignKey("ActivityAttachmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApp.EntityModels.Activity", "Activity")
-                        .WithMany()
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Activity");
-
-                    b.Navigation("ActivityAttachment");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.ActivityAttachment", b =>
@@ -493,39 +496,28 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.EntityModels.Program", b =>
                 {
+                    b.HasOne("WebApp.EntityModels.User", "Approver")
+                        .WithMany()
+                        .HasForeignKey("ApproverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WebApp.EntityModels.User", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Approver");
+
                     b.Navigation("Creator");
                 });
 
-            modelBuilder.Entity("WebApp.EntityModels.ProgramDayActivity", b =>
+            modelBuilder.Entity("WebApp.EntityModels.ProgramActivity", b =>
                 {
-                    b.HasOne("WebApp.EntityModels.ActivityActivityAttachment", "ActivityAttachment")
+                    b.HasOne("WebApp.EntityModels.Activity", "Activity")
                         .WithMany()
-                        .HasForeignKey("ActivityAttachmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApp.EntityModels.ProgramDay", "ProgramDay")
-                        .WithMany()
-                        .HasForeignKey("ProgramDayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ActivityAttachment");
-
-                    b.Navigation("ProgramDay");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.ProgramProgramDay", b =>
-                {
-                    b.HasOne("WebApp.EntityModels.ProgramDay", "ProgramDay")
-                        .WithMany()
-                        .HasForeignKey("ProgramDayId")
+                        .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -535,9 +527,47 @@ namespace WebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Program");
+                    b.Navigation("Activity");
 
-                    b.Navigation("ProgramDay");
+                    b.Navigation("Program");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.ProgramActivityAttachment", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.ActivityAttachment", "ActivityAttachment")
+                        .WithMany()
+                        .HasForeignKey("ActivityAttachmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApp.EntityModels.ProgramActivity", "ProgramActivity")
+                        .WithMany()
+                        .HasForeignKey("ProgramActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ActivityAttachment");
+
+                    b.Navigation("ProgramActivity");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.Rate", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApp.EntityModels.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.User", b =>
