@@ -1,0 +1,23 @@
+﻿@using WebApp.ViewModels.Program
+@model ShowProgramDetails_VM
+
+<h6>Program details</h6>
+<div class="margin-bottom-20">
+    <h3>@Model.Title</h3>
+    <h6>@Model.Description</h6>
+</div>
+
+<div id="BuildProgramDiv" class="padding-5">
+
+</div>
+
+<div class="padding-20 border-top border-primary text-center">
+    <p>Click button down below and order this program for yourself.</p>
+    <a class="btn btn-primary w-300px" asp-action="OrderProgram" asp-controller="Purchase" asp-route-ProgramId="@Model.Id">Order</a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        LoadProgram('@Model.Id', '@Model.Title', 'BuildProgramDiv', false, false);
+    });
+</script>

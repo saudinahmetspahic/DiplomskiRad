@@ -1,0 +1,41 @@
+﻿@using WebApp.ViewModels.Notification
+@model CreateNotification_VM
+
+
+
+<h4>Notification</h4>
+<p>Notifications are used to provide informations to customers. Notifications are public and all customers will be able to read your notifications</p>
+
+
+<h6 class="padding-20 border-top border-dark margin-top-25">Create new notification</h6>
+<section>
+    <form enctype="multipart/form-data" asp-action="CreateNewNotification" asp-controller="Notification" class="w-75 div-align-center">
+        <label>Title</label>
+        <input type="text" asp-for="Title" />
+
+        <label>Description</label>
+        <textarea class="w-100" type="text" asp-for="Description"></textarea>
+
+        <label>Upload image (option)</label>
+        <div class="custom-file">
+            <input asp-for="Image" class="custom-file-input" />
+            <label class="custom-file-label">Choose picture</label>
+        </div>
+
+        <button type="submit" class="w-100 btn-primary margin-top-25 padding-5">Create</button>
+    </form>
+</section>
+
+<h6 class="padding-20 border-top border-dark margin-top-25">Notifications</h6>
+<section id="NotificationsID">
+</section>
+
+<script>
+    $(document).ready(function () {
+        $.get("/Notification/GetNotifications?AllowModifications=" + true, function (result, status) {
+            if (status == "success") {
+                $("#NotificationsID").html(result);
+            }
+        });
+    });
+</script>

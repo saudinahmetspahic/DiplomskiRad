@@ -10,8 +10,8 @@ using WebApp.EF;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210326192552_M2")]
-    partial class M2
+    [Migration("20210330104940_M0")]
+    partial class M0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -215,7 +215,7 @@ namespace WebApp.Migrations
                     b.Property<DateTime>("ApprovedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ApproverId")
+                    b.Property<int>("ApproverId")
                         .HasColumnType("int");
 
                     b.Property<int>("CreatorId")
@@ -498,7 +498,9 @@ namespace WebApp.Migrations
                 {
                     b.HasOne("WebApp.EntityModels.User", "Approver")
                         .WithMany()
-                        .HasForeignKey("ApproverId");
+                        .HasForeignKey("ApproverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebApp.EntityModels.User", "Creator")
                         .WithMany()

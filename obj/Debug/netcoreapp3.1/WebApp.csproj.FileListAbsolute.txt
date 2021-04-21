@@ -106,3 +106,16 @@ C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Pr
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ProgramsOptions.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Administration\GetProgramDetails.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LandingPageLayout.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Chat\AddGroupChatParticipants.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Notification\GetNotifications.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Administration\NotificationsOptions.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\GetProgramPurchasesDetails.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Administration\PurchasesOptions.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\PurchaseProgram.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\ShowProgramDetails.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\GetUsersToAddToPurchase.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\IssueAnInvoice.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetProgramPreviews.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Sponsor\SponsorOptions.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Sponsor\GetSponsorsInfo.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Login\GetUsers.cshtml.g.cs

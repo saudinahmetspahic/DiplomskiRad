@@ -10,18 +10,16 @@
     .PasswordModification {
         display: none;
     }
-
-
-    
 </style>
 
-<div class="flex-section-row">
+<div class="padding-50 text-center">
+    <a class="btn btn-danger padding-5 w-300px" asp-action="LogOut" asp-controller="Login">Log Out</a> <br />
+</div>
+
+<div class="flex-section-row padding-top-50 border-top border-info">
     <div class="flex-section-column flex-section-row-child-50">
         <img src="~/Images/Embedded/settings.png" alt="Settings" class="img-size-200 padding-50 mx-auto" />
-        <div class="div-section-list-item padding-50">
-            <a class="btn btn-secondary" asp-action="LogOut" asp-controller="Login">Log Out</a> <br />
-            <a class="btn btn-secondary" asp-action="Index" asp-controller="Statistics">History</a> <br />
-        </div>
+
     </div>
     <form id="FormId" class="flex-section-row-child-50" asp-action="UpdateAccountInfo" asp-controller="Login">
         <table>
@@ -68,7 +66,7 @@
                 </td>
             </tr>
             <tr>
-                <td><a class="btn btn-info" onclick="javascript: TogglePasswordModification();">&#128477; Change password</a></td>
+                <td><a class="btn btn-light" onclick="javascript: TogglePasswordModification();">&#128477; Change password</a></td>
             </tr>
             <tr class="PasswordModification">
                 <td><label>Enter your password</label></td>
@@ -88,7 +86,56 @@
     </form>
 </div>
 
+@if (Model.IsAdmin == true)
+{
+    <div class="d-flex justify-content-around margin-top-50 padding-top-50 border-top border-info">
+        <div>
+            <h5>You have administrator permissions</h5>
+            <p>Add new administrator (search user and click on it)</p>
+            <div class="margin-top-50 border-top border-dark w-75 padding-20">
+                <div class="d-flex justify-content-around">
+                    <label class="margin-0">Search users: </label>
+                    <input id="search_person" oninput="javascript: GetUsers();" class="w-50" type="text" />
+                </div>
+                <div id="searchResult" class="div-section-list-item">
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>ADMINISTRATORS</h3>
+            <p>Click to subtract administrator permissions</p>
+            <table>
+                @foreach (var admin in Model.Admins)
+                {
+                    <tr>
+                        <td>@admin.Item2</td>
+                        <td><a class="btn btn-danger" asp-action="UnSetAdmin" asp-controller="Login" asp-route-UserId="@admin.Item1"><i class="bi bi-x"></i></a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
 <script>
+
+    function GetUsers() {
+        var value = $("#search_person").val();
+        $.get("/Login/GetUsers?searchValue=" + value, function (result, status) {
+            if (status === "success") {
+                $("#searchResult").html(result);
+            }
+        });
+    }
+
+    //function SetPearsonAdmin(UserId) {
+    //    $.get("/Login/SetAdmin?UserId=" + UserId, function (result, status) {
+    //        if (status === "success") {
+    //            Message("You successfully added new administrator (check admin list).");
+    //        }
+    //    });
+    //}
 
     $.validator.addMethod(
         "regex",

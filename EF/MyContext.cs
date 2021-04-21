@@ -25,8 +25,13 @@ namespace WebApp.EF
         public DbSet<ProgramActivityAttachment> ProgramActivityAttachment { get; set; }
         public DbSet<Activity> Activity { get; set; }   
         public DbSet<ActivityAttachment> ActivityAttachment { get; set; }
+        public DbSet<Notification> Notification { get; set; }
+
+        public DbSet<Purchase> Purchase { get; set; }
+        public DbSet<PurchaseParticipants> PurchaseParticipants { get; set; }
 
         public DbSet<Rate> Rate { get; set; }
+        public DbSet<Sponsor> Sponsor { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,8 +45,8 @@ namespace WebApp.EF
             modelBuilder.Entity<GroupChatParticipants>()    
               .HasKey(c => new { c.GroupChatId, c.UserId });
 
-
-       
+            modelBuilder.Entity<PurchaseParticipants>()
+              .HasKey(c => new { c.ParticipantId, c.PurchaseId });  
 
         }
     }

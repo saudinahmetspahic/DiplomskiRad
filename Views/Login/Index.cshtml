@@ -28,9 +28,10 @@
                 <input asp-for="Password" type="password" required />
             </div>
         </div>
-
-        <input class="btn btn-primary" type="submit" value="Log In" />
-        <input class="btn btn-primary" type="button" value="Sign In" onclick="javascript: GetSignInForm();" />
+        <div class="d-flex justify-content-start gap-1">
+            <input class="w-100px btn btn-primary" type="submit" value="Log In" />
+            <input class="w-100px btn btn-primary" type="button" value="Sign In" onclick="javascript: GetSignInForm();" />
+        </div>
     </form>
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Welcome back!</h4>

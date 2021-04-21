@@ -10,9 +10,9 @@ namespace WebApp.ViewModels.Administration
         public ProgramsOptions_VM ProgramDetails { get; set; }
 
         public int NumberOfSells { get; set; }
-        public string ApprovedBy { get; set; }
-        public DateTime? ApprovedDate { get; set; }
-        public double ProgramPriceExpected { get; set; }   
+        public DateTime DateStateChanged { get; set; }
+        public DateTime DateAccessChanged { get; set; }
+        public double ProgramPriceExpected { get; set; }    
         public double TotalPriceOfSellsExpected { get; set; }   
             
         public List<_Activity> Activities { get; set; }    

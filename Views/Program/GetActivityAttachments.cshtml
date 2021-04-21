@@ -4,22 +4,40 @@
 
 
 
-<div class="position-relative d-flex flex-wrap justify-content-center w-100 border-size-3 border-dodgerblue">
-    <button onclick="javascript: ClearAttachments(this);" class="border-0 padding-5 position-absolute right0 top0 w-auto h-auto zIndexUp margin-0 background-dodgerblue text-color-white"><i class="bi bi-x"></i></button>
+<div class="position-relative d-flex flex-wrap justify-content-center w-100 border-size-3 border-color-custom">
+    <button onclick="javascript: ClearAttachments(this);" class="border-0 padding-5 position-absolute right0 top0 w-auto h-auto zIndexUp margin-0 background-color-custom text-color-white"><i class="bi bi-x"></i></button>
 
     @foreach (var attachment in Model)
     {
-        <div class="card padding-20 w-33perc d-flex flex-column justify-content-between cursor background-animation-2 overflow-auto" onclick="javascript: AddAttachmentToActivity(this, '@attachment.Id');">
-            <div class="h-25">
-                <h6 class="text-align-left">@attachment.TypeOfAttachment</h6>
-                <h3 class="text-align-left">@attachment.Name</h3>
+        <div class="card w-300px h-300px cursor overflow-hidden position-relative">
+            <img class="w-100 h-100 object-fit-cover" alt="Image" src="~/Images/Administration/@attachment.ImageName" />
+
+            <h6 class="text-align-left text-white padding-5 position-absolute left0 top0">Price: @Math.Round(attachment.PriceToVisit, 2) BAM (@(Math.Round(attachment.PriceToVisit / 1.95, 2)) €)</h6>
+            <div class="position-absolute padding-5 left0 bottom0">
+                <h6 class="text-align-left text-white">@attachment.TypeOfAttachment</h6>
+                <h3 class="text-align-left text-white">@attachment.Name</h3>
             </div>
-            <p class="border-bottom border-info padding-5 text-align-left">@attachment.Description</p>
-            <div class="d-flex flex-column justify-content-between">
-                <h6 class="text-align-right padding-5">Price: @Math.Round(attachment.PriceToVisit, 2) BAM (@(Math.Round(attachment.PriceToVisit / 1.95, 2)) EUR)</h6>
-                <img class="w-100 h-auto" alt="Image" src="~/Images/Administration/@attachment.ImageName" />
-            </div>
+            <button class="btn-transparent position-absolute top0 left0 w-100 h-100 btn-white-black padding-5 background-animation-3" onclick="javascript: AddAttachmentToActivity('@attachment.Id', '@attachment.ActivityId', '@attachment.Day');"><i class="bi bi-plus font-size-100px"></i></button>
+            <div class="btn-transparent position-absolute bottom0 right0 btn-white-black padding-5 zIndexUp" onmouseover="ShowHoverInfo(this, '@attachment.Description"><i class="bi bi-info-circle-fill font-size-20px"></i></div>
+            @*<div id="AttachmentDescription_@attachment.Id" class="overflow-hidden">
+                    <p class="padding-5 text-align-left text-align-justify">@attachment.Description</p>
+                </div>
+                <div class="d-flex flex-column justify-content-between border-top border-dodgerblue ">
+                </div>*@
         </div>
+
+
+        @*<div class="card padding-20 w-50 d-flex flex-column justify-content-between cursor background-animation-2 overflow-auto" onclick="javascript: AddAttachmentToActivity(this, '@attachment.Id');">
+                <div class="h-25">
+                    <h6 class="text-align-left">@attachment.TypeOfAttachment</h6>
+                    <h3 class="text-align-left">@attachment.Name</h3>
+                </div>
+                <p class="padding-5 text-align-left text-align-justify">@attachment.Description</p>
+                <div class="d-flex flex-column justify-content-between border-top border-dodgerblue ">
+                    <h6 class="text-align-right padding-5">Price: @Math.Round(attachment.PriceToVisit, 2) BAM (@(Math.Round(attachment.PriceToVisit / 1.95, 2)) €)</h6>
+                    <img class="w-100 h-auto" alt="Image" src="~/Images/Administration/@attachment.ImageName" />
+                </div>
+            </div>*@
     }
 
 

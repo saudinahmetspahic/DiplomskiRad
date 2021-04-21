@@ -9,9 +9,12 @@ using WebApp.EF;
 using WebApp.EntityModels;
 using WebApp.Helper;
 using WebApp.ViewModels.Chat;
+using WebApp.ViewModels.Util;
+using static WebApp.Helper.Autorization;
 
 namespace WebApp.Controllers
 {
+    [Autorization(true, false)]
     public class ChatController : Controller
     {
         MyContext _context;
@@ -51,6 +54,7 @@ namespace WebApp.Controllers
                     SenderName = s.Message.Sender.Name,
                     SendingDate = s.Message.SendingTime
                 })
+                //.OrderBy(o => o.SendingDate)
                 .Distinct()
                 .ToListAsync();
             return PartialView("OpenGroupChatBox_Ajax", model);
@@ -156,7 +160,7 @@ namespace WebApp.Controllers
             };
             await _context.GroupChatParticipants.AddAsync(groupChatParticipant);
             await _context.SaveChangesAsync();
-            return StatusCode(200);
+            return StatusCode(201);
         }
 
         public async Task<IActionResult> AddGroupChatParticipant(string GroupName, int UserId)
@@ -173,7 +177,7 @@ namespace WebApp.Controllers
             };
             await _context.GroupChatParticipants.AddAsync(groupChatParticipant);
             await _context.SaveChangesAsync();
-            return StatusCode(200);
+            return StatusCode(201);
         }
 
         public async Task RemoveGroupChatParticipant(string GroupName, int UserId)
@@ -237,6 +241,41 @@ namespace WebApp.Controllers
                 MessageId = msg.Id
             });
             await _context.SaveChangesAsync();
+        }
+
+        public IActionResult AddGroupChatParticipants(int GroupChatId, string Value)
+        {
+            var model = new AddChatParticipants_VM
+            {
+                GroupChatId = GroupChatId,
+                Participants = new List<AddChatParticipants_VM.Participant>()
+            };
+            var users = _context.GroupChatParticipants.Where(w => w.GroupChatId == GroupChatId).Select(s => s.User).ToList();
+            model.Participants = _context.User.Where(w => !users.Contains(w) && (w.Name.Contains(Value) || w.Surname.Contains(Value))).Select(s => new AddChatParticipants_VM.Participant
+            {
+                Id = s.Id,
+                Name = s.Name + " " + s.Surname
+            }).ToList();
+            return PartialView(model);
+        }
+
+        public IActionResult AddNewGroupChatParticipant(int GroupChatId, int UserId)
+        {
+            var groupchatparticipant = new GroupChatParticipants
+            {
+                GroupChatId = GroupChatId,
+                UserId = UserId
+            };
+            try
+            {
+                _context.GroupChatParticipants.Add(groupchatparticipant);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return StatusCode(400);
+            }
+            return Ok();
         }
     }
 }

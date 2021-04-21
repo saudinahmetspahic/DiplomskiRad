@@ -2,6 +2,13 @@
 <div class="flex-section-row ">
     <div class="flex-section-row-child-25 padding-5">
 
+        <div class="padding-5 cursor focus-hover">
+            <h4>
+                <a href="#" class="text-color-black text-decoration-none" onclick="javascript: ShowNotifications();">
+                    NOTIFICATIONS
+                </a>
+            </h4>
+        </div>
         <div class="panel-group border-right padding-5" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -49,22 +56,36 @@
 
 <script src="~/lib/signalr/signalr.js"></script>
 <script>
+    function ShowNotifications() {
+        $.get("/Notification/GetNotifications?AllowModifications=" + false, function (result, status) {
+            if (status == "success") {
+                $("#ChatAjaxDiv").html(result);
+            }
+        });
+    }
+
     function CreateNewGroupChat() {
         $.get("/Chat/CreateNewGroupChat", function (result, status) {
-            $("#ChatAjaxDiv").html(result);
+            if (status == "success") {
+                $("#ChatAjaxDiv").html(result);
+            }
         });
     }
 
     function getChatParticipants() {
         var filter = $("#chatSearch").val();
         $.get("/Chat/GetChatParticipants?AjaxView=GetChatParticipants_Ajax&NameFilter=" + filter, function (result, status) {
-            $("#chatParticipantsList").html(result);
+            if (status == "success") {
+                $("#chatParticipantsList").html(result);
+            }
         });
     }
 
     function ShowGroupChatOptions() {
         $.get("/Chat/GetGroupChatParticipants", function (result, status) {
-            $("#groupChatParticipantsList").html(result);
+            if (status == "success") {
+                $("#groupChatParticipantsList").html(result);
+            }
         });
     }
     function ShowChatOptions() {
@@ -74,15 +95,34 @@
     function GetChatInfo(UserId, IsGroupChat) {
         if (IsGroupChat == true) {
             $.get("/Chat/OpenGroupChatBox?GroupChatId=" + UserId, function (result, status) {
-                $("#ChatAjaxDiv").html(result);
+                if (status == "success") {
+                    $("#ChatAjaxDiv").html(result);
+                }
             });
         }
         else {
             $.get("/Chat/OpenChatBox?UserId=" + UserId, function (result, status) {
-                $("#ChatAjaxDiv").html(result);
+                if (status == "success") {
+                    $("#ChatAjaxDiv").html(result);
+                }
             });
         }
     }
+
+    connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub/")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.start().catch(function (err) {
+        console.log(err.toString());
+    });
+
+
+
+
+
+
 
     // const connection = new signalR.HubConnectionBuilder()
     //    .withUrl("/chatHub/")
@@ -147,7 +187,7 @@
 
     //connection.start();
 
- 
+
 
 
 

@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 using WebApp.EF;
 using WebApp.EntityModels;
 using WebApp.ViewModels.Administration;
+using static WebApp.Helper.Autorization;
 
 namespace WebApp.Controllers
 {
+    [Autorization(false, true)]
     public class AdministrationController : Controller
     {
         private readonly MyContext _context;
@@ -95,7 +97,7 @@ namespace WebApp.Controllers
             var activity = new Activity
             {
                 Title = model.Title,
-                Description = model.Description,
+                Description = model.Description.Replace('\'', ' '),
                 ImageName = uniqueImageName
             };
             await _context.Activity.AddAsync(activity);
@@ -111,7 +113,7 @@ namespace WebApp.Controllers
                 TypeOfAttachmentSelect = new List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>()
             };
 
-            for (int i = 0; i < sizeof(TypeOfAttachment); i++)
+            for (int i = 0; i < 5; i++)
             {
                 model.TypeOfAttachmentSelect.Add(new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
                 {
@@ -122,16 +124,26 @@ namespace WebApp.Controllers
             return PartialView(model);
         }
 
-
+        [Obsolete]
         public async Task<IActionResult> AddNewActivityAttachment(AddNewActivityAttachment_VM model)
         {
+            string uniqueImageName = null;
+            if (model.Image != null)
+            {
+                var uploadPath = Path.Combine(hostingEnvironment.WebRootPath, "Images", "Administration");
+                uniqueImageName = Guid.NewGuid() + "_" + model.Image.FileName;
+                var filePath = Path.Combine(uploadPath, uniqueImageName);
+                model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
             var attachment = new ActivityAttachment
             {
                 ActivityId = model.ActivityId,
                 Name = model.Name,
-                Description = model.Description,
+                Description = model.Description.Replace('\'', ' '),
                 PriceToVisit = model.PriceToVisit,
-                TypeOfAttachment = model.TypeOfAttachment
+                TypeOfAttachment = model.TypeOfAttachment,
+                ImageName = uniqueImageName
             };
             await _context.ActivityAttachment.AddAsync(attachment);
             await _context.SaveChangesAsync();
@@ -280,11 +292,10 @@ namespace WebApp.Controllers
             model.DateRegistered = user.DateRegistered;
             model.NumberOfChatGroups = _context.GroupChatParticipants.Where(w => w.UserId == UserId).Count();
             model.NumberOfPlansCreated = _context.Program.Where(w => w.CreatorId == UserId).Count();
-            model.NumberOfPlansCreated_Accepted = _context.Program.Where(w => w.CreatorId == UserId && w.ProgramStatus == ProgramStatus.Approved).Count();
-            model.NumberOfPlansCreated_Refused = _context.Program.Where(w => w.CreatorId == UserId && w.ProgramStatus == ProgramStatus.Refused).Count();
-            model.NumberOfPlansCreated_OnHold = _context.Program.Where(w => w.CreatorId == UserId && w.ProgramStatus == ProgramStatus.OnHold).Count();
-            model.NumberOfPlansOredered = 0; // Zavrsiti
-            model.CurrentlyOnPlan = false; // Zavrsiti
+            model.NumberOfPlansCreated_Accepted = _context.Program.Where(w => w.CreatorId == UserId && w.ProgramState == ProgramState.Approved).Count();
+            model.NumberOfPlansCreated_Refused = _context.Program.Where(w => w.CreatorId == UserId && w.ProgramState == ProgramState.Refused).Count();
+            model.NumberOfPlansCreated_OnHold = _context.Program.Where(w => w.CreatorId == UserId && w.ProgramState == ProgramState.OnHold).Count();
+            model.NumberOfPlansOredered = _context.Purchase.Where(w => w.CreatorId == user.Id).Count();
 
             model.PlansCreated_Redirection = _context.Program.Where(w => w.CreatorId == UserId).Select(s => new CustomerDetails_VM.CreatedPlan_Details
             {
@@ -292,15 +303,32 @@ namespace WebApp.Controllers
                 Id = s.Id,
                 Description = s.Description,
                 Title = s.Name,
-                NumberOfSells = 0 // Zavrsiti
+                NumberOfSells = _context.Purchase.Where(w => w.ProgramId == s.Id).Count()
             }).ToList();
             if (model.PlansCreated_Redirection == null)
                 model.PlansCreated_Redirection = new List<CustomerDetails_VM.CreatedPlan_Details>();
 
-            // model.PlansOrdered_Redirection = //Zavrsiti
-            if (model.PlansOrdered_Redirection == null)
-                model.PlansOrdered_Redirection = new List<CustomerDetails_VM.OrderedPlan_Details>();
 
+            model.PlansOrdered_Redirection = new List<CustomerDetails_VM.OrderedPlan_Details>();
+            var purchases = _context.Purchase.Include(i => i.Program).Where(w => w.CreatorId == user.Id).ToList();
+            foreach (var purchase in purchases)
+            {
+                var attachments = _context.ProgramActivityAttachment.Where(w => w.ProgramActivity.ProgramId == purchase.ProgramId);
+                var date_start = attachments.OrderBy(s => s.PlannedStart).Select(s => s.PlannedStart).FirstOrDefault();
+                var date_finish = attachments.OrderByDescending(s => s.PlannedFinish).Select(s => s.PlannedFinish).FirstOrDefault();
+
+                model.PlansOrdered_Redirection.Add(new CustomerDetails_VM.OrderedPlan_Details
+                {
+                    Id = purchase.Id,
+                    DateOrdered = purchase.DateCreated,
+                    DateFinish = date_finish,
+                    DateStart = date_start,
+                    Description = purchase.Program.Description,
+                    Title = purchase.Program.Name,
+                    Finished = date_finish.CompareTo(DateTime.Now) < 0,
+                    ForGroup = _context.PurchaseParticipants.Where(w => w.PurchaseId == purchase.Id).Count() > 1
+                });
+            }
             return View(model);
         }
 
@@ -312,7 +340,7 @@ namespace WebApp.Controllers
                 Date_Created = s.Date_Created,
                 Name = s.Name,
                 ProgramAccess = s.ProgramAccess,
-                ProgramStatus = s.ProgramStatus,
+                ProgramState = s.ProgramState,
                 Creator = s.Creator.Name + " " + s.Creator.Surname
             }).ToList();
             return View(model);
@@ -320,7 +348,7 @@ namespace WebApp.Controllers
 
         public IActionResult GetProgramDetails(int ProgramId)
         {
-            var program = _context.Program.Include(i => i.Creator).Include(i => i.Approver).Where(w => w.Id == ProgramId).FirstOrDefault();
+            var program = _context.Program.Include(i => i.Creator).Where(w => w.Id == ProgramId).FirstOrDefault();
             var price = 0.0;
             var activities = _context.ProgramActivity.Include(i => i.Activity).Where(w => w.ProgramId == program.Id).ToList();
             foreach (var activity in activities)
@@ -336,10 +364,10 @@ namespace WebApp.Controllers
                     Name = program.Name,
                     Date_Created = program.Date_Created,
                     ProgramAccess = program.ProgramAccess,
-                    ProgramStatus = program.ProgramStatus
+                    ProgramState = program.ProgramState
                 },
-                ApprovedBy = (program.ProgramStatus == ProgramStatus.Approved && program.ApproverId != 0 ? program.Approver.Name + " " + program.Approver.Surname : "Not approved"),
-                ApprovedDate = program.ApprovedDate,
+                DateStateChanged = program.DateStateChanged,
+                DateAccessChanged = program.DateAccessChanged,
                 NumberOfSells = 0, // zavrsiti,
                 ProgramPriceExpected = price,
                 TotalPriceOfSellsExpected = 0,//zavrsiti ( price * broj ljudi na planu )
@@ -359,6 +387,69 @@ namespace WebApp.Controllers
                 }).ToList()
             };
             return View(model);
+        }
+
+        public IActionResult ChangeProgramState(int ProgramId, int State)
+        {
+            var program = _context.Program.Where(w => w.Id == ProgramId).FirstOrDefault();
+            if (program == null)
+                return StatusCode(400);
+
+            program.ProgramState = (ProgramState)State;
+            program.DateStateChanged = DateTime.Now;
+            _context.Program.Update(program);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        public IActionResult ChangeProgramAccess(int ProgramId, int Access)
+        {
+            var program = _context.Program.Where(w => w.Id == ProgramId).FirstOrDefault();
+            if (program == null)
+                return StatusCode(400);
+
+            if ((ProgramAccess)Access == ProgramAccess.Public)
+            {
+                if (string.IsNullOrEmpty(program.Description))
+                {
+                    return StatusCode(412); // precondition
+                }
+            }
+
+            program.ProgramAccess = (ProgramAccess)Access;
+            program.DateAccessChanged = DateTime.Now;
+            _context.Program.Update(program);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        public IActionResult NotificationsOptions()
+        {
+            return View();
+        }
+
+        public IActionResult PurchasesOptions()
+        {
+            var model = _context.Purchase.Select(s => new PurchasesOptions_VM
+            {
+                Id = s.Id,
+                Creator = s.Creator.Name + " " + s.Creator.Surname,
+                DateCreated = s.DateCreated,
+                ProgramName = s.Program.Name,
+                ParticipantsCount = _context.PurchaseParticipants.Where(w => w.PurchaseId == s.Id).Count()
+            }).OrderByDescending(o => o.DateCreated).ToList();
+            return View(model);
+        }
+
+        public async Task<IActionResult> AddProgramDescription(int ProgramId, string Description)
+        {
+            var program = await _context.Program.Where(w => w.Id == ProgramId).FirstOrDefaultAsync();
+            if (program == null)
+                return StatusCode(400);
+            program.Description = Description.Replace('\'', ' ');
+            _context.Program.Update(program);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

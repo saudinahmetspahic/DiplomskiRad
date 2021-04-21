@@ -18,12 +18,31 @@
 
         <div id="collapse_@i.Id" class="collapse" aria-labelledby="heading_@i.Id" data-parent="#PlansList">
             <div class="card-body">
-                <div class="flex-column">
+                <div class="d-flex flex-column">
                     <div>
                         @i.Description
                     </div>
+                    <div class="d-flex flex-row justify-content-center align-items-center border-top border-dark margin-top-25">
+                        @{ var counter = 0; }
+                        @foreach (var activity in i.Activities)
+                        {
+                            <div class="padding-5">
+                                @activity
+                                @{counter++;}
+                            </div>
+                            @if (counter < i.Activities.Count())
+                            {
+                                <div>
+                                    <img class="img-size-50" alt="" src="~/Images/Embedded/arrow-right.png" />
+                                </div>
+                            }
+                        }
+                    </div>
                     <div>
-                        <a class="btn btn-outline-info float-md-right margin-5 cursor">Details</a>
+
+                    </div>
+                    <div class="d-flex justify-content-end margin-top-5">
+                        <a class="btn btn-outline-info float-md-right margin-5 cursor" href="/Program/ShowProgramDetails?ProgramId=@i.Id">Details</a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,18 @@
+﻿@using WebApp.ViewModels.Chat
+@model AddChatParticipants_VM
+
+<div class="list-group-item">
+
+    @foreach (var participant in Model.Participants)
+    {
+        <p class="border-bottom cursor text-align-left" onclick="javascript: AddNewGroupParticipant(this, '@Model.GroupChatId', '@participant.Id');">@participant.Name</p>
+
+    }
+
+</div>
+
+
+
+
+
+

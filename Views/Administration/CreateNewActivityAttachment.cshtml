@@ -2,7 +2,7 @@
 @model AddNewActivityAttachment_VM
 
 <div class="flex-section-row margin-top-25">
-    <form class="flex-section-row-child-50 padding-5" asp-action="AddNewActivityAttachment" asp-controller="Administration">
+    <form enctype="multipart/form-data" class="flex-section-row-child-50 padding-5" asp-action="AddNewActivityAttachment" asp-controller="Administration">
 
         <input hidden asp-for="ActivityId" value="@Model.ActivityId" />
 
@@ -19,18 +19,27 @@
         <label class="d-block">Expected price to visit</label>
         <input asp-for="PriceToVisit" type="number" />
 
+        <label>Upload a photo that is related to attachment.</label>
+        <div class="custom-file">
+            <input asp-for="Image" class="custom-file-input" />
+            <label class="custom-file-label">Choose picture</label>
+        </div>
 
         <button class="w-100 margin-top-5 padding-5 btn-primary" type="submit">Create</button>
     </form>
-    <div class="flex-section-row-child-50 alert alert-success padding-5">
-        <h4>Creating attachment</h4>
+    <div class="flex-section-row-child-50 alert alert-success padding-5 margin-0 margin-left-5px">
+        <h4 class="margin-bottom-20">Creating attachment</h4>
         <p>
             To create a new attachment fill out the form.
             <br />
             When you create attachment it will be automatically assigned to this activity.
             <br />
-            Press 'Create' to add attachment.
+            Provide the best description because users will see it and make decisions based on them.
+            <br />
+            Make sure you upload picture that represents it in best way.
+            <br />
         </p>
+        <h5>Press 'Create' to add attachment.</h5>
     </div>
 </div>
 

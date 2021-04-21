@@ -1,0 +1,70 @@
+﻿@using WebApp.ViewModels.Purchase
+@model List<GetAvailablePrograms_VM>
+
+@{
+    var myprograms = Model.Where(w => w.CreatedByMe == true).ToList();
+    var otherprograms = Model.Where(w => w.CreatedByMe == false).ToList();
+}
+
+@* programs created by me *@
+@if (myprograms.Count() > 0)
+{
+    <p>You created these programs and you are just one click away from us. Purchase now! (Only allowed programs can be ordered)</p>
+    <section class="margin-bottom-50 margin-top-5">
+        @foreach (var myprogram in myprograms)
+        {
+            <div class="padding-20 margin-bottom-20 box-shadow-small">
+                <div>
+                    <h3 class="text-uppercase">@myprogram.Title</h3>
+                    <p class="max-height-300 overflow-auto">@myprogram.Description</p>
+                </div>
+                <div class="d-flex justify-content-around align-items-center border-top border-dark padding-5">
+                    <h5>Number of sells</h5>
+                    <h5>@myprogram.NumberOfSells</h5>
+                    <h5>Number of customers involved</h5>
+                    <h5>@myprogram.NumberOfCustomersPurcheses</h5>
+                    <h5>Expected price</h5>
+                    <h5>@(Math.Round(myprogram.ExpectedPrice / 1.95, 2)) €</h5>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="w-300px btn-info padding-5 margin-5" onclick="location.href = '/Program/ShowProgramDetails?ProgramId=@myprogram.Id'">More details</button>
+                    <button class="w-300px btn-primary padding-5 margin-5" onclick="location.href = '/Purchase/OrderProgram?ProgramId=@myprogram.Id'">Order</button>
+                </div>
+                <div id="ProgramPreviewDiv_@myprogram.Id">
+
+                </div>
+            </div>
+        }
+    </section>
+}
+@if (otherprograms.Count() > 0)
+{
+    <p>Check these programs as well. Read details and click 'Order' if you want to experience what it offers you.</p>
+    <section>
+        @foreach (var otherprogram in otherprograms)
+        {
+            <div class="padding-20 background-lightgray box-shadow-small margin-top-5">
+                <div class="w-50">
+                    <h3>@otherprogram.Title</h3>
+                    <p>@otherprogram.Description</p>
+                </div>
+                <div class="d-flex justify-content-around align-items-center border-top border-dark padding-5">
+                    <h5>Number of sells</h5>
+                    <h5>@otherprogram.NumberOfSells</h5>
+                    <h5>Number of customers involved</h5>
+                    <h5>@otherprogram.NumberOfCustomersPurcheses</h5>
+                    <h5>Expected price</h5>
+                    <h5>@(Math.Round(otherprogram.ExpectedPrice / 1.95, 2)) €</h5>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button class="w-300px btn-info padding-5 margin-5" onclick="location.href = '/Program/ShowProgramDetails?ProgramId=@otherprogram.Id'">More details</button>
+                    <button class="w-300px btn-primary padding-5 margin-5" onclick="location.href = '/Purchase/OrderProgram?ProgramId=@otherprogram.Id'">Order</button>
+                </div>
+                <div id="ProgramPreviewDiv_@otherprogram.Id">
+
+                </div>
+            </div>
+        }
+    </section>
+}
+

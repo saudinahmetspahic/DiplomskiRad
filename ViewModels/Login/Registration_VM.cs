@@ -16,5 +16,7 @@ namespace WebApp.ViewModels.Login
         public string City { get; set; }
         public int Age { get; set; }
         public string Phone { get; set; }   
+        public bool IsAdmin { get; set; }
+        public List<Tuple<int, string>> Admins { get; set; }    
     }
 }   

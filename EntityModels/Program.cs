@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace WebApp.EntityModels
 {
     public enum ProgramAccess { Private, Public }
-    public enum ProgramStatus { Approved, Refused, OnHold }
+    public enum ProgramState { Approved, Refused, OnHold }
     public class Program
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
         public DateTime Date_Created { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -20,13 +20,10 @@ namespace WebApp.EntityModels
         public User Creator { get; set; }   
 
         public ProgramAccess ProgramAccess { get; set; }
-        public ProgramStatus ProgramStatus { get; set; }
+        public ProgramState ProgramState { get; set; }
 
-
-        public DateTime ApprovedDate { get; set; }
+        public DateTime DateAccessChanged { get; set; }
+        public DateTime DateStateChanged { get; set; }
         
-        [ForeignKey(nameof(ApproverId))]    
-        public int? ApproverId { get; set; }  
-        public User Approver { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace WebApp.ViewModels.Administration
         public string Name { get; set; }
         public string Description { get; set; }
         public double PriceToVisit { get; set; }
-
-
+        public IFormFile Image { get; set; }
     }
 }

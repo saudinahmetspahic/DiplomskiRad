@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ using WebApp.EF;
 using WebApp.EntityModels;
 using WebApp.Helper;
 using WebApp.ViewModels.Login;
+using WebApp.ViewModels.Util;
+using static WebApp.Helper.Autorization;
 
 namespace WebApp.Controllers
 {
@@ -108,7 +111,7 @@ namespace WebApp.Controllers
         public IActionResult AccountDetails()
         {
             var loggedUserAccount = HttpContext.GetLoggedUser();
-            var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+            var loggedUser = _context.User.Include(i => i.UserAccount).Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
             var model = new Registration_VM
             {
                 Name = loggedUser.Name,
@@ -117,9 +120,49 @@ namespace WebApp.Controllers
                 City = loggedUser.City,
                 Country = loggedUser.Country,
                 Email = loggedUserAccount.Email,
-                Phone = loggedUser.Phone
+                Phone = loggedUser.Phone,
+                IsAdmin = (loggedUser.UserAccount.Role == UserRole.Admin),
+                Admins = _context.User.Where(w => w.UserAccount.Role == UserRole.Admin).Select(s => new Tuple<int, string>(s.Id, s.Name + " " + s.Surname)).ToList()
             };
             return View(model);
+        }
+
+        public IActionResult GetUsers(string searchValue)
+        {
+            var model = _context.User.Where(w => (w.Name.Contains(searchValue) || w.Surname.Contains(searchValue)) && w.UserAccount.Role != UserRole.Admin)
+                .Select(s => new ComboBox
+                {
+                    Id = s.Id,
+                    Description = s.Name + " " + s.Surname
+                })
+                .ToList();
+            return PartialView(model);
+        }
+
+        [Autorization(false, true)]
+        public async Task<IActionResult> SetAdmin(int UserId)
+        {
+            var user = await _context.User.Include(i => i.UserAccount).Where(w => w.Id == UserId).FirstOrDefaultAsync();
+            if (user != null)
+            {
+                user.UserAccount.Role = UserRole.Admin;
+                _context.User.Update(user);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("AccountDetails");
+        }
+
+        [Autorization(false, true)]
+        public async Task<IActionResult> UnSetAdmin(int UserId)
+        {
+            var user = await _context.User.Include(i => i.UserAccount).Where(w => w.Id == UserId).FirstOrDefaultAsync();
+            if (user != null)
+            {
+                user.UserAccount.Role = UserRole.User;
+                _context.User.Update(user);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("AccountDetails");
         }
 
         public async Task<IActionResult> UpdateAccountInfo(Registration_VM recievedModel)
@@ -154,5 +197,6 @@ namespace WebApp.Controllers
             HttpContext.SetLoggedUser(null);
             return RedirectToAction("Index", "Login");
         }
+
     }
 }

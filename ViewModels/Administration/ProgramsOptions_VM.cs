@@ -13,7 +13,7 @@ namespace WebApp.ViewModels.Administration
         public string Name { get; set; }
         public string Creator { get; set; }
         public ProgramAccess ProgramAccess { get; set; }
-        public ProgramStatus ProgramStatus { get; set; }
+        public ProgramState ProgramState { get; set; }
 
 
     }

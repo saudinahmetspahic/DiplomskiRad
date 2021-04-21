@@ -5,6 +5,7 @@
         $("#" + id).css("maxHeight", "100%");
 }
 
+var connection;
 
 function Message(message) {
 
@@ -62,25 +63,38 @@ function ShowHoverInfo(elem, text) {
 
 
 // graficki prikaz (klijentska strana)
-function LoadProgram(ProgramId, Title, Switch) {
+function LoadProgram(ProgramId, Title, OutPutDiv, Switch, AllowModifications) {
     $.get("/Program/LoadProgramData?ProgramId=" + ProgramId, function (result, status) {
         if (status == "success") {
             if (Switch) {
                 $("#CreateProgramDiv").remove();
                 $("#BuildProgramDiv").removeClass("hidden");
+                $("#AddDayButtonID").removeClass("hidden");
+                $("#AddDayButtonID").addClass("d-block");
             }
-            $("#ProgramNameID").val(Title);
+            $("#" + OutPutDiv).html("");
+            $("#BuildProgramDiv").html("");
+            //$("#ProgramNameID").val(Title);
+            var programname = document.createElement("input");
+            programname.id = "ProgramNameID";
+            programname.value = Title;
+            programname.style.display = "none";
+            document.getElementById(OutPutDiv).appendChild(programname);
+
+            var daysdiv = document.createElement("div");
+            daysdiv.id = "DaysDiv";
+            document.getElementById(OutPutDiv).appendChild(daysdiv);
 
             var data = JSON.parse(JSON.stringify(result));
             for (var i = 0; i < data.length; i++) {
-                AddToPlan(data[i].day, data[i].activity, data[i].attachment);
+                AddToPlan(data[i].day, data[i].activity, data[i].attachment, OutPutDiv, AllowModifications);
             }
         }
     });
     AddAttachment(1, 1, 0);
 }
 
-function AddToPlan(day, activity, attachment) {
+function AddToPlan(day, activity, attachment, outputdiv, allowmodifications) {
     var day_exist = false, activity_exist = false, attachment_exist = false;
     var current_days = $("#DaysDiv").children("div");
     //alert("Ukupno dana: " + current_days.length);
@@ -102,15 +116,15 @@ function AddToPlan(day, activity, attachment) {
                         }
                     }
                     if (!attachment_exist) {
-                        AddAttachment(day, activity, attachment);
+                        AddAttachment(day, activity, attachment, allowmodifications);
                     }
 
                 }
             }
             if (!activity_exist) {
                 //alert("Aktivnosti " + activity + " ne postoji, pa ce se napraviti");
-                AddActivity(day, activity);
-                AddToPlan(day, activity, attachment);
+                AddActivity(day, activity, allowmodifications);
+                AddToPlan(day, activity, attachment, outputdiv, allowmodifications);
             }
 
 
@@ -118,44 +132,90 @@ function AddToPlan(day, activity, attachment) {
     }
     if (!day_exist) {
         //alert("Dan " + day + " ne postoji, pa ce se napraviti");
-        AddDay(day);
-        AddToPlan(day, activity, attachment);
+        AddDay(day, allowmodifications);
+        AddToPlan(day, activity, attachment, outputdiv, allowmodifications);
     }
 }
 
 
-function AddDay(day) {
+function AddDay(day, allowmodifications) {
     if (day == 0) {
         day = $("#DaysDiv").children().length + 1;
     }
     if (document.getElementById("DayID_" + day) != null) {
-        AddDay(day + 1);
+        AddDay(day + 1, allowmodifications);
         return;
     }
 
     var maindiv = document.createElement("div");
     maindiv.id = "DayID_" + day;
-    maindiv.className = "list-item text-align-left margin-bottom-20";
+    maindiv.className = "list-item text-align-left margin-bottom-50 box-shadow-small border-color-custom";
 
     var innerdiv1 = document.createElement("div");
-    innerdiv1.className = "d-flex row justify-content-between margin-side-10 cursor";
+    innerdiv1.className = "d-flex row justify-content-between margin-side-10 cursor border-bottom border-bottom-dotted border-size-10 padding-vertical-10";
+
+    var titlediv = document.createElement("div");
+    titlediv.className = "d-flex align-items-center";
+
+    var changeday = document.createElement("i");
+    changeday.className = "bi bi-pencil-square";
+    changeday.addEventListener("click", function () {
+
+        var content = document.createElement("div");
+
+        var p = document.createElement("p");
+        p.textContent = "Keep in mind that when you change day all activities of that specific day will change to day you choose.";
+
+        var div = document.createElement("div");
+        div.className = "d-flex align-items-center justify-content-center margin-top-20";
+
+        var h5 = document.createElement("h5");
+        h5.textContent = "Current day " + day + " => ";
+        var input = document.createElement("input");
+        input.className = "outline-none text-center margin-left-5px";
+        input.type = "number";
+        input.min = 1;
+        input.max = 100;
+
+        div.appendChild(h5);
+        div.appendChild(input);
+
+        content.appendChild(p);
+        content.appendChild(div);
+
+        MakeCustomModal('Change day', content, true, function () {
+            var ProgramName = $("#ProgramNameID").val();
+            var value = input.value;
+            if (value != day) {
+                $.get("/Program/ChangeDay?ProgramName=" + ProgramName + "&OldValue=" + day + "&NewValue=" + value, function (result, status) {
+                    if (status == "success") {
+                        setTimeout(LoadProgram(result, ProgramName, 'BuildProgramDiv', false, allowmodifications), 3000);
+                    }
+                });
+            }
+        });
+    });
 
     var h5 = document.createElement("h5");
+    h5.className = "margin-left-5px text-uppercase margin-0";
     h5.innerHTML = "Day " + day;
     h5.onclick = function () {
         CollapseDiv("Day_" + day + "_ActivitiesDiv");
     };
+    titlediv.appendChild(changeday);
+    titlediv.appendChild(h5);
 
     var bttnActivity = document.createElement("button");
-    bttnActivity.classList = "btn-danger";
+    bttnActivity.classList = "btn-white-black";
     bttnActivity.innerHTML = "<i class='bi bi-node-plus'></i> Add new activity";
     bttnActivity.onclick = function () {
         AddNewActivity(day);
         //ChooseActivity("DayID_" + counter + "_Activities", counter);
     };
 
-    innerdiv1.appendChild(h5);
-    innerdiv1.appendChild(bttnActivity);
+    innerdiv1.appendChild(titlediv);
+    if (allowmodifications == true)
+        innerdiv1.appendChild(bttnActivity);
 
     var innerdiv2 = document.createElement("div");
     innerdiv2.id = "Day_" + day + "_ActivitiesDiv";
@@ -166,12 +226,12 @@ function AddDay(day) {
     document.getElementById("DaysDiv").appendChild(maindiv);
 }
 
-function AddActivity(day, activity) {
+function AddActivity(day, activity, allowmodifications) {
     var counter = $("#Day_" + day + "_ActivitiesDiv").children().length + 1;
 
     var maindiv = document.createElement("div");
     maindiv.id = "ActivityID_" + activity;
-    maindiv.className = "div-section-list-item focus-border activity box-shadow";
+    maindiv.className = "div-section-list-item activity box-shadow";
 
     var innerdiv1 = document.createElement("div");
     innerdiv1.className = "d-flex row justify-content-between margin-side-10 margin-bottom-20 border-bottom";
@@ -193,11 +253,28 @@ function AddActivity(day, activity) {
     headerdiv.appendChild(iele);
     headerdiv.appendChild(h6);
 
+    var removeactivity = document.createElement("button");
+    removeactivity.className = "padding-5 btn-white-black border-0";
+    removeactivity.innerHTML = "<i class='bi bi-trash'></i> Remove activity (and attachments)";
+    removeactivity.addEventListener("click", function () {
+        var ProgramName = $("#ProgramNameID").val();
+        $.post("/Program/RemoveActivityFromProgram?ProgramName=" + ProgramName + "&ActivityId=" + activity + "&Day=" + day, function (result, status) {
+            if (status == "success") {
+                RemoveActivity(maindiv, day); // zavrsiti
+            }
+        });
+    });
+
     var input = document.createElement("input");
+    input.className = "input-time";
     input.type = "time";
     input.value = "12:00";
+    if (allowmodifications == false)
+        input.disabled = true;
 
     innerdiv1.appendChild(headerdiv);
+    if (allowmodifications == true)
+        innerdiv1.appendChild(removeactivity);
     innerdiv1.appendChild(input);
 
     var innerdiv2 = document.createElement("div");
@@ -217,7 +294,7 @@ function AddActivity(day, activity) {
     var button = document.createElement("button"); // add attachment
     //innerdiv3.id = "AddedAttachmentsDiv";
     //innerdiv3.classList = "div-section-list-item";
-    button.classList = "btn btn-light w-100 padding-5";
+    button.classList = "btn btn-white-black w-100 padding-5";
     button.innerHTML = "<i class='bi bi-arrow-down-square'></i> ADD NEW ATTACHMENT";
     button.addEventListener("click", function () {
         SearchAttachments(day, activity);
@@ -244,15 +321,19 @@ function AddActivity(day, activity) {
 
     var h5 = document.createElement("h5");
     h5.innerHTML = "Added attachments";
-    h5.className = "text-center padding-5 background-dodgerblue text-color-white margin-bottom-0";
+    h5.className = "text-center padding-5 background-color-custom text-color-white margin-bottom-0 cursor";
+    h5.addEventListener("click", function () {
+        CollapseDiv("Day_" + day + "_Activity_" + activity + "_AttachmentsDiv");
+    });
 
     var innerdiv4 = document.createElement("div"); // added attachments
     innerdiv4.id = "Day_" + day + "_Activity_" + activity + "_AttachmentsDiv";
-    innerdiv4.className = "w-100 padding-5 d-flex flex-row flex-wrap justify-content-center border-dodgerblue border-size-3";
+    innerdiv4.className = "w-100 padding-0 d-flex flex-row flex-wrap justify-content-center align-items-start border-color-custom border-size-3 overflow-hidden";
 
     //innerdiv2.appendChild(innerdiv1);
     innerdiv2.appendChild(p);
-    innerdiv2.appendChild(button);
+    if (allowmodifications == true)
+        innerdiv2.appendChild(button);
     innerdiv2.appendChild(innerdiv3);
     innerdiv2.appendChild(h5);
     innerdiv2.appendChild(innerdiv4);
@@ -278,21 +359,29 @@ function AddActivity(day, activity) {
 
 function SearchAttachments(day, activity) {
     var outputdiv = $("#Day_" + day + "_Activity_" + activity + "_SearchAttachmentsDiv");
-    $.get("/Program/GetActivityAttachments?ActivityId=" + activity, function (result, status) {
+    $.get("/Program/GetActivityAttachments?ActivityId=" + activity + "&Day=" + day, function (result, status) {
         if (status == "success") {
             outputdiv.html(result);
         }
     });
 }
 
-function AddAttachment(day, activity, attachment) {
+function AddAttachment(day, activity, attachment, allowmodifications) {
     if (attachment == 0)
         return;
-    $.get("/Program/GetAttachmentDescription?AttachmentId=" + attachment, function (result, status) {
+    $.get("/Program/GetAttachmentDescription?AttachmentId=" + attachment + "&AllowModifications=" + allowmodifications, function (result, status) {
         if (status == "success") {
             $("#Day_" + day + "_Activity_" + activity + "_AttachmentsDiv").append(result);
         }
     });
+
+}
+
+function RemoveActivity(activity, day) {
+    activity.remove();
+    if ($("#Day_" + day + "_ActivitiesDiv").children().length <= 0) {
+        $("#DayID_" + day).remove();
+    }
 
 }
 
@@ -311,7 +400,7 @@ function AddNewActivity(day) {
 
     var maindiv = document.createElement("div");
     maindiv.id = "SearchNewActivities_ForDay_" + day;
-    maindiv.className = "padding-20 margin-top-25 d-flex justify-content-between border-size-3";
+    maindiv.className = "padding-20 margin-top-25 d-flex justify-content-between";
 
     var innerdiv1 = document.createElement("div");
     innerdiv1.className = "flex-section-row-child-50 d-flex flex-column";
@@ -329,6 +418,9 @@ function AddNewActivity(day) {
     innerdiv1.appendChild(input);
     innerdiv1.appendChild(innerdiv1_innerdiv);
 
+    var h6 = document.createElement("h6");
+    h6.textContent = "Add activity";
+    h6.className = "text-align-left";
     var p = document.createElement("p");
     p.className = "padding-5 text-align-left";
     p.innerHTML = "Search activities and click on them to see details. We suggest you to check out catalogs to learn more about them."
@@ -336,6 +428,7 @@ function AddNewActivity(day) {
     var innerdiv2 = document.createElement("div");
     innerdiv2.className = "flex-section-row-child-50 d-flex flex-column justify-content-between margin-left-25px";
     innerdiv2.id = "SearchedActivityDetails_ForDay_" + day;
+    innerdiv2.appendChild(h6);
     innerdiv2.appendChild(p);
 
     maindiv.appendChild(innerdiv1);
@@ -371,7 +464,7 @@ function AddActivityToDay(e, ActivityId, Description) {
     $.post("/Program/AddActivityToProgram?ProgramName=" + ProgramName + "&ActivityId=" + ActivityId + "&Day=" + day, function (result, status) {
         if (status == "success") {
             $("#SearchNewActivities_ForDay_" + day).remove();
-            AddActivity(day, ActivityId);
+            AddActivity(day, ActivityId, true);
             CollapseDiv("Day_" + day + "_ActivitiesDiv");
         }
     }).catch(function (statusCode) {
@@ -388,7 +481,19 @@ function CreateProgram() {
         if (status == "success") {
             $("#CreateProgramDiv").remove();
             $("#BuildProgramDiv").removeClass("hidden");
-            $("#ProgramNameID").val(program);
+            $("#AddDayButtonID").removeClass("hidden");
+            $("#AddDayButtonID").addClass("d-block");
+
+            var programname = document.createElement("input");
+            programname.style.display = "none";
+            programname.id = "ProgramNameID";
+            programname.value = program;
+
+            var daysdiv = document.createElement("div");
+            daysdiv.id = "DaysDiv";
+
+            document.getElementById("BuildProgramDiv").appendChild(programname);
+            document.getElementById("BuildProgramDiv").appendChild(daysdiv);
         }
     }).fail(function (xhr) {
         if (xhr.status == 400) {
@@ -398,16 +503,31 @@ function CreateProgram() {
 }
 
 //Day_1_Activity_1_XXX
-function AddAttachmentToActivity(e, attachment) {
-    var day = e.parentElement.parentElement.id.substr(4, 1);
-    var activity = e.parentElement.parentElement.id.substr(15, 1);
+function AddAttachmentToActivity(attachment, activityId, day) {
     var program = $("#ProgramNameID").val();
-    $.post("/Program/AddAttachmentToProgramActivity?ProgramName=" + program + "&ActivityId=" + activity + "&Day=" + day + "&AttachmentId=" + attachment, function (result, status) {
+    $.post("/Program/AddAttachmentToProgramActivity?ProgramName=" + program + "&ActivityId=" + activityId + "&Day=" + day + "&AttachmentId=" + attachment, function (result, status) {
         if (status == "success") {
-            AddAttachment(day, activity, attachment);
+            AddAttachment(day, activityId, attachment, true);
         }
     });
 }
+
+
+function RemoveAttachmentFromActivity(e, attachment) {
+    var day = e.parentElement.parentElement.id.substr(4, 1);
+    var activity = e.parentElement.parentElement.id.substr(15, 1);
+    var program = $("#ProgramNameID").val();
+    $.post("/Program/RemoveAttachmentFromProgramActivity?ProgramName=" + program + "&ActivityId=" + activity + "&Day=" + day + "&AttachmentId=" + attachment, function (result, status) {
+        if (status == "success") {
+            RemoveAttachment(e.parentElement);
+        }
+    });
+}
+
+function RemoveAttachment(attachment) {
+    attachment.remove();
+}
+
 
 function ChangeArrow(arrow) {
     if (arrow.className === "bi bi-caret-up-fill")
@@ -416,6 +536,179 @@ function ChangeArrow(arrow) {
         arrow.className = "bi bi-caret-up-fill";
 }
 
+function ChangeState(ProgramId, Title, State) {
+
+    var div = document.createElement("div");
+
+    var p = document.createElement("p");
+    p.className = "padding-5 text-align-left";
+    p.textContent = "Select state and press 'Save changes' to change state of selected program.";
+
+    var h5 = document.createElement("h5");
+    h5.className = "padding-5 text-align-left";
+    h5.textContent = "Current status is " + State;
+
+    var select = document.createElement("select");
+    select.className = "w-100 padding-5";
+
+    var optionApproved = document.createElement("option");
+    optionApproved.textContent = "Approved";
+    optionApproved.value = 0;
+
+    var optionRefused = document.createElement("option");
+    optionRefused.textContent = "Refused";
+    optionRefused.value = 1;
+
+    var optionOnHold = document.createElement("option");
+    optionOnHold.textContent = "On-hold";
+    optionOnHold.value = 2;
+
+    select.appendChild(optionApproved);
+    select.appendChild(optionRefused);
+    select.appendChild(optionOnHold);
+
+    div.appendChild(p);
+    div.appendChild(h5);
+    div.appendChild(select);
+
+    MakeCustomModal(Title, div, true, function () {
+        let option = select.value;
+        $.post("/Administration/ChangeProgramState?ProgramId=" + ProgramId + "&State=" + option, function (result, status) {
+            if (status == "success") {
+                $("#ProgramStatusID").text(select.options[select.selectedIndex].text);
+            }
+        });
+    });
+}
+
+function ChangeAccess(ProgramId, Title, Access) {
+
+    var div = document.createElement("div");
+
+    var p = document.createElement("p");
+    p.className = "padding-5 text-align-left";
+    p.textContent = "Select state and press 'Save changes' to change state of selected program.";
+
+    var h5 = document.createElement("h5");
+    h5.className = "padding-5 text-align-left";
+    h5.textContent = "Currently this program is " + Access;
+
+    var select = document.createElement("select");
+    select.className = "w-100 padding-5";
+
+    var optionPrivate = document.createElement("option");
+    optionPrivate.textContent = "Private";
+    optionPrivate.value = 0;
+
+    var optionPublic = document.createElement("option");
+    optionPublic.textContent = "Public";
+    optionPublic.value = 1;
+
+    select.appendChild(optionPrivate);
+    select.appendChild(optionPublic);
+
+    div.appendChild(p);
+    div.appendChild(h5);
+    div.appendChild(select);
+
+    MakeCustomModal(Title, div, true, function () {
+        let option = select.value;
+        $.post("/Administration/ChangeProgramAccess?ProgramId=" + ProgramId + "&Access=" + option, function (result, status) {
+            if (status == "success") {
+                $("#ProgramAccessID").text(select.options[select.selectedIndex].text);
+            }
+        }).catch(function (statusCode) {
+            if (statusCode.status == 412) {
+                var main = document.createElement("div");
+
+                var h4 = document.createElement("h4");
+                h4.textContent = "ERROR";
+
+                var p = document.createElement("p");
+                p.className = "padding-5 text-align-justify";
+                p.textContent = "Program description is not provided. To make program public, enter description down bellow and then try again.";
+
+                var textarea = document.createElement("textarea");
+                textarea.className = "w-100 padding-5";
+
+                main.appendChild(h4);
+                main.appendChild(p);
+                main.appendChild(textarea);
+
+                MakeCustomModal(Title, main, true, function () {
+                    $.post("/Administration/AddProgramDescription?ProgramId=" + ProgramId + "&Description=" + textarea.value, function (result, status) {
+                        if (status == "success") {
+                            Message("Program description added successfully. You can change program access now.");
+                        }
+                    });
+                });
+            }
+        });
+    });
+}
+function CloseModal() {
+    $("#modal_ovarlay").remove();
+}
+
+function MakeCustomModal(Title, HtmlContent, EnableSaveButton, SaveChangesFunction) {
+    var overlaydiv = document.createElement("div");
+    overlaydiv.id = "modal_ovarlay";
+    overlaydiv.className = "d-flex justify-content-center align-items-center";
+    overlaydiv.style.position = "fixed";
+    overlaydiv.style.width = "100vw";
+    overlaydiv.style.height = "100vh";
+    overlaydiv.style.top = "0px";
+    overlaydiv.style.left = "0px";
+    overlaydiv.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+    overlaydiv.style.zIndex = "10";
+
+    var modaldiv = document.createElement("div");
+    modaldiv.className = "d-flex flex-column justify-content-between padding-20";
+    modaldiv.style.width = "60vh";
+    modaldiv.style.height = "70vh";
+    modaldiv.style.backgroundColor = "white";
+    modaldiv.style.border = "1px solid black";
+    modaldiv.style.borderRadius = "20px";
+    modaldiv.style.overflow = "auto";
+
+    var titleheader = document.createElement("h3");
+    titleheader.className = "padding-20 text-align-left border-bottom border-dodgerblue";
+    titleheader.textContent = Title;
+
+    var contentparagraph = document.createElement("p");
+    contentparagraph.className = "padding-5 text-align-left";
+    contentparagraph.appendChild(HtmlContent);
+
+    var buttondiv = document.createElement("div");
+    buttondiv.className = "d-flex justify-content-end padding-5";
+
+    var buttonClose = document.createElement("button");
+    buttonClose.textContent = "Close";
+    buttonClose.className = "w-50 btn-secondary padding-5 text-uppercase border-0";
+    buttonClose.addEventListener("click", function () {
+        overlaydiv.remove();
+    });
+
+    var buttonSave = document.createElement("button");
+    buttonSave.textContent = "Save changes";
+    buttonSave.className = "w-50 btn-primary padding-5 text-uppercase border-0";
+    buttonSave.addEventListener("click", function () {
+        overlaydiv.remove();
+        SaveChangesFunction();
+    });
+
+    buttondiv.appendChild(buttonClose);
+    if (EnableSaveButton) {
+        buttondiv.appendChild(buttonSave);
+    }
+
+    modaldiv.appendChild(titleheader);
+    modaldiv.appendChild(contentparagraph);
+    modaldiv.appendChild(buttondiv);
+
+    overlaydiv.appendChild(modaldiv);
+    document.body.appendChild(overlaydiv);
+}
 
 
 //function AddActivityToDay(e, ActivityId, Description) {

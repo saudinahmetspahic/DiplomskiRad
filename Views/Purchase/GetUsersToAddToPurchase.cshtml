@@ -1,0 +1,13 @@
+﻿@using WebApp.ViewModels.Purchase
+@model AddUserToPurchase_VM
+
+
+@foreach (var user in Model.Users)
+{
+    <p class="cursor" onclick="location.href = '/Purchase/AddUserToPurchase?PurchaseId=@Model.PurchaseId&UserId=@user.Id'">@user.Name</p>
+}
+
+
+
+
+ 

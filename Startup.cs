@@ -53,9 +53,6 @@ namespace WebApp
             app.UseRouting();
 
             app.UseAuthorization();
-            //app.UseSignalR(route => {
-            //    route.MapHub<MessageHub>("/MessageHub");
-            //});
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

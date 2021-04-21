@@ -81,58 +81,50 @@
     </div>
 </div>
 
-<div class="margin-top-50">
-    <table class="table">
-        <thead class="table-light">
+<p>List of ordered programs</p>
+<table class="table margin-top-50">
+    <thead class="table-light">
+        <tr>
+            <th>Title</th>
+            <th>Ordered</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Single/Group</th>
+            <th>Finished</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var orderedPlan in Model.PlansOrdered_Redirection)
+        {
             <tr>
-                <th>Title</th>
-                <th>Ordered</th>
-                <th>Start</th>
-                <th>Finish</th>
-                <th>Single/Group</th>
-                <th>Finished</th>
+                <td>@orderedPlan.Title</td>
+                <td>@orderedPlan.DateOrdered.ToShortDateString()</td>
+                <td>@orderedPlan.DateStart.ToShortDateString()</td>
+                <td>@orderedPlan.DateFinish.ToShortDateString()</td>
+                <td>@(orderedPlan.ForGroup == true ? "Group" : "Single")</td>
+                <td>@(orderedPlan.Finished == true ? "Finished" : "Active")</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.PlansOrdered_Redirection)
-            {
-                <tr onclick="javascript: CollapseDiv('PlanOrdered_Description_' + @item.Id);">
-                    <td>@item.Title</td>
-                    <td>@item.DateOrdered.ToShortDateString()</td>
-                    <td>@item.DateStart.ToShortDateString()</td>
-                    <td>@item.DateFinish.ToShortDateString()</td>
-                    <td>@(item.ForGroup == true ? "Group" : "Single")</td>
-                    <td>@(item.Finished == true ? "Finished" : "Active")</td>
-                </tr>
-                <tr id="PlanOrdered_Description_@item.Id">
-                    @item.Description
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>
 
-<div>
-    <table class="table">
-        <thead class="table-light">
+<p>List of created programs</p>
+<table class="table">
+    <thead class="table-light">
+        <tr>
+            <th>Title</th>
+            <th>Created</th>
+            <th>Number of sells</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var createdPlan in Model.PlansCreated_Redirection)
+        {
             <tr>
-                <th>Title</th>
-                <th>Created</th>
-                <th>Number of sells</th>
+                <td>@createdPlan.Title</td>
+                <td>@createdPlan.DateCreated.ToShortDateString()</td>
+                <td>@createdPlan.NumberOfSells</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.PlansCreated_Redirection)
-            {
-                <tr onclick="javascript: CollapseDiv('PlanCreatedDescription_' + @item.Id);">
-                    <td>@item.Title</td>
-                    <td>@item.DateCreated.ToShortDateString()</td>
-                    <td>@item.NumberOfSells</td>
-                </tr>
-                <tr id="PlanCreatedDescription_@item.Id">
-                    @item.Description
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>

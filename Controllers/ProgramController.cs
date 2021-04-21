@@ -62,21 +62,45 @@ namespace WebApp.Controllers
                 {
                     var id = int.Parse(i.Substring(4));
                     var activity = _context.ActivityAttachment.Where(w => w.Id == id).Select(s => s.ActivityId).FirstOrDefault();
-                    var programs = _context.ProgramActivity.Where(w => w.ActivityId == activity).Select(s => s.Program).ToList();
+                    var programs = _context.ProgramActivity.Where(w => w.ActivityId == activity && w.Program.ProgramAccess == ProgramAccess.Public && w.Program.ProgramState == ProgramState.Approved).Select(s => s.Program).ToList();
 
                     foreach (var program in programs)
                     {
-                        result.Add(program.Id);
-                        model.Add(new GetPrograms_VM
+                        if (!result.Contains(program.Id))
                         {
-                            Id = program.Id,
-                            Name = program.Name,
-                            Description = program.Description
-                        });
+                            result.Add(program.Id);
+                            model.Add(new GetPrograms_VM
+                            {
+                                Id = program.Id,
+                                Name = program.Name,
+                                Description = program.Description,
+                                Activities = _context.ProgramActivity.Where(w => w.ProgramId == program.Id).Select(s => s.Activity.Title).Take(5).ToList()
+                            });
+                        }
                     }
                 }
             }
 
+            return PartialView(model);
+        }
+
+        public async Task<IActionResult> GetProgramPreviews(int[] filterIds, int numberOfPrograms)
+        {
+            List<int> ids = filterIds.ToList();
+            var i = 1;
+            while (ids.Count() < 3)
+            {
+                ids.Add(i);
+                i++;
+            }
+            var programs = await _context.Program.Where(w => w.ProgramAccess == ProgramAccess.Public && w.ProgramState == ProgramState.Approved && !filterIds.Contains(w.Id)).OrderBy(o => o.DateAccessChanged).Take(numberOfPrograms).ToListAsync();
+            var model = programs.Select(s => new GetPrograms_VM
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Description = s.Description,
+                Activities = _context.ProgramActivity.Where(w => w.ProgramId == s.Id).OrderBy(o=>o.DayOfProgram).Select(x => x.Activity.Title).Take(3).ToList()
+            }).ToList();
             return PartialView(model);
         }
 
@@ -98,8 +122,10 @@ namespace WebApp.Controllers
                 Name = ProgramName,
                 CreatorId = loggedUser.Id,
                 ProgramAccess = ProgramAccess.Private,
-                ProgramStatus = ProgramStatus.OnHold,
-                Date_Created = DateTime.Now
+                ProgramState = ProgramState.OnHold,
+                Date_Created = DateTime.Now,
+                DateAccessChanged = DateTime.Now,
+                DateStateChanged = DateTime.Now
             };
             _context.Program.Add(program);
             _context.SaveChanges();
@@ -130,11 +156,41 @@ namespace WebApp.Controllers
                 ProgramId = program.Id,
                 DayOfProgram = Day
             };
+            if (_context.ProgramActivity.Where(w => w.ActivityId == ActivityId && w.ProgramId == program.Id && w.DayOfProgram == Day).Any())
+                return StatusCode(409); // duplicate
             _context.ProgramActivity.Add(activity);
+
+            // nepotrebno
+            //var loggedUserAccount = HttpContext.GetLoggedUser();
+            //var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+            //if(program.CreatorId != loggedUser.Id) {
+            program.DateStateChanged = DateTime.Now;
+            program.DateAccessChanged = DateTime.Now;
+            program.ProgramState = ProgramState.OnHold;
+            program.ProgramAccess = ProgramAccess.Private;
+            _context.Program.Update(program);
+            // zavrsiti - dodati obavijest da je doslo do promijene
+            // }
+
             _context.SaveChanges();
             return Ok();
         }
 
+        public async Task<IActionResult> RemoveActivityFromProgram(string ProgramName, int ActivityId, int Day)
+        {
+            var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
+            if (program == null)
+                return StatusCode(400);
+            var activity = await _context.ProgramActivity.Where(w => w.ProgramId == program.Id && w.ActivityId == ActivityId && w.DayOfProgram == Day).FirstOrDefaultAsync();
+            var attachments = await _context.ProgramActivityAttachment.Where(w => w.ProgramActivityId == activity.Id).ToListAsync();
+            foreach (var attachment in attachments)
+            {
+                _context.ProgramActivityAttachment.Remove(attachment);
+            }
+            _context.ProgramActivity.Remove(activity);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
 
         public IActionResult CreateCustomPlan()
         {
@@ -154,12 +210,6 @@ namespace WebApp.Controllers
 
         public IActionResult GetActivityDescription(int ActivityId)
         {
-            //var description = _context.Activity.Where(w => w.Id == ActivityId).Select(s => new ComboBox
-            //{
-            //    Id = ActivityId,
-            //    Description = s.Description
-            //}).FirstOrDefault();
-            //return Json(description);
             var model = _context.Activity.Where(w => w.Id == ActivityId).Select(s => new GetActivityDetails_VM
             {
                 Id = s.Id,
@@ -170,7 +220,7 @@ namespace WebApp.Controllers
             return PartialView(model);
         }
 
-        public IActionResult GetAttachmentDescription(int AttachmentId)
+        public IActionResult GetAttachmentDescription(int AttachmentId, bool AllowModifications)
         {
             var model = _context.ActivityAttachment.Where(w => w.Id == AttachmentId).Select(s => new GetActivityAttachments_VM
             {
@@ -179,7 +229,8 @@ namespace WebApp.Controllers
                 ImageName = s.ImageName,
                 Name = s.Name,
                 PriceToVisit = s.PriceToVisit,
-                TypeOfAttachment = s.TypeOfAttachment
+                TypeOfAttachment = s.TypeOfAttachment,
+                AllowModifications = AllowModifications
             }).FirstOrDefault();
             return PartialView(model);
         }
@@ -191,7 +242,7 @@ namespace WebApp.Controllers
                 .Select(s => new ComboBox
                 {
                     Id = s.Id,
-                    Description = s.Description
+                    Description = s.Title
                 }).ToList();
             return PartialView(model);
         }
@@ -207,10 +258,12 @@ namespace WebApp.Controllers
             return PartialView(model);
         }
 
-        public async Task<IActionResult> GetActivityAttachments(int ActivityId)
+        public async Task<IActionResult> GetActivityAttachments(int ActivityId, int Day)
         {
             var attachments = await _context.ActivityAttachment.Where(w => w.ActivityId == ActivityId).Select(s => new GetActivityAttachments_VM
             {
+                Day = Day,
+                ActivityId = ActivityId,
                 Id = s.Id,
                 Description = s.Description,
                 ImageName = s.ImageName,
@@ -225,7 +278,7 @@ namespace WebApp.Controllers
         {
             var model = new List<GetProgramData_VM>();
 
-            var activities = _context.ProgramActivity.Where(w => w.ProgramId == ProgramId).ToList();
+            var activities = _context.ProgramActivity.Where(w => w.ProgramId == ProgramId).OrderBy(o => o.DayOfProgram).ToList();
             foreach (var activity in activities)
             {
                 var attachments = _context.ProgramActivityAttachment.Where(w => w.ProgramActivityId == activity.Id).ToList();
@@ -259,9 +312,43 @@ namespace WebApp.Controllers
                 ProgramActivityId = programactivity.Id,
                 //zavrsiti
             };
+            if (_context.ProgramActivityAttachment.Where(w => w.ProgramActivityId == programactivity.Id && w.ActivityAttachmentId == AttachmentId).Any())
+                return StatusCode(409); // duplicate
             _context.ProgramActivityAttachment.Add(attachment);
+
+            // nepotrebno
+            //var loggedUserAccount = HttpContext.GetLoggedUser();
+            //var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+            //if (program.CreatorId != loggedUser.Id)
+            //{
+            program.ProgramAccess = ProgramAccess.Private;
+            program.ProgramState = ProgramState.OnHold;
+            program.DateStateChanged = DateTime.Now;
+            program.DateAccessChanged = DateTime.Now;
+            _context.Program.Update(program);
+            // zavrsiti - poslati obavijest korisniku da je doslo do promijena
+            //}
             _context.SaveChanges();
-            return StatusCode(200);
+            return StatusCode(201);
+        }
+
+        public async Task<IActionResult> RemoveAttachmentFromProgramActivity(string ProgramName, int ActivityId, int Day, int AttachmentId)
+        {
+            var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
+            if (program == null)
+                return StatusCode(400);
+
+            var programactivity = await _context.ProgramActivity.Where(w => w.ProgramId == program.Id && w.ActivityId == ActivityId && w.DayOfProgram == Day).FirstOrDefaultAsync();
+            if (programactivity == null)
+                return StatusCode(400);
+
+            var attachment = await _context.ProgramActivityAttachment.Where(w => w.ProgramActivityId == programactivity.Id && w.ActivityAttachmentId == AttachmentId).FirstOrDefaultAsync();
+            if (attachment == null)
+                return StatusCode(400);
+
+            _context.ProgramActivityAttachment.Remove(attachment);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         public IActionResult RemoveProgram(int ProgramId)
@@ -285,5 +372,30 @@ namespace WebApp.Controllers
 
             return RedirectToAction("ProgramsOptions", "Administration");
         }
+
+        public async Task<int> ChangeDay(string ProgramName, int OldValue, int NewValue)
+        {
+            var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
+            var activities = await _context.ProgramActivity.Where(w => w.ProgramId == program.Id && w.DayOfProgram == OldValue).ToListAsync();
+            foreach (var activity in activities)
+            {
+                activity.DayOfProgram = NewValue;
+                _context.ProgramActivity.Update(activity);
+            }
+            await _context.SaveChangesAsync();
+            return program.Id;
+        }
+
+        public IActionResult ShowProgramDetails(int ProgramId)
+        {
+            var model = _context.Program.Where(w => w.Id == ProgramId).Select(s => new ShowProgramDetails_VM
+            {
+                Id = s.Id,
+                Description = s.Description,
+                Title = s.Name
+            }).FirstOrDefault();
+            return View(model);
+        }
+
     }
 }

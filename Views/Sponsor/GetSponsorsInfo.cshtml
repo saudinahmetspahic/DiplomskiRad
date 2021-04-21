@@ -1,0 +1,17 @@
+﻿@using WebApp.ViewModels.Sponsor
+@model List<SponsorOptions_VM.AddedSponsor> 
+
+
+
+@foreach (var sponsor in Model)
+{   
+    <div class="margin-50 text-center">
+        <img class="img-size-200 object-fit-contain" src="/Images/Sponsors/@sponsor.ImageName" alt="" />
+        <h2>@sponsor.Name</h2>
+        <h6>@sponsor.AreaOfInterest</h6>
+    </div>
+}
+
+
+
+

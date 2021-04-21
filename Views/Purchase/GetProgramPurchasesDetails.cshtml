@@ -1,0 +1,102 @@
+﻿@using WebApp.ViewModels.Purchase
+@model GetProgramPurchasesDetails_VM
+
+
+<section class="d-flex justify-content-around margin-bottom-50">
+    <div>
+        <h5 class="h5-tag-style">Created</h5> <h6 class="text-center margin-bottom-20">@Model.DateCreated.ToShortDateString()</h6>
+    </div>
+    <div>
+        <h5 class="h5-tag-style">Creator</h5> <h6 class="text-center margin-bottom-20">@Model.Creator</h6>
+    </div>
+    <div>
+        <h5 class="h5-tag-style">Title</h5> <h6 class="text-center margin-bottom-20">@Model.ProgramName</h6>
+    </div>
+    <div>
+        <h5 class="h5-tag-style">Participants</h5> <h6 class="text-center margin-bottom-20">@Model.Participants.Count()</h6>
+    </div>
+</section>
+
+<p>In table down bellow are listed all participants for this purchase. If you want to add new one click 'Add participant'</p>
+<table class="table">
+    <thead class="table-primary ">
+        <tr>
+            <th>Name</th>
+            <th>Coutry</th>
+            <th>City</th>
+            <th>Age</th>
+            <th class="w-50px">Remove</th>
+        </tr>
+    </thead>
+    <tbody id="UserTable">
+        @foreach (var participant in Model.Participants)
+        {
+            <tr id="User_@participant.ParticipantId">
+                <td>@participant.Name</td>
+                <td>@participant.Country</td>
+                <td>@participant.City</td>
+                <td>@participant.Age</td>
+                <td class="cursor w-50px text-center" onclick="location.href = '/Purchase/RemoveUserFromPurchase?PurchaseId=@Model.PurchaseId&UserId=@participant.ParticipantId'"><i class="bi bi-x-square text-color-red"></i></td>
+                @*onclick="javascript: RemoveUserFromPurchase('@purchase.PurchaseId', '@participant.ParticipantId');"*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-center margin-top-25">
+    <p class="border-bottom focus-hover d-inline-block cursor padding-5" onclick="javascript: AddNewPurchaseParticipant('@Model.ProgramName', '@Model.PurchaseId');">ADD PARTICIPANT</p>
+</div>
+
+<div class="d-flex flex-row">
+    <button onclick="location.href = '/Purchase/IssueAnInvoice?PurchaseId=@Model.PurchaseId'" class="w-100 padding-20 btn-danger"><i class="bi bi-receipt"></i> Issue an invoice</button>
+    @*<button onclick="javascript: ChangeAccess('@Model.ProgramDetails.Id', 'Change access', '@Model.ProgramDetails.ProgramAccess');" class="w-100 padding-20 btn-danger"><i class="bi bi-binoculars-fill"></i> Change access</button>*@
+   @* <button onclick="location.href = '/Program/RemoveProgram?ProgramId=@Model.ProgramDetails.Id'" class="w-100 padding-20 btn-danger"><i class="bi bi-shield-fill-x"></i> REMOVE</button>*@
+</div>
+
+
+
+<script>
+    function AddUserToPurchase(e, UserId) {
+        var PurchaseId = e.parentNode.id.substr(e.parentNode.id.length - 1, 1);
+        $.get("/Purchase/AddUserToPurchase?PurchaseId=" + PurchaseId + "&UserId=" + UserId, function (result, status) {
+            if (status == "success") {
+                Message("User successfully added to purchase.");
+            }
+        });
+
+    }
+
+    function AddNewPurchaseParticipant(Title, PurchaseId) {
+
+        var content = document.createElement("div");
+
+        var h4 = document.createElement("h4");
+        h4.textContent = "Add registered user";
+
+        var input = document.createElement("input");
+        input.className = "w-100";
+        var searchinput = document.createElement("div");
+        searchinput.id = "Purchase_" + PurchaseId;
+        input.addEventListener("input", function () {
+            $.get("/Purchase/GetUsersToAddToPurchase?PurchaseId=" + PurchaseId + "&SearchValue=" + input.value, function (result, status) {
+                if (status == "success") {
+                    searchinput.innerHTML = result;
+                }
+            });
+        });
+
+        var formdiv = document.createElement("div");
+        formdiv.className = "border-top border-dark padding-5 margin-top-25";
+        $.get("/Login/AddParticipantForm", function (result, status) {
+            if (status == "success") {
+                formdiv.innerHTML = result;
+            }
+        });
+        content.appendChild(h4);
+        content.appendChild(input);
+        content.appendChild(searchinput);
+        content.appendChild(formdiv);
+
+        MakeCustomModal(Title + " purchase participants", content, false, function () { });
+    }
+</script>

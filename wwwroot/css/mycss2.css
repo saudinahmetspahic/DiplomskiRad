@@ -55,12 +55,29 @@ img.rounded-profile-img {
     border: 5px solid white;
 }
 
+img.profile-img-border{
+    border-bottom: 20px solid dodgerblue;
+    padding-bottom: 5px;
+}
+
 .h-100-vh {
     height: 100vh;
 }
 
 .w-300px {
     width: 300px;
+}
+
+.h-300px{
+    height: 300px;
+}
+
+img.object-fit-cover{
+    object-fit: cover;
+}
+
+img.object-fit-contain{
+    object-fit: contain;
 }
 
 .w-33perc {
@@ -103,6 +120,16 @@ img.rounded-profile-img {
         box-shadow: rgb(38, 105, 179) 5px 5px initial;
     }
 
+.background-animation-3 {
+    transition: linear;
+    transition-duration: 0.1s;
+}
+
+    .background-animation-3:hover {
+        /*color: white;*/
+        background-color: rgba(164, 160, 160, 0.2);
+        box-shadow: rgb(38, 105, 179) 5px 5px initial;
+    }
 
 /*scrollbar*/
 /* width */

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WebApp.EF;
 using WebApp.Models;
 using WebApp.Helper;
+using static WebApp.Helper.Autorization;
 
 namespace WebApp.Controllers
 {
@@ -25,6 +26,7 @@ namespace WebApp.Controllers
             return View();
         }
 
+        [Autorization(true, false)]
         public IActionResult Contact()
         {
             ViewData["Title"] = "Contact Page";

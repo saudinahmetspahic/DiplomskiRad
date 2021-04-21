@@ -1,0 +1,31 @@
+﻿@using WebApp.ViewModels.Administration
+@model List<PurchasesOptions_VM>
+
+
+<table class="table">
+    <thead class="table-primary">
+        <tr>
+            <th>Created</th>
+            <th>Creator</th>
+            <th>Program name</th>
+            <th>Participants</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="cursor focus-border" onclick="location.href = '/Purchase/GetProgramPurchasesDetails?PurchaseId=@item.Id'">
+                <td>@item.DateCreated.ToShortDateString()</td>
+                <td>@item.Creator</td>
+                <td>@item.ProgramName</td>
+                <td>@item.ParticipantsCount</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+

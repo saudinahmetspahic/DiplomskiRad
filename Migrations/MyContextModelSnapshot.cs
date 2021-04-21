@@ -166,6 +166,35 @@ namespace WebApp.Migrations
                     b.ToTable("Message");
                 });
 
+            modelBuilder.Entity("WebApp.EntityModels.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Notification");
+                });
+
             modelBuilder.Entity("WebApp.EntityModels.PrivateChat", b =>
                 {
                     b.Property<int>("Id")
@@ -210,14 +239,14 @@ namespace WebApp.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("ApprovedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ApproverId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateAccessChanged")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateStateChanged")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Date_Created")
                         .HasColumnType("datetime2");
@@ -231,12 +260,10 @@ namespace WebApp.Migrations
                     b.Property<int>("ProgramAccess")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProgramStatus")
+                    b.Property<int>("ProgramState")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApproverId");
 
                     b.HasIndex("CreatorId");
 
@@ -296,6 +323,46 @@ namespace WebApp.Migrations
                     b.ToTable("ProgramActivityAttachment");
                 });
 
+            modelBuilder.Entity("WebApp.EntityModels.Purchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProgramId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("ProgramId");
+
+                    b.ToTable("Purchase");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.PurchaseParticipants", b =>
+                {
+                    b.Property<int>("ParticipantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchaseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ParticipantId", "PurchaseId");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.ToTable("PurchaseParticipants");
+                });
+
             modelBuilder.Entity("WebApp.EntityModels.Rate", b =>
                 {
                     b.Property<int>("Id")
@@ -319,6 +386,27 @@ namespace WebApp.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Rate");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.Sponsor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("AreaOfInterest")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sponsor");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.User", b =>
@@ -374,6 +462,9 @@ namespace WebApp.Migrations
 
                     b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("Salt")
                         .HasColumnType("nvarchar(max)");
@@ -454,6 +545,17 @@ namespace WebApp.Migrations
                     b.Navigation("Sender");
                 });
 
+            modelBuilder.Entity("WebApp.EntityModels.Notification", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("WebApp.EntityModels.PrivateChat", b =>
                 {
                     b.HasOne("WebApp.EntityModels.User", "User1")
@@ -494,17 +596,11 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.EntityModels.Program", b =>
                 {
-                    b.HasOne("WebApp.EntityModels.User", "Approver")
-                        .WithMany()
-                        .HasForeignKey("ApproverId");
-
                     b.HasOne("WebApp.EntityModels.User", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Approver");
 
                     b.Navigation("Creator");
                 });
@@ -545,6 +641,44 @@ namespace WebApp.Migrations
                     b.Navigation("ActivityAttachment");
 
                     b.Navigation("ProgramActivity");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.Purchase", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApp.EntityModels.Program", "Program")
+                        .WithMany()
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Program");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.PurchaseParticipants", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.User", "Participant")
+                        .WithMany()
+                        .HasForeignKey("ParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApp.EntityModels.Purchase", "Purchase")
+                        .WithMany()
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Participant");
+
+                    b.Navigation("Purchase");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.Rate", b =>
