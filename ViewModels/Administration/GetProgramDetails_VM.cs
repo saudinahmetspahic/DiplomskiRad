@@ -13,8 +13,8 @@ namespace WebApp.ViewModels.Administration
         public DateTime DateStateChanged { get; set; }
         public DateTime DateAccessChanged { get; set; }
         public double ProgramPriceExpected { get; set; }    
-        public double TotalPriceOfSellsExpected { get; set; }   
-            
+        public double TotalPriceOfSellsExpected { get; set; }
+
         public List<_Activity> Activities { get; set; }    
         public class _Activity
         {

@@ -1,0 +1,15 @@
+﻿@using WebApp.ViewModels.Program
+@model GetProgramFeedback_VM
+
+
+@foreach (var fb in Model.FeedBack)
+{   
+    <div class="feedback-block">
+        <h4 class="margin-bottom-20">@fb.Creator</h4>
+        <p>@fb.Description</p>
+    </div>
+}
+
+
+
+  

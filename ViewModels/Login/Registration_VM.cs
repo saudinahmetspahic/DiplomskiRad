@@ -18,5 +18,15 @@ namespace WebApp.ViewModels.Login
         public string Phone { get; set; }   
         public bool IsAdmin { get; set; }
         public List<Tuple<int, string>> Admins { get; set; }    
+        public List<PersonalPurchase> Purchases { get; set; }    
+
+        public class PersonalPurchase
+        {
+            public int Id { get; set; }
+            public DateTime Created { get; set; }
+            public bool IsCreator { get; set; }
+            public string ProgramName { get; set; }
+                
+        }
     }
 }   

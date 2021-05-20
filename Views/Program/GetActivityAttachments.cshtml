@@ -9,7 +9,7 @@
 
     @foreach (var attachment in Model)
     {
-        <div class="card w-300px h-300px cursor overflow-hidden position-relative">
+        <div class="card w-100 h-200 cursor overflow-hidden position-relative">
             <img class="w-100 h-100 object-fit-cover" alt="Image" src="~/Images/Administration/@attachment.ImageName" />
 
             <h6 class="text-align-left text-white padding-5 position-absolute left0 top0">Price: @Math.Round(attachment.PriceToVisit, 2) BAM (@(Math.Round(attachment.PriceToVisit / 1.95, 2)) €)</h6>
@@ -18,7 +18,7 @@
                 <h3 class="text-align-left text-white">@attachment.Name</h3>
             </div>
             <button class="btn-transparent position-absolute top0 left0 w-100 h-100 btn-white-black padding-5 background-animation-3" onclick="javascript: AddAttachmentToActivity('@attachment.Id', '@attachment.ActivityId', '@attachment.Day');"><i class="bi bi-plus font-size-100px"></i></button>
-            <div class="btn-transparent position-absolute bottom0 right0 btn-white-black padding-5 zIndexUp" onmouseover="ShowHoverInfo(this, '@attachment.Description"><i class="bi bi-info-circle-fill font-size-20px"></i></div>
+            <div class="btn-transparent position-absolute bottom0 right0 btn-white-black padding-5 zIndexUp" onmouseover="ShowHoverInfo(this, '@attachment.Description');"><i class="bi bi-info-circle-fill font-size-20px"></i></div>
             @*<div id="AttachmentDescription_@attachment.Id" class="overflow-hidden">
                     <p class="padding-5 text-align-left text-align-justify">@attachment.Description</p>
                 </div>

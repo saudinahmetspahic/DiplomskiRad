@@ -73,11 +73,11 @@ img.profile-img-border{
 }
 
 img.object-fit-cover{
-    object-fit: cover;
+    object-fit: cover !important;
 }
 
 img.object-fit-contain{
-    object-fit: contain;
+    object-fit: contain !important;
 }
 
 .w-33perc {

@@ -86,21 +86,23 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> GetProgramPreviews(int[] filterIds, int numberOfPrograms)
         {
-            List<int> ids = filterIds.ToList();
-            var i = 1;
-            while (ids.Count() < 3)
-            {
-                ids.Add(i);
-                i++;
-            }
+            //List<int> ids = filterIds.ToList();
+            //var i = 0;
+            //while (ids.Count() < 3)
+            //{
+            //    ids.Add(filterIds[i]);
+            //    i++;
+            //}
             var programs = await _context.Program.Where(w => w.ProgramAccess == ProgramAccess.Public && w.ProgramState == ProgramState.Approved && !filterIds.Contains(w.Id)).OrderBy(o => o.DateAccessChanged).Take(numberOfPrograms).ToListAsync();
             var model = programs.Select(s => new GetPrograms_VM
             {
                 Id = s.Id,
                 Name = s.Name,
                 Description = s.Description,
-                Activities = _context.ProgramActivity.Where(w => w.ProgramId == s.Id).OrderBy(o=>o.DayOfProgram).Select(x => x.Activity.Title).Take(3).ToList()
+                Activities = _context.ProgramActivity.Where(w => w.ProgramId == s.Id).OrderBy(o => o.DayOfProgram).Select(x => x.Activity.Title).Take(3).ToList()
             }).ToList();
+            if (model.Count() != numberOfPrograms)
+                return StatusCode(406); // not acceptable
             return PartialView(model);
         }
 
@@ -238,7 +240,7 @@ namespace WebApp.Controllers
         public IActionResult GetActivitiesAjax(string Value)
         {
             var model = _context.Activity
-                .Where(w => w.Description.Contains(Value) || string.IsNullOrEmpty(Value))
+                .Where(w => w.Title.Contains(Value) || w.Description.Contains(Value) || string.IsNullOrEmpty(Value))
                 .Select(s => new ComboBox
                 {
                     Id = s.Id,
@@ -397,5 +399,101 @@ namespace WebApp.Controllers
             return View(model);
         }
 
+        public async Task ChangeActivityTime(string ProgramName, int Activity, int Day, DateTime Time)
+        {
+            var activity = await _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).FirstOrDefaultAsync();
+            activity.Start = Time;
+            _context.ProgramActivity.Update(activity);
+            await _context.SaveChangesAsync();
+        }
+
+        public string GetCurrentTimeOfActivity(string ProgramName, int Activity, int Day)
+        {
+            var date = _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).Select(s => s.Start).FirstOrDefault();
+            return date.ToString("HH:mm");
+        }
+
+        public async Task ChangeActivityDuration(string ProgramName, int Activity, int Day, int DedicatedHours)
+        {
+            var activity = await _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).FirstOrDefaultAsync();
+            activity.DedicatedHours = DedicatedHours;
+            _context.ProgramActivity.Update(activity);
+            await _context.SaveChangesAsync();
+        }
+
+        public int GetActivityDuration(string ProgramName, int Activity, int Day)
+        {
+            var hours = _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).Select(s => s.DedicatedHours).FirstOrDefault();
+            return hours;
+        }
+
+        public IActionResult GetProgramFeedback(int ProgramId)
+        {
+            var model = new GetProgramFeedback_VM
+            {
+                Id = ProgramId,
+                FeedBack = new List<GetProgramFeedback_VM.FB>()
+            };
+            model.FeedBack = _context.Feedback.Where(w => w.ProgramId == ProgramId).Select(s => new GetProgramFeedback_VM.FB
+            {
+                Creator = s.Creator.Name + " " + s.Creator.Surname,
+                Description = s.Description
+            }).ToList();
+            return View(model);
+        }
+
+        public IActionResult RateProgram(int ProgramId)
+        {
+            var loggedUserAccount = HttpContext.GetLoggedUser();
+            var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+            var au = _context.PurchaseParticipants.Where(w => w.ParticipantId == loggedUser.Id && w.Purchase.ProgramId == ProgramId).Any();
+            if (au)
+            {
+                var program = _context.Program.Where(w => w.Id == ProgramId).FirstOrDefault();
+                var model = new RateProgram_VM
+                {
+                    ProgramId = ProgramId,
+                    ProgramName = program.Name,
+
+                };
+                model.Activities = _context.ProgramActivity.Include(i => i.Activity).Where(w => w.ProgramId == program.Id).Select(s => new RateProgram_VM.RateActivity
+                {
+                    ActivityId = s.ActivityId,
+                    Description = s.Activity.Description,
+                    Image = s.Activity.ImageName,
+                    CurrentRate = _context.Rate.Where(w => w.ActivityId == s.ActivityId).Select(x => (int?)x.RateValue).Average() ?? 1.0,
+                    GivenRate = 1
+                }).ToList();
+                return View(model);
+            }
+            return StatusCode(403);
+        }
+
+        public IActionResult RatingProgram(int[] rateArray, int[] activities, int programId /*RateProgram_VM model*/)
+        {
+            var loggedUserAccount = HttpContext.GetLoggedUser();
+            var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+            for (int i = 0; i < rateArray.Length; i++)
+            {
+                var prRate = _context.Rate.Where(w => w.ActivityId == activities[i] && w.UserId == loggedUser.Id).FirstOrDefault();
+                if (prRate != null)
+                {
+                    prRate.RateValue = rateArray[i];
+                    _context.Rate.Update(prRate);
+                }
+                else
+                {
+                    var rate = new Rate
+                    {
+                        ActivityId = activities[i],
+                        RateValue = rateArray[i],
+                        UserId = loggedUser.Id
+                    };
+                    _context.Rate.Add(rate);
+                }
+            }
+            _context.SaveChanges();
+            return RedirectToAction("RateProgram", new { ProgramId = programId });
+        }
     }
 }

@@ -1,0 +1,26 @@
+﻿@using WebApp.ViewModels.Administration
+@model AddProgramFeedback_VM
+
+<h4>Add new feeedback to customers of @Model.ProgramName</h4>
+<form asp-action="AddingNewFeedback" asp-controller="Administration" class="border-bottom-only padding-20 margin-top-50 margin-bottom-50 w-50 div-align-center d-flex flex-column">
+    <input hidden value="@Model.ProgramId" asp-for="ProgramId" />
+
+    <label>Enter feedback</label>
+    <textarea asp-for="NewFB_Description"></textarea>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+@if (Model.FeedBack.Count() > 0)
+{
+    <div class="padding-20">
+        <p class="margin-left-50px">Previously added feedback</p>
+        @foreach (var fb in Model.FeedBack)
+        {
+            <div class="feedback-block">
+                <h4>@fb.Creator</h4>
+                <h6>Created: @fb.Created.ToString("dd. MMM yyyy. HH:mm")</h6>
+                <p class="padding-20 text-align-justify text-color-darkcyan">@fb.Description</p>
+            </div>
+        }
+    </div>
+}

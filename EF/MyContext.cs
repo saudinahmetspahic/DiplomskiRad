@@ -24,14 +24,16 @@ namespace WebApp.EF
         public DbSet<ProgramActivity> ProgramActivity { get; set; }
         public DbSet<ProgramActivityAttachment> ProgramActivityAttachment { get; set; }
         public DbSet<Activity> Activity { get; set; }   
-        public DbSet<ActivityAttachment> ActivityAttachment { get; set; }
+        public DbSet<ActivityAttachment> ActivityAttachment { get; set; }   
+        public DbSet<AttachmentAddons> AttachmentAddons { get; set; }
         public DbSet<Notification> Notification { get; set; }
 
         public DbSet<Purchase> Purchase { get; set; }
         public DbSet<PurchaseParticipants> PurchaseParticipants { get; set; }
 
         public DbSet<Rate> Rate { get; set; }
-        public DbSet<Sponsor> Sponsor { get; set; }
+        public DbSet<Sponsor> Sponsor { get; set; } 
+        public DbSet<Feedback> Feedback { get; set; }    
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

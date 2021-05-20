@@ -1,0 +1,67 @@
+﻿@using WebApp.ViewModels.Program
+@model RateProgram_VM
+
+
+<div>
+    <h3>Rating @Model.ProgramName</h3>
+
+    <form asp-action="RatingProgram" asp-controller="Program">
+        <input hidden asp-for="ProgramId" />
+        @foreach (var item in Model.Activities)
+        {
+            <div class="d-flex margin-top-50">
+                <input hidden name="programId" value="@Model.ProgramId" />
+                <img class="img-size-200" src="/Images/Administration/@item.Image" alt="" />
+                <p class="padding-left-50 padding-right-50 text-align-justify">
+                    @item.Description
+                </p>
+                <div class="w-50 min-w-200 text-center">
+                    <p>
+                        Current rate: 
+                        @for (int i = 0; i < Math.Round((decimal)item.CurrentRate, 0); i++)
+                        {
+                            <i class="bi bi-star-fill text-color-orange"></i>
+                        }
+                        @for (int i = 0; i < 5 - Math.Round((decimal)item.CurrentRate, 0); i++)
+                        {
+                            <i class="bi bi-star-fill text-color-gray"></i>
+                        }
+                    </p>
+
+                    <div class="d-flex">
+                        <input type="number" name="activities" value="@item.ActivityId" hidden />
+                        <input oninput="javascript: ChangeRate(this, '@item.ActivityId');" type="range" name="rateArray" min="1" max="5" value="1" />
+                        <div id="given_value_@item.ActivityId" class="w-100">
+                            @for (int i = 0; i < (int)item.GivenRate; i++)
+                            {
+                                <p class="d-inline-block">
+                                    <i class="bi bi-star-fill text-color-orange"></i>
+                                </p>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        }
+        <button type="submit" class="btn btn-primary w-100px d-block div-align-center">Rate</button>
+    </form>
+</div>
+
+<script>
+    function ChangeRate(e, id) {
+        $("#given_value_" + id).html("");
+        for (var i = 0; i < e.value; i++) {
+            var p = document.createElement("p");
+            p.className = "d-inline-block";
+            var li = document.createElement("i");
+            li.className = "bi bi-star-fill text-color-orange";
+            p.appendChild(li);
+            document.getElementById("given_value_" + id).appendChild(p);
+        }
+        //$("#given_value_" + id).html(e.value);
+    }
+</script>
+
+
+

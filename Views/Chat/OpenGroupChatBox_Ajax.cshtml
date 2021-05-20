@@ -6,12 +6,12 @@
     <input hidden value="@Model.GroupChatId" id="GroupChatId" />
     <input hidden value="@Model.UserId" id="UserId" />
     <p class="header-text text-color-black"><i class="fa fa-commenting"></i> @Model.GroupName</p>
-    <div>
+    <div class="switch-to-column">
         <button class="btn-light border-0 padding-5" onclick="javascript: LeaveChatGroup('@Model.GroupName', '@Model.UserId');">Leave group</button>
         <button class="btn-info border-0 padding-5" onclick="javascript: AddParticipants('@Model.GroupChatId');">Participants</button>
     </div>
 </div>
-<div class="flex-column padding-50 h-100 scroll-allow" id="messagesDiv">
+<div class="flex-column padding-50 h-100 scroll-allow max-height-500" id="messagesDiv">
 
     @foreach (var i in Model.Messages.OrderBy(o => o.SendingDate))
     {

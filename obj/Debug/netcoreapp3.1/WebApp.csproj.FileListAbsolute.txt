@@ -119,3 +119,7 @@ C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Pr
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Sponsor\SponsorOptions.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Sponsor\GetSponsorsInfo.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Login\GetUsers.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetProgramFeedback.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Administration\AddProgramFeedback.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Catalog\Index.cshtml.g.cs
+C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\RateProgram.cshtml.g.cs

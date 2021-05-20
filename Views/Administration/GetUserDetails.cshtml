@@ -1,7 +1,7 @@
 ﻿@using WebApp.ViewModels.Administration
 @model CustomerDetails_VM
 
-<div class="flex-section-row">
+<div class="flex-section-row switch-to-column">
     <div class="flex-section-row-child-50 d-flex flex-column justify-content-between">
         <table class="table">
             <thead class="table-primary">
@@ -81,8 +81,8 @@
     </div>
 </div>
 
-<p>List of ordered programs</p>
-<table class="table margin-top-50">
+<p class="margin-top-25">List of ordered programs</p>
+<table class="table w-100 overflow-auto table-to-block">
     <thead class="table-light">
         <tr>
             <th>Title</th>
@@ -109,7 +109,7 @@
 </table>
 
 <p>List of created programs</p>
-<table class="table">
+<table class="table w-100 overflow-auto margin-bottom-50">
     <thead class="table-light">
         <tr>
             <th>Title</th>

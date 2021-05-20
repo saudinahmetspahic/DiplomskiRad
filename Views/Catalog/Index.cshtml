@@ -1,0 +1,122 @@
+﻿@using WebApp.ViewModels.Helper
+@using WebApp.ViewModels.Catalog
+@model PeginationList<CatalogPreview_VM>
+@{
+    var searchValue = (string)ViewData["searchValue"];
+    var typeOfAttachment = (string)ViewData["typeOfAttachment"];
+    var orderBy = (string)ViewData["orderBy"];
+    var count = (int)ViewData["count"];
+    var hasP = (bool)ViewData["hasPrevious"] ? "" : "disabled";
+    var hasN = (bool)ViewData["hasNext"] ? "" : "disabled";
+}
+
+<h4>Catalog</h4>
+<p>Explore our homeland and make sure you visit all landmarks of Bosnia and Herzegovina.</p>
+<div class="d-flex">
+    <div class="w-25">
+        <label class="font-weight-bold font-size-20px">Results @count</label>
+        <form asp-action="Index" asp-controller="Catalog" class="catalog-filter-form">
+            <label>Search</label>
+            <input type="text" name="searchValue" placeholder="..." value="@searchValue" />
+            <label>Type</label>
+            <select id="typeOf_Select" name="typeOfAttachment">
+                <option selected value="-1">All</option>
+                <option value="0">Place</option>
+                <option value="1">Building - object</option>
+                <option value="2">Historical</option>
+                <option value="3">Transportation</option>
+                <option value="45">Food</option>
+            </select>
+            <label>Order by</label>
+            <select id="typeOf_Order" name="orderBy">
+                <option selected value="0">Best rating</option>
+                <option value="1">Biggest price</option>
+                <option value="2">Smallest price</option>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+    <div class="w-75">
+        @if (!Model.Any()) { 
+            <h2>No catalog items are found.</h2>
+        }
+        @foreach (var item in Model)
+        {
+            <div class="catalog-item">
+                <div class="catalog-image">
+                    <img src="./Images/Administration/@item.ImageName" alt="Alternate Text" />
+                </div>
+                <table class="catalog-table">
+                    <tr>
+                        <td>
+                            <h3>@item.Title</h3>
+                            <p class="catalog-table-activity"><i class="bi bi-geo-alt-fill text-color-orange"></i> @item.Activity</p>
+                        </td>
+                        <td class="catalog-table-rate">
+                            <div>
+                                @for (int i = 0; i < 5; i++)
+                                {
+                                    var rateStarClass = (i + 1 <= item.Rate ? "text-color-orange" : "text-color-gray");
+                                    <i class="bi bi-star-fill @rateStarClass"></i>
+                                }
+                            </div>
+                            <p class="font-size-13px text-uppercase">Rate</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="catalog-addons">
+                            @foreach (var addon in item.Addons)
+                            {
+                                var img = addon.Item1 + ".png";
+                                <div class="catalog-addon" onmouseover="javascript: ShowHoverInfo(this, '@addon.Item1');">
+                                    <img class="addon-image" src="./Images/Addons/@img" alt="" />
+                                    @if (addon.Item2 > 0)
+                                    {
+                                        <h6>@addon.Item2</h6>
+                                    }
+                                </div>
+                            }
+                        </td>
+                        <td class="background-green w-100px text-center">
+                            <h6>PRICE</h6>
+                            <h5>@(Math.Round(item.Price / 1.95, 2)) €</h5>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        }
+        <a asp-action="Index"
+           asp-route-searchValue="@searchValue"
+           asp-route-typeOfAttachment="@typeOfAttachment"
+           asp-route-orderBy="@orderBy"
+           asp-route-pageIndex="@(Model.PageIndex - 1)"
+           class="btn btn-secondary w-100px margin-left-25px @hasP">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-searchValue="@searchValue"
+           asp-route-typeOfAttachment="@typeOfAttachment"
+           asp-route-orderBy="@orderBy"
+           asp-route-pageIndex="@(Model.PageIndex + 1)"
+           class="btn btn-secondary w-100px @hasN">
+            Next
+        </a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var value = '@typeOfAttachment';
+        var option = $("#typeOf_Select").children("option[value=" + value + "]")[0];
+        option.selected = true;
+
+        value = '@orderBy';
+        var option = $("#typeOf_Order").children("option[value=" + value + "]")[0];
+        option.selected = true;
+    });
+
+</script>
+
+
+

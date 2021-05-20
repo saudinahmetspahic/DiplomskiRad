@@ -122,7 +122,15 @@ namespace WebApp.Controllers
                 Email = loggedUserAccount.Email,
                 Phone = loggedUser.Phone,
                 IsAdmin = (loggedUser.UserAccount.Role == UserRole.Admin),
-                Admins = _context.User.Where(w => w.UserAccount.Role == UserRole.Admin).Select(s => new Tuple<int, string>(s.Id, s.Name + " " + s.Surname)).ToList()
+                Admins = _context.User.Where(w => w.UserAccount.Role == UserRole.Admin).Select(s => new Tuple<int, string>(s.Id, s.Name + " " + s.Surname)).ToList(),
+                Purchases = _context.PurchaseParticipants.Where(w => w.ParticipantId == loggedUser.Id).Select(s => new Registration_VM.PersonalPurchase
+                {
+                    Id = s.PurchaseId,
+                    Created = s.Purchase.DateCreated,
+                    IsCreator = false,
+                    ProgramName = s.Purchase.Program.Name
+                }).ToList()
+
             };
             return View(model);
         }

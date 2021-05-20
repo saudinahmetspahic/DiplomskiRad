@@ -1,9 +1,32 @@
-﻿function CollapseDiv(id) {
+﻿/*const { LogLevel } = require("@microsoft/signalr");*/
+
+function CollapseDiv(id) {
     if ($("#" + id).css("maxHeight") !== "0px")
         $("#" + id).css("maxHeight", "0px");
     else
         $("#" + id).css("maxHeight", "100%");
 }
+
+$(document).ready(function () {
+    $("#short-menu-icon").on("click", function () {
+        if ($("#nav-bar-id").css("display") !== "none")
+            $("#nav-bar-id").css("display", "none");
+        else
+            $("#nav-bar-id").css("display", "block");
+    });
+
+    $("#short-menu-icon-2").on("click", function () {
+        if ($("#nav-bar-id-2").css("display") !== "none")
+            $("#nav-bar-id-2").css("display", "none");
+        else              
+            $("#nav-bar-id-2").css("display", "block");
+    });
+
+
+})
+
+
+
 
 var connection;
 
@@ -37,16 +60,19 @@ function ShowHoverInfo(elem, text) {
     if (document.getElementById("ShowHoverInfoDiv") == null) {
         var e = window.event;
         var posX = e.clientX;
+        if (posX + 15 + 250 >= window.innerWidth)
+            posX -= 300;
         var posY = e.clientY;
 
         var div = document.createElement("div");
         div.id = "ShowHoverInfoDiv";
         div.style.padding = "15px 20px";
         div.style.color = "white";
-        div.style.backgroundColor = "lightgreen";
-        div.style.border = "1px solid darkgreen";
-        div.style.borderRadius = "10px";
-        div.innerHTML = "<i class='bi bi-info-square text-color-white'></i> ";
+        div.style.backgroundColor = "dodgerblue";
+        div.style.border = "1px solid white";
+        div.style.borderRadius = "5px";
+        div.style.maxWidth = "250px";
+        div.innerHTML = "<i class='bi bi-info-square text-color-white'></i><br /><br />";
         div.innerHTML += text;
         div.style.position = "fixed";
         div.style.left = (posX + 15) + "px";
@@ -79,7 +105,25 @@ function LoadProgram(ProgramId, Title, OutPutDiv, Switch, AllowModifications) {
             programname.id = "ProgramNameID";
             programname.value = Title;
             programname.style.display = "none";
+
+            //<div class="d-flex justify-content-center align-items-center">
+            //    <p class="padding-0 margin-5">Check if this program has some feedback. To see it click on button bellow.</p>
+            //    <a class="btn btn-secondary padding-5 margin-5" asp-controller="Program" asp-action="GetProgramFeedback" asp-route-ProgramId="">See feedback</a>
+            //</div>
+            var fbdiv = document.createElement("div");
+            fbdiv.className = "d-flex justify-content-center align-items-center margin-20";
+            var p = document.createElement("p");
+            p.className = "padding-0 margin-5";
+            p.textContent = "Check if this program has some feedback. To see it click on button bellow.";
+            var a = document.createElement("a");
+            a.className = "btn btn-secondary padding-5 margin-5";
+            a.textContent = "See feedback";
+            a.href = "/Program/GetProgramFeedback?ProgramId=" + ProgramId;
+            fbdiv.appendChild(p);
+            fbdiv.appendChild(a);
+
             document.getElementById(OutPutDiv).appendChild(programname);
+            document.getElementById(OutPutDiv).appendChild(fbdiv);
 
             var daysdiv = document.createElement("div");
             daysdiv.id = "DaysDiv";
@@ -92,6 +136,7 @@ function LoadProgram(ProgramId, Title, OutPutDiv, Switch, AllowModifications) {
         }
     });
     AddAttachment(1, 1, 0);
+
 }
 
 function AddToPlan(day, activity, attachment, outputdiv, allowmodifications) {
@@ -164,20 +209,17 @@ function AddDay(day, allowmodifications) {
         var content = document.createElement("div");
 
         var p = document.createElement("p");
-        p.textContent = "Keep in mind that when you change day all activities of that specific day will change to day you choose.";
+        p.textContent = "Keep in mind that when you change day all activities of that specific day will change to day you choose. (current day: " + day + ")";
 
         var div = document.createElement("div");
         div.className = "d-flex align-items-center justify-content-center margin-top-20";
 
-        var h5 = document.createElement("h5");
-        h5.textContent = "Current day " + day + " => ";
         var input = document.createElement("input");
         input.className = "outline-none text-center margin-left-5px";
         input.type = "number";
         input.min = 1;
         input.max = 100;
 
-        div.appendChild(h5);
         div.appendChild(input);
 
         content.appendChild(p);
@@ -234,7 +276,7 @@ function AddActivity(day, activity, allowmodifications) {
     maindiv.className = "div-section-list-item activity box-shadow";
 
     var innerdiv1 = document.createElement("div");
-    innerdiv1.className = "d-flex row justify-content-between margin-side-10 margin-bottom-20 border-bottom";
+    innerdiv1.className = "d-flex row justify-content-between margin-side-10 margin-bottom-20 border-bottom switch-to-column";
 
     var headerdiv = document.createElement("div");
     headerdiv.className = "flex-section-row align-items-center";
@@ -254,7 +296,7 @@ function AddActivity(day, activity, allowmodifications) {
     headerdiv.appendChild(h6);
 
     var removeactivity = document.createElement("button");
-    removeactivity.className = "padding-5 btn-white-black border-0";
+    removeactivity.className = "padding-5 btn-white-black border-0 div-align-center";
     removeactivity.innerHTML = "<i class='bi bi-trash'></i> Remove activity (and attachments)";
     removeactivity.addEventListener("click", function () {
         var ProgramName = $("#ProgramNameID").val();
@@ -265,23 +307,61 @@ function AddActivity(day, activity, allowmodifications) {
         });
     });
 
+    var timediv = document.createElement("div");
+    timediv.className = "d-flex flex-column align-items-end";
+
     var input = document.createElement("input");
     input.className = "input-time";
     input.type = "time";
-    input.value = "12:00";
+    input.value = "00:00";
+    var ProgramName = $("#ProgramNameID").val();
+    $.get("/Program/GetCurrentTimeOfActivity?ProgramName=" + ProgramName + "&Activity=" + activity + "&Day=" + day, function (result, status) {
+        if (status == "success") {
+            input.value = result; //"12:00" 
+        }
+    });
+
     if (allowmodifications == false)
         input.disabled = true;
+    input.addEventListener("blur", function () {
+        $.post("/Program/ChangeActivityTime?ProgramName=" + ProgramName + "&Activity=" + activity + "&Day=" + day + "&Time=" + input.value);
+    });
+
+    var dedicatedtimediv = document.createElement("div");
+    dedicatedtimediv.className = "d-flex align-items-center";
+    var pp = document.createElement("p");
+    pp.className = "margin-0 padding-5";
+    pp.textContent = "Dedicated hours ";
+    var inputhours = document.createElement("input");
+    inputhours.className = "w-50px border-bottom-only text-center";
+    inputhours.type = "number";
+    $.get("/Program/GetActivityDuration?ProgramName=" + ProgramName + "&Activity=" + activity + "&Day=" + day, function (result, status) {
+        if (status == "success") {
+            inputhours.value = result;
+        }
+    });
+    if (allowmodifications == false)
+        inputhours.disabled = true;
+    inputhours.addEventListener("blur", function () {
+        $.post("/Program/ChangeActivityDuration?ProgramName=" + ProgramName + "&Activity=" + activity + "&Day=" + day + "&DedicatedHours=" + inputhours.value);
+    });
+
+    dedicatedtimediv.appendChild(pp);
+    dedicatedtimediv.appendChild(inputhours);
+
+    timediv.appendChild(input);
+    timediv.appendChild(dedicatedtimediv);
 
     innerdiv1.appendChild(headerdiv);
     if (allowmodifications == true)
         innerdiv1.appendChild(removeactivity);
-    innerdiv1.appendChild(input);
+    innerdiv1.appendChild(timediv);
 
     var innerdiv2 = document.createElement("div");
     innerdiv2.className = "d-flex flex-column w-100 overflow-hidden padding-0";
     innerdiv2.id = "Day_" + day + "_Activity_" + activity + "_Collapse";
 
-    var p = document.createElement("p");
+    var p = document.createElement("div");
     $.get("/Program/GetActivityDescription?ActivityId=" + activity, function (result, status) {
         if (status == "success") {
             //var data = JSON.parse(JSON.stringify(result));
@@ -328,7 +408,7 @@ function AddActivity(day, activity, allowmodifications) {
 
     var innerdiv4 = document.createElement("div"); // added attachments
     innerdiv4.id = "Day_" + day + "_Activity_" + activity + "_AttachmentsDiv";
-    innerdiv4.className = "w-100 padding-0 d-flex flex-row flex-wrap justify-content-center align-items-start border-color-custom border-size-3 overflow-hidden";
+    innerdiv4.className = "w-100 padding-0 d-flex flex-row flex-wrap justify-content-center align-items-start border-color-custom border-size-3 overflow-hidden switch-to-column";
 
     //innerdiv2.appendChild(innerdiv1);
     innerdiv2.appendChild(p);
@@ -986,3 +1066,4 @@ function RenamePlane() {
 
 
 }
+

@@ -72,6 +72,29 @@ namespace WebApp.Migrations
                     b.ToTable("ActivityAttachment");
                 });
 
+            modelBuilder.Entity("WebApp.EntityModels.AttachmentAddons", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("AddonType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AttachmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Distance")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttachmentId");
+
+                    b.ToTable("AttachmentAddons");
+                });
+
             modelBuilder.Entity("WebApp.EntityModels.AuthToken", b =>
                 {
                     b.Property<int>("ID")
@@ -93,6 +116,34 @@ namespace WebApp.Migrations
                     b.HasIndex("UserAccountId");
 
                     b.ToTable("AuthToken");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProgramId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("ProgramId");
+
+                    b.ToTable("Feedback");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.GroupChat", b =>
@@ -283,8 +334,14 @@ namespace WebApp.Migrations
                     b.Property<int>("DayOfProgram")
                         .HasColumnType("int");
 
+                    b.Property<int>("DedicatedHours")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProgramId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -485,6 +542,17 @@ namespace WebApp.Migrations
                     b.Navigation("Activity");
                 });
 
+            modelBuilder.Entity("WebApp.EntityModels.AttachmentAddons", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.ActivityAttachment", "Attachment")
+                        .WithMany()
+                        .HasForeignKey("AttachmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attachment");
+                });
+
             modelBuilder.Entity("WebApp.EntityModels.AuthToken", b =>
                 {
                     b.HasOne("WebApp.EntityModels.UserAccount", "UserAccount")
@@ -494,6 +562,25 @@ namespace WebApp.Migrations
                         .IsRequired();
 
                     b.Navigation("UserAccount");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.Feedback", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApp.EntityModels.Program", "Program")
+                        .WithMany()
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Program");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.GroupChatMessage", b =>

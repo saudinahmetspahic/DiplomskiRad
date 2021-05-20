@@ -2,7 +2,7 @@
 @model ChatListingMessages_VM
 
 <p class="header-text text-color-black"><i class="fa fa-commenting"></i> Message @Model.RecieverName</p>
-<div class="flex-column padding-50 h-100 scroll-allow" id="messagesDiv">
+<div class="flex-column padding-50 h-100 scroll-allow max-height-500" id="messagesDiv">
     <input hidden id="ChatId" value="@Model.ChatId" />
     <input hidden id="SenderId" value="@Model.SenderId" />
     <input hidden id="RecieverId" value="@Model.RecieverId" />
@@ -41,12 +41,12 @@
     }
 
 
-    //connection.on("RemovedFromGroup", function (Group, User) {
-    //    console.log("Removed -> group=" + Group + " / user=" + User);
-    //});
-    //connection.on("AddedToGroup", function (Group, User) {
-    //    console.log("Added -> group=" + Group + " / user=" + User);
-    //});
+    connection.on("RemovedFromGroup", function (Group, User) {
+        console.log("Removed -> group=" + Group + " / user=" + User);
+    });
+    connection.on("AddedToGroup", function (Group, User) {
+        console.log("Added -> group=" + Group + " / user=" + User);
+    });
 
     connection.on("RecieveMessage", function (Group, Sender, Message) {
         if ($("#ChatId").val() !== Group)

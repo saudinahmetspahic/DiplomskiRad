@@ -1,65 +1,81 @@
 ﻿@{
     Layout = "_LandingPageLayout";
+    var msg = (string)TempData["msg"];
 }
+@if (msg != null)
+{
+    <div class="warning-message">@msg</div>
+}
+<script>
+    setTimeout(function () {
+        $(".warning-message").remove();
+    }, 4000);
+</script>
 
 <div>
-    <div class="position-relative h-100-vh">
-        <div class="custom-section h-80perc">
+    <div class="position-relative margin-bottom-50">
+        <div id="top-image" class="custom-section h-80perc">
             <img src="~/Images/kravice.jpg" alt="Kravice" />
         </div>
-        <!--<div class="d-flex justify-content-between background-midnightblue text-color-white user-select-none">
-            <div class="text-align-left padding-20 indicator-from-left font-josefin-sans">
-                <h2 class="margin-0">It's time to start your</h2>
-                <h1 class="font-weight-bold">ADVENTURE</h1>-->
-        @*class="indicator cursor-animation-2"*@
-        <!--<p class="font-patrick-hand">We can help you explore our homeland and culture.</p>
-            </div>
-            <div class="text-align-right padding-20 indicator-from-right font-josefin-sans">
-                <h2 class="margin-0">It's your up to you to</h2>
-                <h1 class="font-weight-bold">CHOOSE</h1>
-                <p class="font-patrick-hand">Register yourself to be able to design your program.</p>
-            </div>
-        </div>-->
-        @*<img class="logo-img border-radius-5" src="~/Images/Embedded/company_logo.jpg" />*@
         <div id="programsPreview" class="font-family-ubuntu">
 
         </div>
-        @*<img class="rounded-profile-img profile-img-border object-fit-cover" src="~/Images/bascarsija.jpg" alt="Bascarsija" />*@
     </div>
 
-
+    <div>
+        <div class="presentation-section">
+            <img class="presentation-section-bg" src="/Images/pyramid.jpg" alt="Alternate Text" />
+            <div class="presentation-section-image">
+                <img src="/Images/semir_osmanagic.jpg" alt="Alternate Text" />
+            </div>
+            <div class="presentation-section-info">
+                <h4>Pyramids</h4>
+                <p>Our friend Dr. Semir Osmanagic is responsible for discovering the pyramids in the city of Visoko. Many people with health problems come to the pyramids because of the negative jonahs, the tunnels that lead to the heart of the pyramid, but also because of the parks on the surface of the pyramid.</p>
+            </div>
+        </div>
+        <div class="presentation-section">
+            <img class="presentation-section-bg" src="/Images/pyramid.jpg" alt="Alternate Text" />
+            <div class="presentation-section-info">
+                <h4>Pyramids</h4>
+                <p>Our friend Dr. Semir Osmanagic is responsible for discovering the pyramids in the city of Visoko. Many people with health problems come to the pyramids because of the negative jonahs, the tunnels that lead to the heart of the pyramid, but also because of the parks on the surface of the pyramid.</p>
+            </div>
+            <div class="presentation-section-image">
+                <img src="/Images/semir_osmanagic.jpg" alt="Alternate Text" />
+            </div>
+        </div>
+    </div>
 
     @* info cards *@
-    <div class="flex-section-column justify-content-center w-100 h-100-vh zIndexUp sectionMargin background-light font-family-ubuntu">
-        <div class="flex-section-row justify-content-around align-items-lg-center padding-5">
-            <div class="custom-card cursor cursor-animation-1">
-                <h3>Plans</h3>
-                <p>Create your own plan for visiting our homeland, dynamically with help of our web app. Everything is one click away from you.</p>
+    @*<div id="card-section-div" class="flex-section-column justify-content-center w-100 padding-50 margin-top-50 zIndexUp sectionMargin background-light font-family-ubuntu">
+            <div class="card-section flex-section-row justify-content-around align-items-lg-center padding-5">
+                <div class="custom-card cursor cursor-animation-1">
+                    <h3>Plans</h3>
+                    <p>Create your own plan for visiting our homeland, dynamically with help of our web app. Everything is one click away from you.</p>
+                </div>
+                <div class="custom-card cursor cursor-animation-1">
+                    <h3>Invoices</h3>
+                    <p>After you create your plan you will get an indepth view on economical side of your plan, which gives you rough amout of costs.</p>
+                </div>
+                <div class="custom-card cursor cursor-animation-1">
+                    <h3>Chat<span class="glyphicon glyphicon-user"></span></h3>
+                    <p>If you need some information from us, you can send us a message or you can create a group messaging room to talk to others if you come in groups.</p>
+                </div>
             </div>
-            <div class="custom-card cursor cursor-animation-1">
-                <h3>Invoices</h3>
-                <p>After you create your plan you will get an indepth view on economical side of your plan, which gives you rough amout of costs.</p>
+            <div class="card-section flex-section-row justify-content-around align-items-lg-center padding-5">
+                <div class="custom-card cursor cursor-animation-2">
+                    <h3 class="">Monitoring</h3>
+                    <p>You can always have a look at the details about group members and their current status and responsibilities.</p>
+                </div>
+                <div class="custom-card cursor cursor-animation-2">
+                    <h3 class="">Notices</h3>
+                    <p>Read newest notices to stay informed about your or your group daily activities.</p>
+                </div>
+                <div class="custom-card cursor cursor-animation-2">
+                    <h3 class="">Referentives</h3>
+                    <p>Find out who we suggest you for transportation, accommodation and nutrition.</p>
+                </div>
             </div>
-            <div class="custom-card cursor cursor-animation-1">
-                <h3>Chat<span class="glyphicon glyphicon-user"></span></h3>
-                <p>If you need some information from us, you can send us a message or you can create a group messaging room to talk to others if you come in groups.</p>
-            </div>
-        </div>
-        <div class="flex-section-row justify-content-around align-items-lg-center padding-5">
-            <div class="custom-card cursor cursor-animation-2">
-                <h3 class="">Monitoring</h3>
-                <p>You can always have a look at the details about group members and their current status and responsibilities.</p>
-            </div>
-            <div class="custom-card cursor cursor-animation-2">
-                <h3 class="">Notices</h3>
-                <p>Read newest notices to stay informed about your or your group daily activities.</p>
-            </div>
-            <div class="custom-card cursor cursor-animation-2">
-                <h3 class="">Referentives</h3>
-                <p>Find out who we suggest you for transportation, accommodation and nutrition.</p>
-            </div>
-        </div>
-    </div>
+        </div>*@
 
     @* sponsors *@
     <div id="sponsors" class="sectionMargin">
@@ -67,28 +83,24 @@
     </div>
 
     @* cards *@
-    <div class="flex-section-row justify-content-around padding-50 background-gainsboro user-select-none">
-        <div class="w-33perc">
+    <div id="contact-lists-div" class="flex-section-row justify-content-around padding-50 background-gainsboro user-select-none">
+        <div class="contact-list">
             <h5 class="card-title text-center">&#128222; Contact</h5>
-            <p class="card-text text-center">
-                <ul class="w-50 div-align-center">
-                    <li><i class="fa fa-envelope"></i> respectzajim@gmail.com</li>
-                    <li><i class="fa fa-phone-square"></i> <i class="fa fa-comment"></i> +387/62-973-830</li>
-                    @*<li><i class="fa fa-commenting"></i> Send a private message here</li>*@
-                    <li><i class="fa fa-facebook-official"></i> Facebook</li>
-                </ul>
-            </p>
+            <ul class="w-50 div-align-center">
+                <li><i class="fa fa-envelope"></i> respectzajim@gmail.com</li>
+                <li><i class="fa fa-phone-square"></i> <i class="fa fa-comment"></i> +387/62-973-830</li>
+                @*<li><i class="fa fa-commenting"></i> Send a private message here</li>*@
+                <li><i class="fa fa-facebook-official"></i> Facebook</li>
+            </ul>
         </div>
-        <div class="w-33perc">
+        <div class="contact-list">
             <h5 class="card-title text-center">&#127758; Location</h5>
-            <p class="card-text text-center">
-                <ul class="w-50 div-align-center">
-                    <li>We are located in Zenica</li>
-                    <li>Bosnia and Herzegovina</li>
-                    <li>Street Branilaca Bosne 14</li>
-                    @*<li>Working time 09:00-17:00</li>*@
-                </ul>
-            </p>
+            <ul class="w-50 div-align-center">
+                <li>We are located in Zenica</li>
+                <li>Bosnia and Herzegovina</li>
+                <li>Street Branilaca Bosne 14</li>
+                @*<li>Working time 09:00-17:00</li>*@
+            </ul>
         </div>
     </div>
 
@@ -105,6 +117,9 @@
     <script>
         $(document).scroll(function () {
 
+            var x = window.innerWidth;
+            if (x < 1000)
+                return;
             var y = window.scrollY;
             if (y > 50) {
                 $("nav").addClass("fixed-nav");
@@ -117,9 +132,10 @@
 
         });
 
+        var interval;
         $(document).ready(function () {
             getPrograms([], 3);
-            setInterval(function () {
+            interval = setInterval(function () {
                 var ids = [];
                 var addedprograms = document.getElementById("programsPreview").children;
                 for (var i = 0; i < addedprograms.length; i++) {
@@ -145,6 +161,12 @@
                             $("#programsPreview").children().first().remove();
                         }
                         $("#programsPreview").append(result);
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status == 406) {
+                        // killing interval because there is no need for it as there is no enough programs to show
+                        clearInterval(interval);
                     }
                 }
             });

@@ -15,6 +15,8 @@ namespace WebApp.EntityModels
         public Program Program { get; set; }
 
         public int DayOfProgram { get; set; }
+        public DateTime Start { get; set; } 
+        public int DedicatedHours { get; set; }
 
         [ForeignKey(nameof(ActivityId))]
         public int ActivityId { get; set; }

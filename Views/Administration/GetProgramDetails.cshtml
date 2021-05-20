@@ -5,7 +5,7 @@
 
 <div>
     <table class="table">
-        <tr class="table-primary">
+        <tr class="table-primary switch-to-column">
             <th>Title</th>
             <td>@Model.ProgramDetails.Name</td>
             <th>Creator</th>
@@ -19,7 +19,7 @@
         </tr>
     </table>
     <table class="table">
-        <tr class="table-primary">
+        <tr class="table-primary switch-to-column">
             <th>Number of sells</th>
             <td>@Model.NumberOfSells</td>
             <th>Expected price</th>
@@ -37,14 +37,15 @@
 <p class="margin-top-50">This is program made by @Model.ProgramDetails.Creator, that can be modified by administrators. Once administrator change program it will become private and change status to OnHold. Creator has to approve administrators changes before program can be applied. To modify program press the button at bottom of the page.</p>
 <div id="BuildProgramDiv">
     @*<h3 id="ProgramNameID"></h3>
-    <div id="DaysDiv" class="div-section-list-item">
-    </div>*@
+        <div id="DaysDiv" class="div-section-list-item">
+        </div>*@
 </div>
 
 
-<div class="d-flex flex-row">
+<div class="d-flex flex-row switch-to-column">
     <button onclick="javascript: ChangeState('@Model.ProgramDetails.Id', 'Change state', '@Model.ProgramDetails.ProgramState');" class="w-100 padding-20 btn-danger"><i class="bi bi-arrow-bar-right"></i> Change state</button>
     <button onclick="javascript: ChangeAccess('@Model.ProgramDetails.Id', 'Change access', '@Model.ProgramDetails.ProgramAccess');" class="w-100 padding-20 btn-danger"><i class="bi bi-binoculars-fill"></i> Change access</button>
+    <a class="w-100 padding-20 btn btn-danger border-radius-0" asp-action="AddProgramFeedback" asp-controller="Administration" asp-route-ProgramId="@Model.ProgramDetails.Id"><i class="bi bi-binoculars-fill"></i> Add feedback</a>
     <button onclick="location.href = '/Program/RemoveProgram?ProgramId=@Model.ProgramDetails.Id'" class="w-100 padding-20 btn-danger"><i class="bi bi-shield-fill-x"></i> REMOVE</button>
 </div>
 

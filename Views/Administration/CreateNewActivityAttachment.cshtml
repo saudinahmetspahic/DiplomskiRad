@@ -1,7 +1,7 @@
 ﻿@using WebApp.ViewModels.Administration
 @model AddNewActivityAttachment_VM
 
-<div class="flex-section-row margin-top-25">
+<div class="flex-section-row margin-top-25 switch-to-column">
     <form enctype="multipart/form-data" class="flex-section-row-child-50 padding-5" asp-action="AddNewActivityAttachment" asp-controller="Administration">
 
         <input hidden asp-for="ActivityId" value="@Model.ActivityId" />

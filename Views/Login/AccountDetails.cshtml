@@ -118,6 +118,30 @@
     </div>
 }
 
+@if (Model.Purchases.Any())
+{
+    <p class="w-100 margin-top-50 padding-5 border-top border-info">List of program purcheses.<br />Click on row to see more details about specific purchase.</p>
+    <table class="table table-light w-100">
+        <thead class="table-primary">
+            <tr>
+                <th>Created</th>
+                <th>Creator</th>
+                <th>Program</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Purchases)
+            {
+                <tr class="cursor focus-hover focus-border" onclick="location.href='/Purchase/GetProgramPurchasesDetails?PurchaseId=@p.Id'">
+                    <td>@p.Created.ToString("dd. MMM yyyy. HH:mm")</td>
+                    <td>@(p.IsCreator ? "Yes" : "No")</td>
+                    <td>@p.ProgramName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 <script>
 
     function GetUsers() {

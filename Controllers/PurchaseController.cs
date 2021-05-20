@@ -8,6 +8,7 @@ using WebApp.EF;
 using WebApp.EntityModels;
 using WebApp.Helper;
 using WebApp.ViewModels.Purchase;
+using static WebApp.Helper.Autorization;
 
 namespace WebApp.Controllers
 {
@@ -140,13 +141,9 @@ namespace WebApp.Controllers
             }).ToList();
             return PartialView(model);
         }
-
+        [Autorization(false, true)]
         public IActionResult IssueAnInvoice(int PurchaseId)
         {
-            if (PurchaseId > 0)
-            {
-
-            }
             return View();
         }
     }

@@ -4,7 +4,7 @@
 
 <form enctype="multipart/form-data" asp-action="AddNewActivity" asp-controller="Administration" method="post">
 
-    <div class="flex-section-row">
+    <div class="flex-section-row switch-to-column">
         <div class="flex-section-row-child-50">
             <label>Enter title</label>
             <input type="text" asp-for="Title" />
@@ -17,7 +17,7 @@
                 <input asp-for="Image" class="custom-file-input" />
                 <label class="custom-file-label">Choose picture</label>
             </div>
-            <button type="submit" class="btn-primary padding-5 div-align-right d-block margin-top-25 w-300px">Create</button>
+            <button type="submit" class="btn-primary padding-5 div-align-right d-block margin-top-25 w-300px div-align-center">Create</button>
         </div>
         <div class="flex-section-row-child-50 alert alert-success padding-5 margin-0 margin-left-25px">
             <h4 class="margin-bottom-20">Creating activity</h4>

@@ -22,7 +22,8 @@ namespace WebApp.ViewModels.Administration
             public string Name { get; set; }
             public string Description { get; set; }
             public double PriceToVisit { get; set; }
-            public string ImageSrc { get; set; }
+            public string ImageSrc { get; set; }    
+            public List<Tuple<TypeOfAddons, int>> Addons { get; set; }
         }
     }
 }

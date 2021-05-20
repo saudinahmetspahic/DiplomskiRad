@@ -9,7 +9,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.EF;
 using WebApp.EntityModels;
+using WebApp.Helper;
 using WebApp.ViewModels.Administration;
+using WebApp.ViewModels.Util;
 using static WebApp.Helper.Autorization;
 
 namespace WebApp.Controllers
@@ -72,9 +74,43 @@ namespace WebApp.Controllers
                                   PriceToVisit = s.PriceToVisit,
                                   TypeOfAttachment = s.TypeOfAttachment,
                                   ImageSrc = Path.Combine(uploadPath, string.IsNullOrEmpty(s.ImageName) ? "default.jpg" : s.ImageName),
+                                  Addons = new List<Tuple<TypeOfAddons, int>>(_context.AttachmentAddons.Where(w => w.AttachmentId == s.Id).Select(x => new Tuple<TypeOfAddons, int>(x.AddonType, x.Distance)).ToList())
                               }).ToList()
             };
             return View(model);
+        }
+
+        public IActionResult AddAddonToAttachment(int ActivityId, int AttachmentId, int Addon)
+        {
+            var attachment = _context.ActivityAttachment.Where(w => w.Id == AttachmentId).FirstOrDefault();
+            if (attachment != null)
+            {
+                var added = _context.AttachmentAddons.Where(w => w.AttachmentId == attachment.Id && w.AddonType == (TypeOfAddons)Addon).Any();
+                if (!added)
+                {
+                    var newaddon = new AttachmentAddons
+                    {
+                        AddonType = (TypeOfAddons)Addon,
+                        AttachmentId = attachment.Id,
+                        Distance = 0
+                    };
+                    _context.AttachmentAddons.Add(newaddon);
+                    _context.SaveChanges();
+                }
+            }
+            return RedirectToAction("GetActivityDetails", new { ActivityId = ActivityId });
+        }
+
+
+        public IActionResult SetAddonDistance(int AttachmentId, int Addon, int Distance)
+        {
+            var addon = _context.AttachmentAddons.Where(w => w.AttachmentId == AttachmentId && w.AddonType == (TypeOfAddons)Addon).FirstOrDefault();
+            if (addon == null)
+                return StatusCode(403);
+            addon.Distance = Distance;
+            _context.AttachmentAddons.Update(addon);
+            _context.SaveChanges();
+            return Ok();
         }
 
         public IActionResult CreateNewActivity()
@@ -368,9 +404,9 @@ namespace WebApp.Controllers
                 },
                 DateStateChanged = program.DateStateChanged,
                 DateAccessChanged = program.DateAccessChanged,
-                NumberOfSells = 0, // zavrsiti,
+                NumberOfSells = _context.Purchase.Count(w => w.ProgramId == program.Id),
                 ProgramPriceExpected = price,
-                TotalPriceOfSellsExpected = 0,//zavrsiti ( price * broj ljudi na planu )
+                TotalPriceOfSellsExpected = price * _context.PurchaseParticipants.Count(w => w.Purchase.ProgramId == program.Id), // ( price * broj ljudi na planu )
                 Activities = activities.Select(s => new GetProgramDetails_VM._Activity
                 {
                     Title = s.Activity.Title,
@@ -450,6 +486,39 @@ namespace WebApp.Controllers
             _context.Program.Update(program);
             await _context.SaveChangesAsync();
             return Ok();
+        }
+
+        public IActionResult AddProgramFeedback(int ProgramId)
+        {
+            var model = new AddProgramFeedback_VM
+            {
+                ProgramId = ProgramId,
+                ProgramName = _context.Program.Where(w => w.Id == ProgramId).Select(s => s.Name).FirstOrDefault(),
+                FeedBack = new List<AddProgramFeedback_VM.FB>()
+            };
+            model.FeedBack = _context.Feedback.Where(w => w.ProgramId == ProgramId).Select(s => new AddProgramFeedback_VM.FB
+            {
+                Creator = s.Creator.Name + " " + s.Creator.Surname,
+                Created = s.Created,
+                Description = s.Description
+            }).ToList();
+            return View(model);
+        }
+
+        public IActionResult AddingNewFeedback(AddProgramFeedback_VM model)
+        {
+            var loggedUserAccount = HttpContext.GetLoggedUser();
+            var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+            var fb = new Feedback
+            {
+                Created = DateTime.Now,
+                Description = model.NewFB_Description,
+                ProgramId = model.ProgramId,
+                CreatorId = loggedUser.Id
+            };
+            _context.Feedback.Add(fb);
+            _context.SaveChanges();
+            return RedirectToAction("GetProgramDetails", new { ProgramId = model.ProgramId });
         }
     }
 }

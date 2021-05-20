@@ -1,8 +1,9 @@
 ﻿@using WebApp.ViewModels.Administration
+@using WebApp.EntityModels
 @model GetActivityDetails_VM
 
 
-<div class="flex-section-row align-content-around border border-secondary">
+<div class="flex-section-row align-content-around border border-secondary switch-to-column">
     <div id="Activity_@Model.ActivityId" class="w-50 position-relative d-flex align-items-center min-h-200">
         <img class="w-100 h-auto" src="@Model.ImageSrc" alt="Image" />
         <div onclick="javascript: AddNewPhoto('Activity_@Model.ActivityId', 'Activity', '@Model.ActivityId', 0);" class="position-absolute left0 bottom0 w-100 h-100 show-on-hover cursor text-black-50 font-weight-bold text-uppercase d-flex justify-content-center align-items-center"><p class="padding-5 background-dark text-white">Add new image</p></div>
@@ -28,7 +29,7 @@
                 <div class="font-weight-bold flex-grow-2 padding-5 d-flex flex-row justify-content-center align-items-center"><i onclick="javascript: ChagePrice('@item.AttachmentId');" class="bi bi-pencil-square cursor margin-right-5"></i><p id="AttachmentPrice_@item.AttachmentId" class="margin-0">@(Math.Round(item.PriceToVisit, 2)) (BAM) - @(Math.Round(item.PriceToVisit / 1.95, 2)) (€)</p></div>
                 <div class="font-weight-bold flex-grow-1 cursor text-align-right" onclick="location.href = '/Administration/RemoveActivityAttachment?AttachmentId=@item.AttachmentId'"><i class="bi bi-trash"></i></div>
             </div>
-            <div class="border-top border-info padding-5 flex-section-row">
+            <div class="border-top border-info padding-5 flex-section-row switch-to-column">
                 <div id="Attachment_@item.AttachmentId" class="flex-section-row-child-50 padding-5 w-50 position-relative d-flex align-items-center min-h-200">
                     <img class="w-100 h-auto" src="@item.ImageSrc" alt="" />
                     <div onclick="javascript: AddNewPhoto('Attachment_@item.AttachmentId', 'Attachment', '@Model.ActivityId', '@item.AttachmentId');" class="position-absolute left0 bottom0 w-100 h-100 show-on-hover cursor text-black-50 font-weight-bold text-uppercase d-flex justify-content-center align-items-center"><p class="padding-5 background-dark text-white">Add new image</p></div>
@@ -37,6 +38,29 @@
                     @item.Description
                 </div>
             </div>
+            <div class="d-flex justify-content-center">
+                @for (int i = 0; i < 7; i++)
+                {
+                    var type = ((TypeOfAddons)(i)).ToString();
+                    var image = type + ".png";
+                    var added = item.Addons.Where(w => w.Item1 == (TypeOfAddons)(i)).FirstOrDefault();
+                    var addedClass = added != null ? "AddedAddon" : "NotAddedAddon";
+                    <div class="@addedClass" onclick="javascript: AddAddon('@Model.ActivityId', '@item.AttachmentId', '@i', '@(added != null)', '@(added?.Item2 ?? 0)');">
+                        <img class="addon-image" src="~/Images/Addons/@image" alt="" />
+                        <p>@type</p>
+                    </div>
+                }
+                @*@foreach (var addon in item.Addons)
+                    {
+                        var image = addon + ".png";
+                        <img class="addon-image" src="~/Images/Addons/@image" alt="" />
+                    }*@
+                @*<img class="addon-image cursor" onclick="javascript: AddAddon('@item.AttachmentId');" src="~/Images/Embedded/add.png" alt="" />
+                    <div id="add_addon_for_attach_@item.AttachmentId">
+
+                    </div>*@
+            </div>
+
         </div>
     }
 </div>
@@ -47,6 +71,37 @@
 </div>
 
 <script>
+    function AddAddon(activity, attachment, addontype, added, distance) {
+        if (added === "False") {
+            location.href = "/Administration/AddAddonToAttachment?ActivityId=" + activity + "&AttachmentId=" + attachment + "&Addon=" + addontype;
+        }
+        else {
+            var div = document.createElement("div");
+            var p = document.createElement("p");
+            p.className = "padding-5 text-align-left";
+            p.textContent = "(Not mandatory) Enter distance of addon (in meters) and press 'Save changes' to save changes you made.";
+
+            var input = document.createElement("input");
+            input.className = "w-100 padding-5 margin-20";
+
+            div.appendChild(p);
+            div.appendChild(input);
+
+            MakeCustomModal("Update addon distance", div, true, function () {
+                let val = input.value;
+                if (val < 0)
+                    val = 0;
+                if (val > 100000)
+                    val = 100000;
+                $.get("/Administration/SetAddonDistance?AttachmentId=" + attachment + "&Addon=" + addontype + "&Distance=" + val, function (result, status) {
+                    if (status === "success") {
+                        Message("Addon distance successfully set.");
+                    }
+                });
+            });
+        }
+    }
+
     function ChagePrice(AttachmentId) {
         var p = document.getElementById('AttachmentPrice_' + AttachmentId);
         p.innerHTML = "";
