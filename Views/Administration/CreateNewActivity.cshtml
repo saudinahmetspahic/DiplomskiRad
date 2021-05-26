@@ -1,39 +1,36 @@
 ﻿@using WebApp.ViewModels.Administration
 @model AddNewActivity_VM
 
+<div class="flex-section-row switch-to-column w-75 div-align-center">
+    <form class="form flex-section-row-child-50" enctype="multipart/form-data" asp-action="AddNewActivity" asp-controller="Administration" method="post">
+        <label class="form-label">Enter title</label>
+        <input class="form-input" type="text" asp-for="Title" />
 
-<form enctype="multipart/form-data" asp-action="AddNewActivity" asp-controller="Administration" method="post">
+        <label class="form-label">Enter detailed description of activity. Description is very important, so make sure it implicates all important information for clients.</label>
+        <textarea asp-for="Description" class="w-100 form-input" placeholder="Enter description here.." cols="10" rows="5"></textarea>
 
-    <div class="flex-section-row switch-to-column">
-        <div class="flex-section-row-child-50">
-            <label>Enter title</label>
-            <input type="text" asp-for="Title" />
-
-            <label>Enter detailed description of activity. Description is very important, so make sure it implicates all important information for clients.</label>
-            <textarea asp-for="Description" class="w-100" placeholder="Enter description here.." cols="10" rows="5"></textarea>
-
-            <label>Upload a photo that is related to activity.</label>
-            <div class="custom-file">
-                <input asp-for="Image" class="custom-file-input" />
-                <label class="custom-file-label">Choose picture</label>
-            </div>
-            <button type="submit" class="btn-primary padding-5 div-align-right d-block margin-top-25 w-300px div-align-center">Create</button>
+        <label class="form-label">Upload a photo that is related to activity.</label>
+        <div class="custom-file">
+            <input asp-for="Image" class="custom-file-input form-input" />
+            <label class="custom-file-label form-label">Choose picture</label>
         </div>
-        <div class="flex-section-row-child-50 alert alert-success padding-5 margin-0 margin-left-25px">
-            <h4 class="margin-bottom-20">Creating activity</h4>
-            <p>
-                To create a new activity fill out the form.
-                <br />
-                When you create activity it will be available for making new programs.
-                <br />
-                Provide the best description because users will see it and make decisions based on them.
-                <br />
-                Make sure you upload picture that represents it in best way.
-                <br />
-            </p>
-            <h5>Press 'Create' to add activity.</h5>
-        </div>
+        <button type="submit">Create</button>
+    </form>
+    <div class="flex-section-row-child-50 alert alert-success padding-5 margin-0 margin-left-25px max-width-400px">
+        <h4 class="margin-bottom-20">Creating activity</h4>
+        <p>
+            To create a new activity fill out the form.
+            <br />
+            When you create activity it will be available for making new programs.
+            <br />
+            Provide the best description because users will see it and make decisions based on them.
+            <br />
+            Make sure you upload picture that represents it in best way.
+            <br />
+        </p>
+        <h5>Press 'Create' to add activity.</h5>
     </div>
-   
-</form>
+</div>
+
+
 

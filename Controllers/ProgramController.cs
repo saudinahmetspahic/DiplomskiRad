@@ -456,12 +456,13 @@ namespace WebApp.Controllers
                     ProgramName = program.Name,
 
                 };
-                model.Activities = _context.ProgramActivity.Include(i => i.Activity).Where(w => w.ProgramId == program.Id).Select(s => new RateProgram_VM.RateActivity
+                var activities = _context.ProgramActivity.Include(i => i.Activity).Where(w => w.ProgramId == program.Id).Select(s => s.Activity).Distinct().ToList();
+                model.Activities = activities.Select(s => new RateProgram_VM.RateActivity
                 {
-                    ActivityId = s.ActivityId,
-                    Description = s.Activity.Description,
-                    Image = s.Activity.ImageName,
-                    CurrentRate = _context.Rate.Where(w => w.ActivityId == s.ActivityId).Select(x => (int?)x.RateValue).Average() ?? 1.0,
+                    ActivityId = s.Id,
+                    Description = s.Description,
+                    Image = s.ImageName,
+                    CurrentRate = _context.Rate.Where(w => w.ActivityId == s.Id).Select(x => (int?)x.RateValue).Average() ?? 1.0,
                     GivenRate = 1
                 }).ToList();
                 return View(model);
@@ -469,31 +470,59 @@ namespace WebApp.Controllers
             return StatusCode(403);
         }
 
-        public IActionResult RatingProgram(int[] rateArray, int[] activities, int programId /*RateProgram_VM model*/)
+        public void RatingProgram(int ProgramId, int ActivityId, int Rate)
         {
             var loggedUserAccount = HttpContext.GetLoggedUser();
             var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
-            for (int i = 0; i < rateArray.Length; i++)
+
+            if(_context.Activity.Where(w => w.Id == ActivityId).Any())
             {
-                var prRate = _context.Rate.Where(w => w.ActivityId == activities[i] && w.UserId == loggedUser.Id).FirstOrDefault();
-                if (prRate != null)
+                var rate = _context.Rate.Where(w => w.ActivityId == ActivityId && w.UserId == loggedUser.Id).FirstOrDefault();
+                if (rate == null)
                 {
-                    prRate.RateValue = rateArray[i];
-                    _context.Rate.Update(prRate);
-                }
-                else
-                {
-                    var rate = new Rate
+                    rate = new Rate
                     {
-                        ActivityId = activities[i],
-                        RateValue = rateArray[i],
-                        UserId = loggedUser.Id
+                        ActivityId = ActivityId,
+                        UserId = loggedUser.Id,
+                        RateValue = Rate
                     };
                     _context.Rate.Add(rate);
                 }
+                else
+                {
+                    rate.RateValue = Rate;
+                    _context.Rate.Update(rate);
+                }
+               
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
-            return RedirectToAction("RateProgram", new { ProgramId = programId });
         }
+
+        //public IActionResult RatingProgram(int[] rateArray, int[] activities, int programId /*RateProgram_VM model*/)
+        //{
+        //    var loggedUserAccount = HttpContext.GetLoggedUser();
+        //    var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+        //    for (int i = 0; i < rateArray.Length; i++)
+        //    {
+        //        var prRate = _context.Rate.Where(w => w.ActivityId == activities[i] && w.UserId == loggedUser.Id).FirstOrDefault();
+        //        if (prRate != null)
+        //        {
+        //            prRate.RateValue = rateArray[i];
+        //            _context.Rate.Update(prRate);
+        //        }
+        //        else
+        //        {
+        //            var rate = new Rate
+        //            {
+        //                ActivityId = activities[i],
+        //                RateValue = rateArray[i],
+        //                UserId = loggedUser.Id
+        //            };
+        //            _context.Rate.Add(rate);
+        //        }
+        //    }
+        //    _context.SaveChanges();
+        //    return RedirectToAction("RateProgram", new { ProgramId = programId });
+        //}
     }
 }

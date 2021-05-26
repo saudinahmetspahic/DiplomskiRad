@@ -1,7 +1,9 @@
 ﻿@using WebApp.ViewModels.Administration
 @model GetProgramDetails_VM
 
-
+@{
+    var allowModifications = Model.ProgramDetails.ProgramState != WebApp.EntityModels.ProgramState.Approved;
+}
 
 <div>
     <table class="table">
@@ -14,7 +16,7 @@
             <td>@Model.ProgramDetails.Date_Created.ToShortDateString()</td>
             <th>Last state change</th>
             <td>@Model.DateStateChanged.ToShortDateString()</td>
-            <th>Last access chang</th>
+            <th>Last access change</th>
             <td>@Model.DateAccessChanged.ToShortDateString()</td>
         </tr>
     </table>
@@ -40,9 +42,12 @@
         <div id="DaysDiv" class="div-section-list-item">
         </div>*@
 </div>
+@if (allowModifications == true)
+{
+    <button onclick="javascript: AddDay(0, true);" class="btn-danger d-block div-align-center padding-10 margin-bottom-20"><i class="bi bi-plus-circle-fill"></i> ADD NEW DAY</button>
+}
 
-
-<div class="d-flex flex-row switch-to-column">
+<div class="d-flex flex-row switch-to-column padding-bottom-50">
     <button onclick="javascript: ChangeState('@Model.ProgramDetails.Id', 'Change state', '@Model.ProgramDetails.ProgramState');" class="w-100 padding-20 btn-danger"><i class="bi bi-arrow-bar-right"></i> Change state</button>
     <button onclick="javascript: ChangeAccess('@Model.ProgramDetails.Id', 'Change access', '@Model.ProgramDetails.ProgramAccess');" class="w-100 padding-20 btn-danger"><i class="bi bi-binoculars-fill"></i> Change access</button>
     <a class="w-100 padding-20 btn btn-danger border-radius-0" asp-action="AddProgramFeedback" asp-controller="Administration" asp-route-ProgramId="@Model.ProgramDetails.Id"><i class="bi bi-binoculars-fill"></i> Add feedback</a>
@@ -54,6 +59,6 @@
 
 <script>
     $(document).ready(function () {
-        LoadProgram('@Model.ProgramDetails.Id', '@Model.ProgramDetails.Name', 'BuildProgramDiv', false, false);
+        LoadProgram('@Model.ProgramDetails.Id', '@Model.ProgramDetails.Name', 'BuildProgramDiv', false, ('@allowModifications' === "True" ? true : false));
     });
 </script>

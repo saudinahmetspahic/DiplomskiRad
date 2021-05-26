@@ -68,3 +68,8 @@
     </section>
 }
 
+@if (myprograms.Count() == 0 && otherprograms.Count() == 0)
+{
+    <h2 class="text-center">No approved programs found.</h2>
+    <h4 class="text-center">If you created a program and you want to purchase it, your program has to be approved by administrators first.</h4>
+}

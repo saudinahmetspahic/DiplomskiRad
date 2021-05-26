@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Shared\Components\Room\Default.cshtml" />
     <None Include="wwwroot\Images\bascarsija.jpg" />
     <None Include="wwwroot\Images\old-bridge.jpg" />
     <None Include="wwwroot\Images\pyramid.jpg" />

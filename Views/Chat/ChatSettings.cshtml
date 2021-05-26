@@ -1,0 +1,26 @@
+﻿@using WebApp.EntityModels
+@model Chat
+
+<div class="center-all">
+    <div>
+        <form class="form" asp-action="LeaveRoom" asp-controller="Chat">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <label class="form-label">To leave group press button down bellow</label>
+            <button type="submit" class="btn-red">Leave group</button>
+        </form>
+        <form class="form" asp-action="ChangeSettings" asp-controller="Chat">
+            <input type="hidden" name="chat" value="@Model.Id">
+            <label class="form-label" for="name">Change name</label>
+            <input class="form-input" type="text" name="name" value="@Model.Name">
+
+            <label class="form-label">This group is @(Model.Type == ChatType.Private ? "private" : "public")</label>
+            <label class="form-label">Change visibility of the group (private with admins access only or public for other clients as well)</label>
+            <label class="form-label" for="public">Public</label>
+            <input type="radio" class="form-input" name="isprivate" value="public" />
+            <label class="form-label" for="private">Private</label>
+            <input type="radio" class="form-input" name="isprivate" value="private" />
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+

@@ -118,6 +118,39 @@ namespace WebApp.Migrations
                     b.ToTable("AuthToken");
                 });
 
+            modelBuilder.Entity("WebApp.EntityModels.Chat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Chat");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.ChatUser", b =>
+                {
+                    b.Property<int>("ChatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ChatId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ChatUser");
+                });
+
             modelBuilder.Entity("WebApp.EntityModels.Feedback", b =>
                 {
                     b.Property<int>("Id")
@@ -146,54 +179,6 @@ namespace WebApp.Migrations
                     b.ToTable("Feedback");
                 });
 
-            modelBuilder.Entity("WebApp.EntityModels.GroupChat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatingTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GroupChat");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.GroupChatMessage", b =>
-                {
-                    b.Property<int>("GroupChatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MessageId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GroupChatId", "MessageId");
-
-                    b.HasIndex("MessageId");
-
-                    b.ToTable("GroupChatMessage");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.GroupChatParticipants", b =>
-                {
-                    b.Property<int>("GroupChatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GroupChatId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("GroupChatParticipants");
-                });
-
             modelBuilder.Entity("WebApp.EntityModels.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -201,18 +186,21 @@ namespace WebApp.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("MessageContent")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SenderId")
+                    b.Property<int>("ChatId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("SendingTime")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SenderId");
+                    b.HasIndex("ChatId");
 
                     b.ToTable("Message");
                 });
@@ -244,43 +232,6 @@ namespace WebApp.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Notification");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.PrivateChat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("User1Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("User2Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("User1Id");
-
-                    b.HasIndex("User2Id");
-
-                    b.ToTable("PrivateChat");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.PrivateChatMessage", b =>
-                {
-                    b.Property<int>("PrivateChatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MessageId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PrivateChatId", "MessageId");
-
-                    b.HasIndex("MessageId");
-
-                    b.ToTable("PrivateChatMessage");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.Program", b =>
@@ -564,6 +515,25 @@ namespace WebApp.Migrations
                     b.Navigation("UserAccount");
                 });
 
+            modelBuilder.Entity("WebApp.EntityModels.ChatUser", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.Chat", "Chat")
+                        .WithMany("Users")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApp.EntityModels.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chat");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebApp.EntityModels.Feedback", b =>
                 {
                     b.HasOne("WebApp.EntityModels.User", "Creator")
@@ -583,53 +553,15 @@ namespace WebApp.Migrations
                     b.Navigation("Program");
                 });
 
-            modelBuilder.Entity("WebApp.EntityModels.GroupChatMessage", b =>
-                {
-                    b.HasOne("WebApp.EntityModels.GroupChat", "GroupChat")
-                        .WithMany()
-                        .HasForeignKey("GroupChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApp.EntityModels.Message", "Message")
-                        .WithMany()
-                        .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GroupChat");
-
-                    b.Navigation("Message");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.GroupChatParticipants", b =>
-                {
-                    b.HasOne("WebApp.EntityModels.GroupChat", "GroupChat")
-                        .WithMany()
-                        .HasForeignKey("GroupChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApp.EntityModels.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GroupChat");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("WebApp.EntityModels.Message", b =>
                 {
-                    b.HasOne("WebApp.EntityModels.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
+                    b.HasOne("WebApp.EntityModels.Chat", "Chat")
+                        .WithMany("Messages")
+                        .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Sender");
+                    b.Navigation("Chat");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.Notification", b =>
@@ -641,44 +573,6 @@ namespace WebApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.PrivateChat", b =>
-                {
-                    b.HasOne("WebApp.EntityModels.User", "User1")
-                        .WithMany()
-                        .HasForeignKey("User1Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApp.EntityModels.User", "User2")
-                        .WithMany()
-                        .HasForeignKey("User2Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User1");
-
-                    b.Navigation("User2");
-                });
-
-            modelBuilder.Entity("WebApp.EntityModels.PrivateChatMessage", b =>
-                {
-                    b.HasOne("WebApp.EntityModels.Message", "Message")
-                        .WithMany()
-                        .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApp.EntityModels.PrivateChat", "PrivateChat")
-                        .WithMany()
-                        .HasForeignKey("PrivateChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Message");
-
-                    b.Navigation("PrivateChat");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.Program", b =>
@@ -796,6 +690,13 @@ namespace WebApp.Migrations
                         .IsRequired();
 
                     b.Navigation("UserAccount");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.Chat", b =>
+                {
+                    b.Navigation("Messages");
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

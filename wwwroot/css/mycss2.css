@@ -92,6 +92,11 @@ img.object-fit-contain{
     background-color: white;
 }
 
+.min-w-220{
+    min-width: 220px;
+}
+
+
 
 /*animations*/
 .background-animation-1 {

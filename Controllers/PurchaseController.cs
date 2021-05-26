@@ -21,6 +21,24 @@ namespace WebApp.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            var loggedUserAccount = HttpContext.GetLoggedUser();
+            var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+
+            var purchases = _context.PurchaseParticipants
+                                .Where(w => w.ParticipantId == loggedUser.Id)
+                                .Select(s => new GetPurchases_VM
+                                {
+                                    Id = s.PurchaseId,
+                                    Created = s.Purchase.DateCreated,
+                                    Creator = s.Purchase.Creator.Name + " " + s.Purchase.Creator.Surname,
+                                    ProgramTitle = s.Purchase.Program.Name,
+                                    Participants = _context.PurchaseParticipants.Where(w => w.PurchaseId == s.PurchaseId).Count()
+                                })
+                                .ToList();
+            return View(purchases);
+        }
 
         public IActionResult GetProgramPurchasesDetails(int PurchaseId)
         {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9/numPtsCkylz4Xq4wUzipzHi4YbHzYSh4vmm+socihUDacSOq27RYQ6uy4aj9x3QkY2n3vs0r8foE/vqMx9Ww==",
+  "dgSpecHash": "8d5nb3knaak/XTpMfsA057iTq99TQbrIB+yZLHXjvf3waI2bBGV7QWhDiszDP1TEpKPMzXHcjM+aTedNSYhhKA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\saudi\\source\\repos\\WebApp\\WebApp\\WebApp.csproj",
+  "projectFilePath": "C:\\Users\\saudi\\OneDrive\\Radna površina\\WebApp\\DiplomskiRad\\WebApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saudi\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\saudi\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

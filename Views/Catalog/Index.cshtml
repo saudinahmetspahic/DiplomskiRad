@@ -13,9 +13,9 @@
 <h4>Catalog</h4>
 <p>Explore our homeland and make sure you visit all landmarks of Bosnia and Herzegovina.</p>
 <div class="d-flex">
-    <div class="w-25">
-        <label class="font-weight-bold font-size-20px">Results @count</label>
-        <form asp-action="Index" asp-controller="Catalog" class="catalog-filter-form">
+    <div class="w-25 padding-10 background-purple">
+        <label class="font-weight-bold font-size-20px text-color-white">Results @count</label>
+        <form asp-action="Index" asp-controller="Catalog" class="catalog-filter-form padding-5">
             <label>Search</label>
             <input type="text" name="searchValue" placeholder="..." value="@searchValue" />
             <label>Type</label>
@@ -36,13 +36,13 @@
             <button type="submit">Filter</button>
         </form>
     </div>
-    <div class="w-75">
+    <div class="w-75 text-center">
         @if (!Model.Any()) { 
             <h2>No catalog items are found.</h2>
         }
         @foreach (var item in Model)
         {
-            <div class="catalog-item">
+            <div class="catalog-item text-align-left">
                 <div class="catalog-image">
                     <img src="./Images/Administration/@item.ImageName" alt="Alternate Text" />
                 </div>

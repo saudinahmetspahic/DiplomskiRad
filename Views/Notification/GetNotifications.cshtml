@@ -8,25 +8,22 @@
     @foreach (var item in Model)
     {
         <div id="NotificationDiv_@item.Id" class="border border-dark overflow-hidden margin-bottom-50 padding-0 border-radius-5">
-            <div class="cursor background-dodgerblue text-color-white padding-5" onclick="javascript: CollapseDiv('Notification_@item.Id');">
+            <div class="cursor background-purple text-color-white padding-5" onclick="javascript: CollapseDiv('Notification_@item.Id');">
                 <i class="bi bi-caret-down-fill text-color-white"></i>
-                @*d-flex justify-content-between align-items-center*@
-                @*<h5 class="margin-0">@item.Title</h5>
-                    <h6 class="margin-0">@item.DateCreated.ToString("dd.MMMM.yyyy") @item.DateCreated.ToString("HH:mm")</h6>*@
             </div>
             <div id="Notification_@item.Id">
                 @if (item.AllowModifications)
                 {
                     <div class="text-align-right">
-                        <button class="btn-white-black padding-5 border-0" onclick="javascript: RemoveNotification('@item.Id');"><i class="bi bi-x-square"></i></button>
+                        <button class="btn-white-black padding-5 border-0" onclick="javascript: RemoveNotification('@item.Id');"><i class="bi bi-x-square remove-button"></i></button>
                     </div>
                 }
                 <div class="d-flex flex-column margin-top-25">
                     <img class="w-100 max-height-300 h-auto object-fit-contain" src="/Images/Notification/@item.ImageName" alt="" />
-                    <div class="padding-20">
+                    <div class="padding-20 background-purple text-color-white">
                         <h4 class="text-align-left">@item.Title</h4>
-                        <p class="font-size-13px text-color-gray text-align-left">Published @item.DateCreated.ToString("(dddd) dd MMM yyyyy HH:mm")</p>
-                        <p class="text-align-justify text-color-darkcyan">@item.Description</p>
+                        <p class="font-size-13px text-color-lightgray text-align-left">Published @item.DateCreated.ToString("(dddd) dd MMM yyyyy HH:mm")</p>
+                        <p class="text-align-justify text-color-white padding-50">@item.Description</p>
                     </div>
                 </div>
             </div>

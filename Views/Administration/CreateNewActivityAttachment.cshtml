@@ -1,33 +1,33 @@
 ﻿@using WebApp.ViewModels.Administration
 @model AddNewActivityAttachment_VM
 
-<div class="flex-section-row margin-top-25 switch-to-column">
-    <form enctype="multipart/form-data" class="flex-section-row-child-50 padding-5" asp-action="AddNewActivityAttachment" asp-controller="Administration">
+<div class="flex-section-row margin-top-25 div-align-center w-75 switch-to-column">
+    <form enctype="multipart/form-data" class="form padding-5" asp-action="AddNewActivityAttachment" asp-controller="Administration">
 
         <input hidden asp-for="ActivityId" value="@Model.ActivityId" />
 
-        <label class="d-block">Title</label>
-        <input asp-for="Name" />
+        <label class="form-label">Title</label>
+        <input class="form-input" asp-for="Name" />
 
-        <label class="d-block">Type of attachment</label>
-        <select class="w-100" asp-for="TypeOfAttachment" asp-items="Model.TypeOfAttachmentSelect">
+        <label class="form-label">Type of attachment</label>
+        <select class="form-input w-100" asp-for="TypeOfAttachment" asp-items="Model.TypeOfAttachmentSelect">
         </select>
 
-        <label class="d-block">Description</label>
-        <input asp-for="Description" />
+        <label class=" form-label">Description</label>
+        <input class="form-input" asp-for="Description" />
 
-        <label class="d-block">Expected price to visit</label>
-        <input asp-for="PriceToVisit" type="number" />
+        <label class="form-label">Expected price to visit</label>
+        <input class="form-input" asp-for="PriceToVisit" type="number" />
 
-        <label>Upload a photo that is related to attachment.</label>
+        <label class="form-label">Upload a photo that is related to attachment.</label>
         <div class="custom-file">
-            <input asp-for="Image" class="custom-file-input" />
-            <label class="custom-file-label">Choose picture</label>
+            <input asp-for="Image" class="form-input custom-file-input" />
+            <label class="form-label custom-file-label">Choose picture</label>
         </div>
 
-        <button class="w-100 margin-top-5 padding-5 btn-primary" type="submit">Create</button>
+        <button class="margin-top-5" type="submit">Create</button>
     </form>
-    <div class="flex-section-row-child-50 alert alert-success padding-5 margin-0 margin-left-5px">
+    <div class="alert alert-success padding-5 margin-0 margin-left-5px max-width-400px">
         <h4 class="margin-bottom-20">Creating attachment</h4>
         <p>
             To create a new attachment fill out the form.

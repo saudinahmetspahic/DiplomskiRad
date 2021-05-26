@@ -1,0 +1,41 @@
+@using WebApp.EntityModels
+@model IEnumerable<Chat>
+
+<div class="side-menu">
+    @foreach (var chat in Model)
+    {
+        <a class="room-button" asp-controller="Chat" asp-action="GetChat" asp-route-id="@chat.Id">
+            @chat.Name
+        </a>
+    }
+
+    <a class="room-button" id="create-room-btn" href="#">
+        <strong>+</strong>
+    </a>
+</div>
+
+<div class="modal" id="create-room-modal">
+    <form asp-controller="Chat" asp-action="CreateRoom" class="modal-body form">
+        <button type="button" class="close" onclick="closeModal()">X</button>
+        <header>Create Room</header>
+        <div>
+            <input class="form-input" name="name" required>
+        </div>
+        <footer>
+            <button type="submit" class="btn-red">Create</button>
+        </footer>
+    </form>
+</div>
+
+<script>
+    var createRoomBtn = document.getElementById('create-room-btn')
+    var createRoomModal = document.getElementById('create-room-modal')
+
+    createRoomBtn.addEventListener('click', function () {
+        createRoomModal.classList.add('active')
+    })
+
+    function closeModal() {
+        createRoomModal.classList.remove('active')
+    }
+</script>

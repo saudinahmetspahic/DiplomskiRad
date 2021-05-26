@@ -326,7 +326,7 @@ namespace WebApp.Controllers
             };
             model.IsVIP = user.IsVIP;
             model.DateRegistered = user.DateRegistered;
-            model.NumberOfChatGroups = _context.GroupChatParticipants.Where(w => w.UserId == UserId).Count();
+            model.NumberOfChatGroups = _context.Chat.Where(w => w.Users.Any(c=>c.UserId == UserId)).Count();
             model.NumberOfPlansCreated = _context.Program.Where(w => w.CreatorId == UserId).Count();
             model.NumberOfPlansCreated_Accepted = _context.Program.Where(w => w.CreatorId == UserId && w.ProgramState == ProgramState.Approved).Count();
             model.NumberOfPlansCreated_Refused = _context.Program.Where(w => w.CreatorId == UserId && w.ProgramState == ProgramState.Refused).Count();

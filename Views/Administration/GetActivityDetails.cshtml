@@ -3,12 +3,12 @@
 @model GetActivityDetails_VM
 
 
-<div class="flex-section-row align-content-around border border-secondary switch-to-column">
-    <div id="Activity_@Model.ActivityId" class="w-50 position-relative d-flex align-items-center min-h-200">
+<div class="flex-section-row align-content-around border border-secondary switch-to-column box-shadow-black">
+    <div id="Activity_@Model.ActivityId" class="w-50 position-relative d-flex align-items-center max-width-400px background-purple">
         <img class="w-100 h-auto" src="@Model.ImageSrc" alt="Image" />
         <div onclick="javascript: AddNewPhoto('Activity_@Model.ActivityId', 'Activity', '@Model.ActivityId', 0);" class="position-absolute left0 bottom0 w-100 h-100 show-on-hover cursor text-black-50 font-weight-bold text-uppercase d-flex justify-content-center align-items-center"><p class="padding-5 background-dark text-white">Add new image</p></div>
     </div>
-    <div class="w-50 padding-5">
+    <div class="flex-1 padding-5 padding-left-50">
         <div class="flex-section-row justify-content-between">
             <h3>@Model.Title</h3>
             <h2 class="cursor" onclick="location.href = '/Administration/RemoveActivity?ActivityId=@Model.ActivityId'"><i class="bi bi-trash"></i></h2>
@@ -22,19 +22,19 @@
 <div>
     @foreach (var item in Model.Attachments)
     {
-        <div class="border border-secondary margin-top-5">
-            <div class="flex-section-row justify-content-around w-100 align-items-center padding-5">
+        <div class="border border-secondary margin-top-25 box-shadow-black">
+            <div class="flex-section-row justify-content-around w-100 align-items-center padding-5 background-purple text-color-white">
                 <div class="font-weight-bold flex-grow-1 padding-5">@item.Name</div>
                 <div class="font-weight-bold flex-grow-1 padding-5">@item.TypeOfAttachment</div>
                 <div class="font-weight-bold flex-grow-2 padding-5 d-flex flex-row justify-content-center align-items-center"><i onclick="javascript: ChagePrice('@item.AttachmentId');" class="bi bi-pencil-square cursor margin-right-5"></i><p id="AttachmentPrice_@item.AttachmentId" class="margin-0">@(Math.Round(item.PriceToVisit, 2)) (BAM) - @(Math.Round(item.PriceToVisit / 1.95, 2)) (€)</p></div>
                 <div class="font-weight-bold flex-grow-1 cursor text-align-right" onclick="location.href = '/Administration/RemoveActivityAttachment?AttachmentId=@item.AttachmentId'"><i class="bi bi-trash"></i></div>
             </div>
             <div class="border-top border-info padding-5 flex-section-row switch-to-column">
-                <div id="Attachment_@item.AttachmentId" class="flex-section-row-child-50 padding-5 w-50 position-relative d-flex align-items-center min-h-200">
+                <div id="Attachment_@item.AttachmentId" class="flex-section-row-child-50 padding-5 w-50 position-relative d-flex align-items-center min-h-200 max-width-400px">
                     <img class="w-100 h-auto" src="@item.ImageSrc" alt="" />
                     <div onclick="javascript: AddNewPhoto('Attachment_@item.AttachmentId', 'Attachment', '@Model.ActivityId', '@item.AttachmentId');" class="position-absolute left0 bottom0 w-100 h-100 show-on-hover cursor text-black-50 font-weight-bold text-uppercase d-flex justify-content-center align-items-center"><p class="padding-5 background-dark text-white">Add new image</p></div>
                 </div>
-                <div class="flex-section-row-child-50 padding-5">
+                <div class="flex-section-row-child-50 padding-5 padding-left-50 flex-1">
                     @item.Description
                 </div>
             </div>
@@ -50,15 +50,6 @@
                         <p>@type</p>
                     </div>
                 }
-                @*@foreach (var addon in item.Addons)
-                    {
-                        var image = addon + ".png";
-                        <img class="addon-image" src="~/Images/Addons/@image" alt="" />
-                    }*@
-                @*<img class="addon-image cursor" onclick="javascript: AddAddon('@item.AttachmentId');" src="~/Images/Embedded/add.png" alt="" />
-                    <div id="add_addon_for_attach_@item.AttachmentId">
-
-                    </div>*@
             </div>
 
         </div>
