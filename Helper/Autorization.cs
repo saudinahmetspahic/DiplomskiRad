@@ -14,28 +14,36 @@ namespace WebApp.Helper
     {
         public class AutorizationAttribute : TypeFilterAttribute
         {
-                
-            public AutorizationAttribute(bool user, bool admin)    
+
+            public AutorizationAttribute(bool user, bool admin, bool others = false)
                 : base(typeof(AutorizationClass))
             {
-                Arguments = new object[] { user, admin };
+                Arguments = new object[] { user, admin, others };
             }
 
         }
 
         public class AutorizationClass : IAsyncActionFilter
-        { 
+        {
             private readonly bool _user;
             private readonly bool _admin;
+            private readonly bool _others;
 
-            public AutorizationClass(bool user, bool admin)
+            public AutorizationClass(bool user, bool admin, bool others = false)
             {
                 _user = user;
                 _admin = admin;
+                _others = others;
             }
 
             public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
             {
+                if (_others)
+                {
+                    await next();
+                    return;
+                }
+
                 UserAccount nalog = context.HttpContext.GetLoggedUser();
 
                 if (nalog == null)

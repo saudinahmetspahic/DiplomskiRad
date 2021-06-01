@@ -19,5 +19,6 @@ namespace WebApp.EntityModels
         public int ProgramId { get; set; }
         public Program Program { get; set; }
 
+
     }
 }

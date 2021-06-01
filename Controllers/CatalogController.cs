@@ -40,7 +40,7 @@ namespace WebApp.Controllers
                 Title = s.Name,
                 Description = s.Description,
                 ImageName = s.ImageName,
-                Rate = _context.Rate.Where(w => w.ActivityId == s.ActivityId).Sum(s => s.RateValue),
+                Rate = (int)_context.Rate.Where(w => w.ActivityId == s.ActivityId).Select(s => (int?)s.RateValue).Average(),
                 Activity = s.Activity.Title,
                 Price = s.PriceToVisit,
                 Addons = (List<Tuple<TypeOfAddons, int>>)_context.AttachmentAddons.Where(w => w.AttachmentId == s.Id).Select(s => new Tuple<TypeOfAddons, int>(s.AddonType, s.Distance))

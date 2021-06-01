@@ -72,13 +72,30 @@ namespace WebApp.Controllers
         public async Task<IActionResult> RemoveNotification(int NotificationId)
         {
             var notification = await _context.Notification.Where(w => w.Id == NotificationId).FirstOrDefaultAsync();
-            if(notification != null)
+            if (notification != null)
             {
                 _context.Notification.Remove(notification);
                 await _context.SaveChangesAsync();
                 return Ok();
             }
             return StatusCode(400);
+        }
+
+        public IActionResult GetNotificationDetails(int NotificationId)
+        {
+            var notif = _context
+                            .Notification
+                            .Where(w => w.Id == NotificationId)
+                            .Select(s => new GetNotifications_VM
+                            {
+                                Author = s.Author.Name + " " + s.Author.Surname,
+                                Description = s.Description,
+                                DateCreated = s.DateCreated,
+                                Title = s.Title,
+                                ImageName = s.ImageName
+                            })
+                            .FirstOrDefault();
+            return PartialView(notif);
         }
     }
 }

@@ -1,60 +1,60 @@
 ﻿@using WebApp.ViewModels.Administration
 @model CustomerDetails_VM
 
-<div class="flex-section-row switch-to-column">
+<div class="flex-section-row from-row-to-column column-reverse">
     <div class="flex-section-row-child-50 d-flex flex-column justify-content-between">
         <table class="table">
-            <thead class="table-primary">
+            <thead>
                 <tr>
-                    <th>Name</th>
+                    <th class="table-primary">Name</th>
                     <td>@Model.CustomerDetails.Name</td>
                 </tr>
                 <tr>
-                    <th>Surname</th>
+                    <th class="table-primary">Surname</th>
                     <td>@Model.CustomerDetails.Surname</td>
                 </tr>
                 <tr>
-                    <th>Age</th>
+                    <th class="table-primary">Age</th>
                     <td>@Model.CustomerDetails.Age</td>
                 </tr>
                 <tr>
-                    <th>Country</th>
+                    <th class="table-primary">Country</th>
                     <td>@Model.CustomerDetails.Country</td>
                 </tr>
                 <tr>
-                    <th>City</th>
+                    <th class="table-primary">City</th>
                     <td>@Model.CustomerDetails.City</td>
                 </tr>
                 <tr>
-                    <th>Phone</th>
+                    <th class="table-primary">Phone</th>
                     <td>@Model.CustomerDetails.Phone</td>
                 </tr>
                 <tr>
-                    <th>Email</th>
+                    <th class="table-primary">Email</th>
                     <td>@Model.CustomerDetails.Email</td>
                 </tr>
             </thead>
         </table>
 
         <table class="table margin-0">
-            <thead class="table-primary">
+            <thead>
                 <tr>
-                    <th>Registered</th>
+                    <th class="table-primary">Registered</th>
                     <td>@Model.DateRegistered.ToShortDateString()</td>
                 </tr>
                 <tr>
-                    <th>Collaborate (currently)</th>
+                    <th class="table-primary">Collaborate (currently)</th>
                     <td>@(Model.CurrentlyOnPlan ? "Yes" : "No")</td>
                 </tr>
                 <tr>
-                    <th>Number of collaborations</th>
+                    <th class="table-primary">Number of collaborations</th>
                     <td>@Model.NumberOfPlansOredered</td>
                 </tr>
             </thead>
         </table>
 
     </div>
-    <div class="flex-section-row-child-50 d-flex flex-column justify-content-between margin-left-50px">
+    <div class="flex-section-row-child-50 d-flex flex-column justify-content-between padding-20">
         @if (Model.IsVIP == true)
         {
             <div class="flex-section-row justify-content-center table-danger">
@@ -81,7 +81,7 @@
     </div>
 </div>
 
-<p class="margin-top-25">List of ordered programs</p>
+<p class="margin-top-25 font-italic">List of ordered programs</p>
 <table class="table w-100 overflow-auto table-to-block">
     <thead class="table-light">
         <tr>
@@ -108,7 +108,7 @@
     </tbody>
 </table>
 
-<p>List of created programs</p>
+<p class="margin-top-25 font-italic">List of created programs</p>
 <table class="table w-100 overflow-auto margin-bottom-50">
     <thead class="table-light">
         <tr>

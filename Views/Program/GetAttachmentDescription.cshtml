@@ -2,7 +2,7 @@
 @model GetActivityAttachments_VM
 
 
-<div class="position-relative card padding-20 w-33perc cursor">
+<div class="position-relative card padding-20 w-250 cursor">
     @if (Model.AllowModifications == true)
     {
         <button onclick="javascript: RemoveAttachmentFromActivity(this, '@Model.Id');" class="position-absolute right0 top0 w-auto h-auto border-0 padding-5 btn-white-black"><i class="bi bi-x"></i></button>

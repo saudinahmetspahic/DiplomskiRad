@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApp.Migrations
 {
-    public partial class M1 : Migration
+    public partial class m1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -395,6 +395,45 @@ namespace WebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Invoice",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Adress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CountryCityPostal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneFax = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PDVNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Customer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerCountry = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EstimateNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PlaceOfIssue = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfIssue = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfDelivery = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SettledInBAM = table.Column<double>(type: "float", nullable: false),
+                    TotalInWords = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MethodOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeadlineForPayment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AccountToPay = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdditionalBankAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Director = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TableRows = table.Column<int>(type: "int", nullable: false),
+                    TableColumns = table.Column<int>(type: "int", nullable: false),
+                    PurchaseId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Invoice", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Invoice_Purchase_PurchaseId",
+                        column: x => x.PurchaseId,
+                        principalTable: "Purchase",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PurchaseParticipants",
                 columns: table => new
                 {
@@ -414,6 +453,26 @@ namespace WebApp.Migrations
                         name: "FK_PurchaseParticipants_User_ParticipantId",
                         column: x => x.ParticipantId,
                         principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InvoiceTable",
+                columns: table => new
+                {
+                    InvoiceId = table.Column<int>(type: "int", nullable: false),
+                    Row = table.Column<int>(type: "int", nullable: false),
+                    Column = table.Column<int>(type: "int", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InvoiceTable", x => new { x.InvoiceId, x.Row, x.Column });
+                    table.ForeignKey(
+                        name: "FK_InvoiceTable_Invoice_InvoiceId",
+                        column: x => x.InvoiceId,
+                        principalTable: "Invoice",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -447,6 +506,11 @@ namespace WebApp.Migrations
                 name: "IX_Feedback_ProgramId",
                 table: "Feedback",
                 column: "ProgramId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Invoice_PurchaseId",
+                table: "Invoice",
+                column: "PurchaseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Message_ChatId",
@@ -529,6 +593,9 @@ namespace WebApp.Migrations
                 name: "Feedback");
 
             migrationBuilder.DropTable(
+                name: "InvoiceTable");
+
+            migrationBuilder.DropTable(
                 name: "Message");
 
             migrationBuilder.DropTable(
@@ -545,6 +612,9 @@ namespace WebApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sponsor");
+
+            migrationBuilder.DropTable(
+                name: "Invoice");
 
             migrationBuilder.DropTable(
                 name: "Chat");

@@ -10,8 +10,8 @@ using WebApp.EF;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210521201251_M1")]
-    partial class M1
+    [Migration("20210529153145_m2")]
+    partial class m2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -179,6 +179,102 @@ namespace WebApp.Migrations
                     b.HasIndex("ProgramId");
 
                     b.ToTable("Feedback");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.Invoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("AccountToPay")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AdditionalBankAccount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryCityPostal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Customer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerCountry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateOfDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfIssue")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeadlineForPayment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Director")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EstimateNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MethodOfPayment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PDVNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneFax")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlaceOfIssue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PurchaseId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("SettledInBAM")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TableColumns")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TableRows")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TotalInWords")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurchaseId");
+
+                    b.ToTable("Invoice");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.InvoiceTable", b =>
+                {
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Column")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("InvoiceId", "Row", "Column");
+
+                    b.ToTable("InvoiceTable");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.Message", b =>
@@ -553,6 +649,26 @@ namespace WebApp.Migrations
                     b.Navigation("Creator");
 
                     b.Navigation("Program");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.Invoice", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.Purchase", "Purchase")
+                        .WithMany()
+                        .HasForeignKey("PurchaseId");
+
+                    b.Navigation("Purchase");
+                });
+
+            modelBuilder.Entity("WebApp.EntityModels.InvoiceTable", b =>
+                {
+                    b.HasOne("WebApp.EntityModels.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
                 });
 
             modelBuilder.Entity("WebApp.EntityModels.Message", b =>

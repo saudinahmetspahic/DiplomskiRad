@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,13 @@ using System.Threading.Tasks;
 using WebApp.EF;
 using WebApp.EntityModels;
 using WebApp.Helper;
+using WebApp.ViewModels.Program;
 using WebApp.ViewModels.Purchase;
 using static WebApp.Helper.Autorization;
 
 namespace WebApp.Controllers
 {
+    [Autorization(true, true)]
     public class PurchaseController : Controller
     {
         MyContext _context;
@@ -56,7 +59,8 @@ namespace WebApp.Controllers
                     Country = x.Participant.Country,
                     Name = x.Participant.Name,
                     ParticipantId = x.ParticipantId
-                }).ToList()
+                }).ToList(),
+                InvoiceId = _context.Invoice.Where(w => w.PurchaseId == PurchaseId).Select(x => x.Id).FirstOrDefault()
             }).FirstOrDefault();
             return View(model);
         }
@@ -159,10 +163,211 @@ namespace WebApp.Controllers
             }).ToList();
             return PartialView(model);
         }
+
         [Autorization(false, true)]
-        public IActionResult IssueAnInvoice(int PurchaseId)
+        public IActionResult GetInvoices()
         {
-            return View();
+            var inv = _context.Invoice
+                        .Select(s => new GetInvoices_VM
+                        {
+                            Id = s.Id,
+                            Customer = s.Customer,
+                            CustomerCountry = s.CustomerCountry,
+                            DateOfIssue = s.DateOfIssue,
+                            PlaceOfIssue = s.PlaceOfIssue,
+                            Settled = s.SettledInBAM
+                        })
+                        .ToList();
+            return View(inv);
+        }
+
+        [Autorization(false, true)]
+        public IActionResult IssueAnInvoice(int InvoiceId)
+        {
+            var inv = _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefault();
+            var m = new IssueAnInvoice_VM
+            {
+                Invoice = inv,
+                Table = _context.InvoiceTable
+                                    .Where(w => w.InvoiceId == inv.Id)
+                                    .Select(s => new IssueAnInvoice_VM.TableContent
+                                    {
+                                        Column = s.Column,
+                                        Row = s.Row,
+                                        Value = s.Value
+                                    }).ToList()
+            };
+
+            //var table = _context.InvoiceTable.Where(w => w.InvoiceId == invoice.Id).ToList().GroupBy(g => g.Row);
+            //int rinx = 0;
+            //foreach (var row in table)
+            //{
+            //    var r = new IssueAnInvoice_VM.Row
+            //    {
+            //        RowIdex = rinx,
+            //        Columns = new List<IssueAnInvoice_VM.Column>()
+            //    };
+            //    rinx++;
+
+            //    int inx = 0;
+            //    foreach (var column in row)
+            //    {
+            //        r.Columns.Add(new IssueAnInvoice_VM.Column
+            //        {
+            //            ColumnIndex = inx,
+            //            Value = column.Value
+            //        });
+            //        inx++;
+            //    }
+            //    m.Rows.Add(r);
+            //}
+
+            return View(m);
+        }
+
+        [Autorization(false, true)]
+        public IActionResult ModifyInvoice(int InvoiceId)
+        {
+            //var inv = _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefault();
+            return RedirectToAction("IssueAnInvoice", new { InvoiceId = InvoiceId });
+        }
+
+        [Autorization(false, true)]
+        public IActionResult CreateAnInvoice()
+        {
+            var inv = new Invoice();
+            _context.Invoice.Add(inv);
+            _context.SaveChanges();
+
+            return RedirectToAction("IssueAnInvoice", new { InvoiceId = inv.Id });
+        }
+
+        public IActionResult UpdateAnInvoice(IssueAnInvoice_VM m)
+        {
+            var model = m.Invoice;
+            var inv = _context.Invoice.Where(w => w.Id == model.Id).FirstOrDefault();
+            if (inv != null)
+            {
+                inv.AccountToPay = model.AccountToPay;
+                inv.AdditionalBankAccount = model.AdditionalBankAccount;
+                inv.Adress = model.Adress;
+                inv.CountryCityPostal = model.CountryCityPostal;
+                inv.Customer = model.Customer;
+                inv.CustomerCountry = model.CustomerCountry;
+                inv.DateOfDelivery = model.DateOfDelivery;
+                inv.DateOfIssue = model.DateOfIssue;
+                inv.DeadlineForPayment = model.DeadlineForPayment;
+                inv.Director = model.Director;
+                inv.Email = model.Email;
+                inv.EstimateNumber = model.EstimateNumber;
+                inv.MethodOfPayment = model.MethodOfPayment;
+                inv.PDVNumber = model.PDVNumber;
+                inv.PhoneFax = model.PhoneFax;
+                inv.PlaceOfIssue = model.PlaceOfIssue;
+                inv.SettledInBAM = model.SettledInBAM;
+                inv.TotalInWords = model.TotalInWords;
+
+                _context.Invoice.Update(inv);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("GetInvoices");
+        }
+
+        public IActionResult RemoveInvoice(int InvoiceId)
+        {
+            var inv = _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefault();
+            if (inv != null)
+            {
+                var invtbl = _context.InvoiceTable.Where(w => w.InvoiceId == InvoiceId).ToList();
+                _context.InvoiceTable.RemoveRange(invtbl);
+
+                _context.Invoice.Remove(inv);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("GetInvoices");
+        }
+
+        public void CreateInvoiceTable(int InvoiceId, int Rows, int Columns)
+        {
+            var inv = _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefault();
+            inv.TableRows = Rows;
+            inv.TableColumns = Columns;
+            _context.Invoice.Update(inv);
+            _context.SaveChanges();
+        }
+
+        public void SetTableData(int InvoiceId, int Row, int Column, string Value)
+        {
+            if (string.IsNullOrEmpty(Value)
+                || InvoiceId < 0
+                || (Row < 0 || Row > 25)
+                || (Column < 0 || Column > 15))
+                return;
+
+            var invtable = _context.InvoiceTable.Where(w => w.InvoiceId == InvoiceId && w.Row == Row && w.Column == Column).FirstOrDefault();
+            if (invtable != null)
+            {
+                invtable.Value = Value;
+                _context.InvoiceTable.Update(invtable);
+            }
+            else
+            {
+                invtable = new InvoiceTable
+                {
+                    InvoiceId = InvoiceId,
+                    Row = Row,
+                    Column = Column,
+                    Value = Value
+                };
+                _context.InvoiceTable.Add(invtable);
+            }
+            _context.SaveChanges();
+        }
+
+        public async Task<IActionResult> RemoveInvoiceTable(int InvoiceId)
+        {
+            var inv = await _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefaultAsync();
+            if (inv != null)
+            {
+                inv.TableRows = 0;
+                inv.TableColumns = 0;
+                _context.Invoice.Update(inv);
+
+                var invtables = await _context.InvoiceTable.Where(w => w.InvoiceId == InvoiceId).ToListAsync();
+                _context.InvoiceTable.RemoveRange(invtables);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("IssueAnInvoice", new { InvoiceId = InvoiceId });
+        }
+
+        public IActionResult AttachInvoiceToPurchase(int InvoiceId)
+        {
+            var model = new AttachInvoice_VM
+            {
+                InvoiceId = InvoiceId,
+                PurchasesList = _context.Purchase
+                                .Include(i => i.Program)
+                                .Select(s => new SelectListItem
+                                {
+                                    Text = s.Program.Name + " (" + s.DateCreated.ToString("dd. MMM yyyy.") + ")",
+                                    Value = s.Id.ToString()
+                                })
+                                .ToList()
+
+            };
+            return View(model);
+        }
+
+        public IActionResult AttachInvoice(AttachInvoice_VM model)  
+        {
+            var invoice = _context.Invoice.Where(w => w.Id == model.InvoiceId).FirstOrDefault();
+            if (invoice != null)
+            {
+                invoice.PurchaseId = model.PurchaseId;
+                _context.Invoice.Update(invoice);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("IssueAnInvoice", new { InvoiceId = model.InvoiceId });
         }
     }
 }

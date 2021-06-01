@@ -7,7 +7,7 @@
 
     @foreach (var item in Model)
     {
-        <div id="NotificationDiv_@item.Id" class="border border-dark overflow-hidden margin-bottom-50 padding-0 border-radius-5">
+        <div id="NotificationDiv_@item.Id" class="border border-dark overflow-hidden margin-bottom-50 padding-0 border-radius-5 max-width-1000px">
             <div class="cursor background-purple text-color-white padding-5" onclick="javascript: CollapseDiv('Notification_@item.Id');">
                 <i class="bi bi-caret-down-fill text-color-white"></i>
             </div>

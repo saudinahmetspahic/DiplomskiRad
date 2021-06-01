@@ -1,5 +1,7 @@
 ﻿/*const { LogLevel } = require("@microsoft/signalr");*/
 
+
+
 function CollapseDiv(id) {
     if ($("#" + id).css("maxHeight") !== "0px")
         $("#" + id).css("maxHeight", "0px");
@@ -8,21 +10,24 @@ function CollapseDiv(id) {
 }
 
 $(document).ready(function () {
-    $("#short-menu-icon").on("click", function () {
-        if ($("#nav-bar-id").css("display") !== "none")
-            $("#nav-bar-id").css("display", "none");
-        else
-            $("#nav-bar-id").css("display", "block");
+
+    $(window).on("resize", function () {
+        if (window.innerWidth > 1000) {
+            $(".show-mob-menu").removeClass("show-mob-menu");
+            $(".show-mob-menu-icon").removeClass("show-mob-menu-icon");
+        }
+
     });
 
-    $("#short-menu-icon-2").on("click", function () {
-        if ($("#nav-bar-id-2").css("display") !== "none")
-            $("#nav-bar-id-2").css("display", "none");
-        else              
-            $("#nav-bar-id-2").css("display", "block");
+    $("#menu-list-icon").on("click", function () {
+        $("#menu-list-ul").toggleClass("show-mob-menu");
+        $("#menu-list-icon").toggleClass("show-mob-menu-icon");
     });
 
- 
+    $(".custom-file-input").on("change", function () {
+        var filename = $(this).val().split("\\").pop();
+        $(this).next(".custom-file-label").html(filename);
+    });
 
 })
 
@@ -119,7 +124,7 @@ function LoadProgram(ProgramId, Title, OutPutDiv, Switch, AllowModifications) {
             var a = document.createElement("a");
             a.className = "btn btn-secondary padding-5 margin-5";
             a.textContent = "See feedback";
-            a.href = "/Program/GetProgramFeedback?ProgramId=" + ProgramId;
+            a.href = "/Administration/AddProgramFeedback?ProgramId=" + ProgramId;
             fbdiv.appendChild(p);
             fbdiv.appendChild(a);
 
@@ -309,7 +314,7 @@ function AddActivity(day, activity, allowmodifications) {
     });
 
     var timediv = document.createElement("div");
-    timediv.className = "d-flex flex-column align-items-end";
+    timediv.className = "d-flex flex-column align-items-end w-100";
 
     var input = document.createElement("input");
     input.className = "input-time";
@@ -402,14 +407,14 @@ function AddActivity(day, activity, allowmodifications) {
 
     var h5 = document.createElement("h5");
     h5.innerHTML = "Added attachments";
-    h5.className = "text-center padding-5 background-color-custom text-color-white margin-bottom-0 cursor";
+    h5.className = "text-center padding-5 background-purple text-color-white margin-bottom-0 cursor";
     h5.addEventListener("click", function () {
         CollapseDiv("Day_" + day + "_Activity_" + activity + "_AttachmentsDiv");
     });
 
     var innerdiv4 = document.createElement("div"); // added attachments
     innerdiv4.id = "Day_" + day + "_Activity_" + activity + "_AttachmentsDiv";
-    innerdiv4.className = "w-100 padding-0 d-flex flex-row flex-wrap justify-content-center align-items-start border-color-custom border-size-3 overflow-hidden switch-to-column";
+    innerdiv4.className = "w-100 padding-5 d-flex flex-row flex-wrap justify-content-start align-items-start border-color-custom border-size-3 overflow-hidden";
 
     //innerdiv2.appendChild(innerdiv1);
     innerdiv2.appendChild(p);

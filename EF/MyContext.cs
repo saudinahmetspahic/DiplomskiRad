@@ -39,6 +39,10 @@ namespace WebApp.EF
         public DbSet<Feedback> Feedback { get; set; }    
 
 
+        public DbSet<Invoice> Invoice { get; set; }    
+        public DbSet<InvoiceTable> InvoiceTable { get; set; }    
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<PrivateChatMessage>()
@@ -55,6 +59,11 @@ namespace WebApp.EF
 
             modelBuilder.Entity<ChatUser>()
              .HasKey(c => new { c.ChatId, c.UserId });
+
+            modelBuilder.Entity<InvoiceTable>()
+             .HasKey(c => new { c.InvoiceId, c.Row, c.Column }); 
+            
+        
         }
     }
 }

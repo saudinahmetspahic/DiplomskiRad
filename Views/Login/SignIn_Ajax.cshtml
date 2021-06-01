@@ -1,64 +1,64 @@
 ﻿@using WebApp.ViewModels.Login
 @model Registration_VM
 
-<div class="LogForms">
-    <form id="FormId" asp-action="SignIn" asp-controller="Login">
-        <div class="form-group row">
-            <label>Enter your first name <span class="text-red">*</span></label>
+<div class="LogForms from-row-to-column column-reverse">
+    <form id="FormId" class="form" asp-action="SignIn" asp-controller="Login">
+        <div>
+            <label class="form-label">Enter your first name <span class="text-red">*</span></label>
             <div class="col-sm-10">
-                <input asp-for="Name" />
+                <input class="form-input" asp-for="Name" />
             </div>
         </div>
-        <div class="form-group row">
-            <label>Enter your last name <span class="text-red">*</span></label>
+        <div>
+            <label class="form-label">Enter your last name <span class="text-red">*</span></label>
             <div class="col-sm-10">
-                <input asp-for="Surname" />
+                <input class="form-input" asp-for="Surname" />
             </div>
         </div>
-        <div class="form-group row">
-            <label>Enter your email adress <span class="text-red">*</span></label>
+        <div>
+            <label class="form-label">Enter your email adress <span class="text-red">*</span></label>
             <div class="col-sm-10">
-                <input asp-for="Email" type="email" />
+                <input class="form-input" asp-for="Email" type="email" />
             </div>
         </div>
-        <div class="form-group row">
-            <label>Enter your password <span class="text-red">*</span></label>
+        <div>
+            <label class="form-label">Enter your password <span class="text-red">*</span></label>
             <div class="col-sm-10">
-                <input asp-for="Password" type="password" />
+                <input class="form-input" asp-for="Password" type="password" />
             </div>
         </div>
-        <div class="form-group row">
-            <label>Enter your password again <span class="text-red">*</span></label>
+        <div>
+            <label class="form-label">Enter your password again <span class="text-red">*</span></label>
             <div class="col-sm-10">
-                <input asp-for="ConfirmPassword" type="password" />
+                <input class="form-input" asp-for="ConfirmPassword" type="password" />
             </div>
         </div>
-        <div class="form-group row">
-            <label>Enter your country</label>
+        <div>
+            <label class="form-label">Enter your country</label>
             <div class="col-sm-10">
-                <input asp-for="Country" />
+                <input class="form-input" asp-for="Country" />
             </div>
         </div>
-        <div class="form-group row">
-            <label>Enter your city</label>
+        <div>
+            <label class="form-label">Enter your city</label>
             <div class="col-sm-10">
-                <input asp-for="City" />
+                <input class="form-input" asp-for="City" />
             </div>
         </div>
-        <div class="form-group row">
-            <label>Enter your age <span class="text-red">*</span></label>
+        <div>
+            <label class="form-label">Enter your age <span class="text-red">*</span></label>
             <div class="col-sm-10">
-                <input asp-for="Age" type="number" />
+                <input class="form-input" asp-for="Age" type="number" />
             </div>
         </div>
-        <div class="form-group row">
-            <label>Enter your phone</label>
+        <div>
+            <label class="form-label">Enter your phone</label>
             <div class="col-sm-10">
-                <input asp-for="Phone" />
+                <input class="form-input" asp-for="Phone" />
             </div>
         </div>
 
-        <input class="btn btn-primary" type="submit" value="Sign In" />
+        <button type="submit">Sign In</button>
     </form>
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Registration!</h4>

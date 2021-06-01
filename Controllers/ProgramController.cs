@@ -13,9 +13,11 @@ using WebApp.ViewModels.Util;
 using System.Web;
 using WebApp.EntityModels;
 using WebApp.Helper;
+using static WebApp.Helper.Autorization;
 
 namespace WebApp.Controllers
 {
+    [Autorization(true, true, true)]
     public class ProgramController : Controller
     {
         MyContext _context;
@@ -25,6 +27,7 @@ namespace WebApp.Controllers
             _context = context;
         }
 
+        
         public IActionResult Index()
         {
             ViewData["Title"] = "Program Page";
@@ -86,13 +89,6 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> GetProgramPreviews(int[] filterIds, int numberOfPrograms)
         {
-            //List<int> ids = filterIds.ToList();
-            //var i = 0;
-            //while (ids.Count() < 3)
-            //{
-            //    ids.Add(filterIds[i]);
-            //    i++;
-            //}
             var programs = await _context.Program.Where(w => w.ProgramAccess == ProgramAccess.Public && w.ProgramState == ProgramState.Approved && !filterIds.Contains(w.Id)).OrderBy(o => o.DateAccessChanged).Take(numberOfPrograms).ToListAsync();
             var model = programs.Select(s => new GetPrograms_VM
             {
@@ -101,7 +97,7 @@ namespace WebApp.Controllers
                 Description = s.Description,
                 Activities = _context.ProgramActivity.Where(w => w.ProgramId == s.Id).OrderBy(o => o.DayOfProgram).Select(x => x.Activity.Title).Take(3).ToList()
             }).ToList();
-            if (model.Count() != numberOfPrograms)
+            if (model.Count() != numberOfPrograms && numberOfPrograms < 3)
                 return StatusCode(406); // not acceptable
             return PartialView(model);
         }
@@ -112,6 +108,7 @@ namespace WebApp.Controllers
             return Json(result);
         }
 
+        [Autorization(true, true, false)]
         public IActionResult CreateProgram(string ProgramName)
         {
             if (_context.Program.Where(w => w.Name == ProgramName).Any())
@@ -147,6 +144,7 @@ namespace WebApp.Controllers
             return Ok();
         }
 
+        [Autorization(true, true, false)]
         public IActionResult AddActivityToProgram(string ProgramName, int ActivityId, int Day)
         {
             var program = _context.Program.Where(w => w.Name == ProgramName).FirstOrDefault();
@@ -178,6 +176,7 @@ namespace WebApp.Controllers
             return Ok();
         }
 
+        [Autorization(true, true, false)]
         public async Task<IActionResult> RemoveActivityFromProgram(string ProgramName, int ActivityId, int Day)
         {
             var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
@@ -194,6 +193,7 @@ namespace WebApp.Controllers
             return Ok();
         }
 
+        [Autorization(true, true, false)]
         public IActionResult CreateCustomPlan()
         {
             var loggedUserAccount = HttpContext.GetLoggedUser();
@@ -298,6 +298,7 @@ namespace WebApp.Controllers
             return Json(model);
         }
 
+        [Autorization(true, true, false)]
         public IActionResult AddAttachmentToProgramActivity(string ProgramName, int ActivityId, int Day, int AttachmentId)
         {
             var program = _context.Program.Where(w => w.Name == ProgramName).FirstOrDefault();
@@ -334,6 +335,7 @@ namespace WebApp.Controllers
             return StatusCode(201);
         }
 
+        [Autorization(true, true, false)]
         public async Task<IActionResult> RemoveAttachmentFromProgramActivity(string ProgramName, int ActivityId, int Day, int AttachmentId)
         {
             var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
@@ -353,6 +355,7 @@ namespace WebApp.Controllers
             return Ok();
         }
 
+        [Autorization(true, true, false)]
         public IActionResult RemoveProgram(int ProgramId)
         {
             var activities = _context.ProgramActivity.Where(w => w.ProgramId == ProgramId).ToList();
@@ -375,6 +378,7 @@ namespace WebApp.Controllers
             return RedirectToAction("ProgramsOptions", "Administration");
         }
 
+        [Autorization(true, true, false)]
         public async Task<int> ChangeDay(string ProgramName, int OldValue, int NewValue)
         {
             var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
@@ -399,6 +403,7 @@ namespace WebApp.Controllers
             return View(model);
         }
 
+        [Autorization(true, true, false)]
         public async Task ChangeActivityTime(string ProgramName, int Activity, int Day, DateTime Time)
         {
             var activity = await _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).FirstOrDefaultAsync();
@@ -413,6 +418,7 @@ namespace WebApp.Controllers
             return date.ToString("HH:mm");
         }
 
+        [Autorization(true, true, false)]
         public async Task ChangeActivityDuration(string ProgramName, int Activity, int Day, int DedicatedHours)
         {
             var activity = await _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).FirstOrDefaultAsync();
@@ -427,21 +433,7 @@ namespace WebApp.Controllers
             return hours;
         }
 
-        public IActionResult GetProgramFeedback(int ProgramId)
-        {
-            var model = new GetProgramFeedback_VM
-            {
-                Id = ProgramId,
-                FeedBack = new List<GetProgramFeedback_VM.FB>()
-            };
-            model.FeedBack = _context.Feedback.Where(w => w.ProgramId == ProgramId).Select(s => new GetProgramFeedback_VM.FB
-            {
-                Creator = s.Creator.Name + " " + s.Creator.Surname,
-                Description = s.Description
-            }).ToList();
-            return View(model);
-        }
-
+        [Autorization(true, true, false)]
         public IActionResult RateProgram(int ProgramId)
         {
             var loggedUserAccount = HttpContext.GetLoggedUser();
@@ -470,6 +462,7 @@ namespace WebApp.Controllers
             return StatusCode(403);
         }
 
+        [Autorization(true, true, false)]
         public void RatingProgram(int ProgramId, int ActivityId, int Rate)
         {
             var loggedUserAccount = HttpContext.GetLoggedUser();
@@ -497,32 +490,5 @@ namespace WebApp.Controllers
                 _context.SaveChanges();
             }
         }
-
-        //public IActionResult RatingProgram(int[] rateArray, int[] activities, int programId /*RateProgram_VM model*/)
-        //{
-        //    var loggedUserAccount = HttpContext.GetLoggedUser();
-        //    var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
-        //    for (int i = 0; i < rateArray.Length; i++)
-        //    {
-        //        var prRate = _context.Rate.Where(w => w.ActivityId == activities[i] && w.UserId == loggedUser.Id).FirstOrDefault();
-        //        if (prRate != null)
-        //        {
-        //            prRate.RateValue = rateArray[i];
-        //            _context.Rate.Update(prRate);
-        //        }
-        //        else
-        //        {
-        //            var rate = new Rate
-        //            {
-        //                ActivityId = activities[i],
-        //                RateValue = rateArray[i],
-        //                UserId = loggedUser.Id
-        //            };
-        //            _context.Rate.Add(rate);
-        //        }
-        //    }
-        //    _context.SaveChanges();
-        //    return RedirectToAction("RateProgram", new { ProgramId = programId });
-        //}
     }
 }

@@ -51,74 +51,11 @@
         <br />
         <button type="submit" value="Save Changes">Save changes</button>
     </form>
-    @*<form id="FormId" class="flex-section-row-child-50" asp-action="UpdateAccountInfo" asp-controller="Login">
-            <table>
-                <tr>
-                    <td><label>Enter your first name</label></td>
-                    <td>
-                        <input name="Name" asp-for="Name" value="@Model.Name" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Enter your last name</label></td>
-                    <td>
-                        <input name="Surname" asp-for="Surname" value="@Model.Surname" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Enter your email adress</label></td>
-                    <td>
-                        <input name="Email" asp-for="Email" value="@Model.Email" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Enter your country</label></td>
-                    <td>
-                        <input name="Country" asp-for="Country" value="@Model.Country" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Enter your city</label></td>
-                    <td>
-                        <input name="City" asp-for="City" value="@Model.City" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Enter your age</label></td>
-                    <td>
-                        <input name="Age" asp-for="Age" value="@Model.Age" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Enter your phone</label></td>
-                    <td>
-                        <input name="Phone" asp-for="Phone" value="@Model.Phone" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><a class="btn btn-light" onclick="javascript: TogglePasswordModification();">&#128477; Change password</a></td>
-                </tr>
-                <tr class="PasswordModification">
-                    <td><label>Enter your password</label></td>
-                    <td>
-                        <input name="Password" asp-for="Password" value="@Model.Password" />
-                    </td>
-                </tr>
-                <tr class="PasswordModification">
-                    <td><label>Enter your password again</label></td>
-                    <td>
-                        <input name="ConfirmPassword" asp-for="ConfirmPassword" value="@Model.Password" />
-                    </td>
-                </tr>
-            </table>
-            <br />
-            <input class="btn btn-primary" type="submit" value="Save Changes" />
-        </form>*@
 </div>
 
 @if (Model.IsAdmin == true)
 {
-    <div class="d-flex justify-content-around margin-top-50 padding-top-50 padding-bottom-50 border-top border-info">
+    <div class="d-flex justify-content-around margin-top-50 padding-top-50 padding-bottom-50 border-top border-info from-row-to-column">
         <div>
             <h5>You have administrator permissions</h5>
             <p>Add new administrator (search user and click on it)</p>

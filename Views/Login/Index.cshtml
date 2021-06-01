@@ -13,25 +13,23 @@
 
 </div>
 <div class="LogForms">
-    <form asp-action="LogIn" asp-controller="Login" method="post">
+    <form class="form" asp-action="LogIn" asp-controller="Login" method="post">
         <input hidden value="" />
 
-        <div class="form-group row">
-            <label>Enter your mail</label>
+        <div>
+            <label class="form-label">Enter your mail</label>
             <div class="col-sm-12">
-                <input asp-for="Email" type="email" required />
+                <input class="form-input" asp-for="Email" type="email" required />
             </div>
         </div>
-        <div class="form-group row">
-            <label>Enter your password</label>
+        <div>
+            <label class="form-label">Enter your password</label>
             <div class="col-sm-12">
-                <input asp-for="Password" type="password" required />
+                <input class="form-input" asp-for="Password" type="password" required />
             </div>
         </div>
-        <div class="d-flex justify-content-start gap-1">
-            <input class="w-100px btn btn-primary" type="submit" value="Log In" />
-            <input class="w-100px btn btn-primary" type="button" value="Sign In" onclick="javascript: GetSignInForm();" />
-        </div>
+        <button type="submit">Log In</button>
+        <button class="form-button" type="button" onclick="javascript: GetSignInForm();">Sign In</button>
     </form>
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Welcome back!</h4>

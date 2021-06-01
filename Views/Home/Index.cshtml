@@ -1,11 +1,105 @@
-﻿@{
-    Layout = "_LandingPageLayout";
+﻿@using WebApp.EntityModels
+@model List<Notification>
+@{
+    //Layout = "_LandingPageLayout";
     var msg = (string)TempData["msg"];
 }
+
+<style>
+    main {
+        padding: 0px !important;
+    }
+</style>
+
+
 @if (msg != null)
 {
     <div class="warning-message">@msg</div>
 }
+<div class="bg-image margin-bottom-50">
+    @*<img class="bg-image" src="/Images/kravice.jpg" alt="" />*@
+    <p class="text-color-lightgray">
+        <span class="font-weight-bold font-italic margin-5">“To travel is to open windows of the heart and welcome newness ”</span>
+        <span class="font-size-20px"><br />― Anamika Mishra, Dreamcatcher: A Tale of Hope & Love</span>
+    </p>
+</div>
+
+<div class="line">
+    <p>Search programs</p>
+</div>
+
+<div id="programsPreview" class="font-family-ubuntu">
+
+</div>
+
+<div class="notifications from-row-to-column column-no-space column-spread">
+    <div id="notifications-details">
+
+    </div>
+    <div class="notification-list">
+        @foreach (var notif in Model)
+        {
+            <h4 onclick="javascript: GetNotificationDetails('@notif.Id');">@notif.Title</h4>
+        }
+    </div>
+</div>
+
+<div class="line">
+    <p>Need help?</p>
+</div>
+
+<div class="margin-bottom-50 margin-top-50">
+    <div class="custom-a">
+        <div class="w-200"></div>
+        <div class="custom-a-text">
+            <h4>Explore</h4>
+            <p>Let us help you explore Bosnia and Herzegovina. It is country full of landmarks worth visiting wherever you are coming from.</p>
+        </div>
+    </div>
+    <div class="custom-a">
+        <div class="custom-a-text">
+            <h4>Contact us</h4>
+            <p>Feel free to send us a message and we will reply in no time. You can chat with us via this app or you can send us an email.</p>
+        </div>
+        <div class="w-200"></div>
+    </div>
+    <div class="custom-a">
+        <div class="w-200"></div>
+        <div class="custom-a-text">
+            <h4>Build</h4>
+            <p>We are ready to take you on adventure you create. Build your own program and demand your wishes. We will make it happen.</p>
+        </div>
+    </div>
+</div>
+
+<div class="line">
+    <p>Our friends</p>
+</div>
+
+<div id="sponsors" class="sectionMargin">
+
+</div>
+
+<footer id="footer">
+    <div>
+        <img src="~/Images/Embedded/company_logo.jpg" alt="" />
+        <div class="d-flex margin-5"><div class="footer-icon"><i class="fa fa-map-marker pr-10"></i></div> Bosnia & Herzegovina<br />Zenica<br />Branilaca Bosne 14</div>
+        <div class="d-flex margin-5"><div class="footer-icon"><i class="fa fa-phone pr-10"></i></div> +387/62-973-830</div>
+        <div class="d-flex margin-5"><div class="footer-icon"><i class="fa fa-envelope-o pr-10"></i></div> respectzajim@gmail.com</div>
+    </div>
+    <div>
+        <h3>Links</h3>
+        <a asp-action="Index" asp-controller="Catalog">Catalog</a>
+        <a asp-action="Index" asp-controller="Chat">Contact</a>
+        <a asp-action="Index" asp-controller="Program">Programs</a>
+        <a asp-action="Index" asp-controller="Purchase">Purchases</a>
+    </div>
+    <p class="rsv">2021 - New Respect - Travel Agency</p>
+</footer>
+
+
+
+<!--
 <script>
     setTimeout(function () {
         $(".warning-message").remove();
@@ -43,209 +137,221 @@
                 <img src="/Images/semir_osmanagic.jpg" alt="Alternate Text" />
             </div>
         </div>
-    </div>
-
-    @* info cards *@
-    @*<div id="card-section-div" class="flex-section-column justify-content-center w-100 padding-50 margin-top-50 zIndexUp sectionMargin background-light font-family-ubuntu">
-            <div class="card-section flex-section-row justify-content-around align-items-lg-center padding-5">
-                <div class="custom-card cursor cursor-animation-1">
-                    <h3>Plans</h3>
-                    <p>Create your own plan for visiting our homeland, dynamically with help of our web app. Everything is one click away from you.</p>
-                </div>
-                <div class="custom-card cursor cursor-animation-1">
-                    <h3>Invoices</h3>
-                    <p>After you create your plan you will get an indepth view on economical side of your plan, which gives you rough amout of costs.</p>
-                </div>
-                <div class="custom-card cursor cursor-animation-1">
-                    <h3>Chat<span class="glyphicon glyphicon-user"></span></h3>
-                    <p>If you need some information from us, you can send us a message or you can create a group messaging room to talk to others if you come in groups.</p>
-                </div>
+    </div>-->
+@* info cards *@
+@*<div id="card-section-div" class="flex-section-column justify-content-center w-100 padding-50 margin-top-50 zIndexUp sectionMargin background-light font-family-ubuntu">
+        <div class="card-section flex-section-row justify-content-around align-items-lg-center padding-5">
+            <div class="custom-card cursor cursor-animation-1">
+                <h3>Plans</h3>
+                <p>Create your own plan for visiting our homeland, dynamically with help of our web app. Everything is one click away from you.</p>
             </div>
-            <div class="card-section flex-section-row justify-content-around align-items-lg-center padding-5">
-                <div class="custom-card cursor cursor-animation-2">
-                    <h3 class="">Monitoring</h3>
-                    <p>You can always have a look at the details about group members and their current status and responsibilities.</p>
-                </div>
-                <div class="custom-card cursor cursor-animation-2">
-                    <h3 class="">Notices</h3>
-                    <p>Read newest notices to stay informed about your or your group daily activities.</p>
-                </div>
-                <div class="custom-card cursor cursor-animation-2">
-                    <h3 class="">Referentives</h3>
-                    <p>Find out who we suggest you for transportation, accommodation and nutrition.</p>
-                </div>
+            <div class="custom-card cursor cursor-animation-1">
+                <h3>Invoices</h3>
+                <p>After you create your plan you will get an indepth view on economical side of your plan, which gives you rough amout of costs.</p>
             </div>
-        </div>*@
+            <div class="custom-card cursor cursor-animation-1">
+                <h3>Chat<span class="glyphicon glyphicon-user"></span></h3>
+                <p>If you need some information from us, you can send us a message or you can create a group messaging room to talk to others if you come in groups.</p>
+            </div>
+        </div>
+        <div class="card-section flex-section-row justify-content-around align-items-lg-center padding-5">
+            <div class="custom-card cursor cursor-animation-2">
+                <h3 class="">Monitoring</h3>
+                <p>You can always have a look at the details about group members and their current status and responsibilities.</p>
+            </div>
+            <div class="custom-card cursor cursor-animation-2">
+                <h3 class="">Notices</h3>
+                <p>Read newest notices to stay informed about your or your group daily activities.</p>
+            </div>
+            <div class="custom-card cursor cursor-animation-2">
+                <h3 class="">Referentives</h3>
+                <p>Find out who we suggest you for transportation, accommodation and nutrition.</p>
+            </div>
+        </div>
+    </div>*@
 
-    @* sponsors *@
-    <div id="sponsors" class="sectionMargin">
+@* sponsors *@
+<!--<div id="sponsors" class="sectionMargin">
 
+</div>-->
+@* cards *@
+<!--<div id="contact-lists-div" class="flex-section-row justify-content-around padding-50 background-gainsboro user-select-none">
+    <div class="contact-list">
+        <h5 class="card-title text-center">&#128222; Contact</h5>
+        <ul class="w-50 div-align-center">
+            <li><i class="fa fa-envelope"></i> respectzajim@gmail.com</li>
+            <li><i class="fa fa-phone-square"></i> <i class="fa fa-comment"></i> +387/62-973-830</li>-->
+@*<li><i class="fa fa-commenting"></i> Send a private message here</li>*@
+<!--<li><i class="fa fa-facebook-official"></i> Facebook</li>
+    </ul>
+</div>
+<div class="contact-list">
+    <h5 class="card-title text-center">&#127758; Location</h5>
+    <ul class="w-50 div-align-center">
+        <li>We are located in Zenica</li>
+        <li>Bosnia and Herzegovina</li>
+        <li>Street Branilaca Bosne 14</li>-->
+@*<li>Working time 09:00-17:00</li>*@
+<!--</ul>
     </div>
+</div>
 
-    @* cards *@
-    <div id="contact-lists-div" class="flex-section-row justify-content-around padding-50 background-gainsboro user-select-none">
-        <div class="contact-list">
-            <h5 class="card-title text-center">&#128222; Contact</h5>
-            <ul class="w-50 div-align-center">
-                <li><i class="fa fa-envelope"></i> respectzajim@gmail.com</li>
-                <li><i class="fa fa-phone-square"></i> <i class="fa fa-comment"></i> +387/62-973-830</li>
-                @*<li><i class="fa fa-commenting"></i> Send a private message here</li>*@
-                <li><i class="fa fa-facebook-official"></i> Facebook</li>
-            </ul>
-        </div>
-        <div class="contact-list">
-            <h5 class="card-title text-center">&#127758; Location</h5>
-            <ul class="w-50 div-align-center">
-                <li>We are located in Zenica</li>
-                <li>Bosnia and Herzegovina</li>
-                <li>Street Branilaca Bosne 14</li>
-                @*<li>Working time 09:00-17:00</li>*@
-            </ul>
-        </div>
+
+
+
+<footer class="padding-20 border-top text-muted">
+    <div class="container">
+        &copy; 2021 - New Respect - Travel Agency
     </div>
+</footer>
+    -->
 
-
-
-
-    <footer class="padding-20 border-top text-muted">
-        <div class="container">
-            &copy; 2021 - New Respect - Travel Agency
-        </div>
-    </footer>
-
-
-    <script>
-        $(document).scroll(function () {
-
-            var x = window.innerWidth;
-            if (x < 1000)
-                return;
-            var y = window.scrollY;
-            if (y > 50) {
-                $("nav").addClass("fixed-nav");
-                $(".moving_logo").removeClass("moving_logo_expand");
+<script>
+    function GetNotificationDetails(notificationId) {
+        $.get("/Notification/GetNotificationDetails?NotificationId=" + notificationId, function (result, status) {
+            if (status === "success") {
+                $("#notifications-details").html(result);
             }
-            else {
-                $("nav").removeClass("fixed-nav");
-                $(".moving_logo").addClass("moving_logo_expand");
+        });
+    }
+
+
+    //$(document).scroll(function () {
+
+    //    var x = window.innerWidth;
+    //    if (x < 1000)
+    //        return;
+    //    var y = window.scrollY;
+    //    if (y > 50) {
+    //        $("nav").addClass("fixed-nav");
+    //        $(".moving_logo").removeClass("moving_logo_expand");
+    //    }
+    //    else {
+    //        $("nav").removeClass("fixed-nav");
+    //        $(".moving_logo").addClass("moving_logo_expand");
+    //    }
+
+    //});
+
+    var interval;
+    $(document).ready(function () {
+        getPrograms([], 3);
+        interval = setInterval(function () {
+            var ids = [];
+            var addedprograms = document.getElementById("programsPreview").children;
+            for (var i = 0; i < addedprograms.length; i++) {
+                ids.push(addedprograms.item(i).id.split('_')[1]);
             }
+            getPrograms(ids, 1);
+        }, 7000);
+        GetNotificationDetails('@Model.FirstOrDefault().Id');
+        getSponsors();
+    });
 
-        });
+    function getPrograms(ids, num) {
+        $.ajax({
+            url: "/Program/GetProgramPreviews",
+            method: "POST",
+            data: {
+                filterIds: ids,
+                numberOfPrograms: num
+            },
+            success: function (result, status) {
+                if (status === "success") {
+                    $("#programsPreview").append(result);
+                    var count = $("#programsPreview").children().length;
+                    if (count > 3) {
+                        count = count - 3;
 
-        var interval;
-        $(document).ready(function () {
-            getPrograms([], 3);
-            interval = setInterval(function () {
-                var ids = [];
-                var addedprograms = document.getElementById("programsPreview").children;
-                for (var i = 0; i < addedprograms.length; i++) {
-                    ids.push(addedprograms.item(i).id.split('_')[1]);
-                }
-                getPrograms(ids, 1);
-            }, 7000);
-
-            getSponsors();
-        });
-
-        function getPrograms(ids, num) {
-            $.ajax({
-                url: "/Program/GetProgramPreviews",
-                method: "POST",
-                data: {
-                    filterIds: ids,
-                    numberOfPrograms: num
-                },
-                success: function (result, status) {
-                    if (status === "success") {
-                        for (var i = 0; i < num; i++) {
+                        console.log(count);
+                        for (var i = 0; i < count; i++) {
                             $("#programsPreview").children().first().remove();
                         }
-                        $("#programsPreview").append(result);
-                    }
-                },
-                error: function (xhr) {
-                    if (xhr.status == 406) {
-                        // killing interval because there is no need for it as there is no enough programs to show
-                        clearInterval(interval);
                     }
                 }
-            });
-        }
-
-        function getSponsors() {
-            $.get("/Sponsor/GetSponsorsInfo", function (result, status) {
-                if (status === "success") {
-                    $("#sponsors").html(result);
+            },
+            error: function (xhr) {
+                if (xhr.status == 406) {
+                    // killing interval because there is no need for it as there is no enough programs to show
+                    clearInterval(interval);
                 }
-            });
-        }
-    </script>
+            }
+        });
+    }
 
+    function getSponsors() {
+        $.get("/Sponsor/GetSponsorsInfo", function (result, status) {
+            if (status === "success") {
+                $("#sponsors").html(result);
+            }
+        });
+    }
 
-
-
-
-
-
-    @*slide show
-        <div id="carouselExampleIndicators" class="carousel slide widerSection" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="~/Images/pyramid.jpg" alt="Pyramid">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Bosnian Pyramid of the Sun</h5>
-                        <p>Bosnian pyramid located in city of Visoko. Accumulation of energy attracts people of all around the world.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="~/Images/old-bridge.jpg" alt="Old Bridge">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Old Bridge</h5>
-                        <p>An exemplary piece of Balkan Islamic architecture, commissioned by Suleiman the Magnificent in 1557.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="~/Images/bascarsija.jpg" alt="Baščaršija">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Baščaršija</h5>
-                        <p>Sarajevo's old bazaar and the historical and cultural center of the city.</p>
-                    </div>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $(".warning-message").remove();
+        }, 5000);
+    });
+</script>
+@*slide show
+    <div id="carouselExampleIndicators" class="carousel slide widerSection" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="~/Images/pyramid.jpg" alt="Pyramid">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Bosnian Pyramid of the Sun</h5>
+                    <p>Bosnian pyramid located in city of Visoko. Accumulation of energy attracts people of all around the world.</p>
                 </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="~/Images/old-bridge.jpg" alt="Old Bridge">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Old Bridge</h5>
+                    <p>An exemplary piece of Balkan Islamic architecture, commissioned by Suleiman the Magnificent in 1557.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="~/Images/bascarsija.jpg" alt="Baščaršija">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Baščaršija</h5>
+                    <p>Sarajevo's old bazaar and the historical and cultural center of the city.</p>
+                </div>
+            </div>
         </div>
-        info cards
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    info cards
 
 
-        <div class="flex-section-row justify-content-around widerSection h-500 sectionMargin position-relative">
-            <div class="margin-top-0 h-auto w-100 flex-section-row-child-50 d-flex justify-content-center align-items-center">
-                <img class="border-radius-right position-absolute w-auto h-100 zIndexDown" src="~/Images/kravice.jpg" alt="Kravice" />
-                <div class="zIndexUp position-relative text-color-white padding-20">
-                    <h3>Build plan by your preferences</h3>
-                    <p>Register your account and you will be able to dynamically create your travel plan. Work on details will make your experience unforgettable.</p>
-                </div>
+    <div class="flex-section-row justify-content-around widerSection h-500 sectionMargin position-relative">
+        <div class="margin-top-0 h-auto w-100 flex-section-row-child-50 d-flex justify-content-center align-items-center">
+            <img class="border-radius-right position-absolute w-auto h-100 zIndexDown" src="~/Images/kravice.jpg" alt="Kravice" />
+            <div class="zIndexUp position-relative text-color-white padding-20">
+                <h3>Build plan by your preferences</h3>
+                <p>Register your account and you will be able to dynamically create your travel plan. Work on details will make your experience unforgettable.</p>
             </div>
+        </div>
 
-            <div class="margin-top-50 h-auto w-100 flex-section-row-child-50 d-flex justify-content-center align-items-center">
-                <img class="border-radius-left position-absolute w-auto h-100 zIndexDown" src="~/Images/konjic.jpg" alt="Konjic" />
-                <div class="zIndexUp position-relative text-color-white padding-20">
-                    <h3>Explore our homeland with one click</h3>
-                    <p>You can read our articles aboute places you may want to visit and find out why are they so popular and attractive to people all around the world.</p>
-                </div>
+        <div class="margin-top-50 h-auto w-100 flex-section-row-child-50 d-flex justify-content-center align-items-center">
+            <img class="border-radius-left position-absolute w-auto h-100 zIndexDown" src="~/Images/konjic.jpg" alt="Konjic" />
+            <div class="zIndexUp position-relative text-color-white padding-20">
+                <h3>Explore our homeland with one click</h3>
+                <p>You can read our articles aboute places you may want to visit and find out why are they so popular and attractive to people all around the world.</p>
             </div>
-        </div>*@
+        </div>
+    </div>*@
 
 
-</div>
+<!--</div>-->

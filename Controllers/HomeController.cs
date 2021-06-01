@@ -22,8 +22,10 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
+            var notif = _context.Notification.OrderByDescending(o => o.DateCreated).Take(8).ToList();
+
             ViewData["Title"] = "Home Page";
-            return View();
+            return View(notif);
         }
 
         [Autorization(true, false)]

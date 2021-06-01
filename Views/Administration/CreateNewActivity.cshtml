@@ -1,7 +1,7 @@
 ﻿@using WebApp.ViewModels.Administration
 @model AddNewActivity_VM
 
-<div class="flex-section-row switch-to-column w-75 div-align-center">
+<div class="flex-section-row switch-to-column w-75 div-align-center from-row-to-column column-reverse">
     <form class="form flex-section-row-child-50" enctype="multipart/form-data" asp-action="AddNewActivity" asp-controller="Administration" method="post">
         <label class="form-label">Enter title</label>
         <input class="form-input" type="text" asp-for="Title" />

@@ -1,0 +1,35 @@
+﻿@using WebApp.ViewModels.Purchase
+@model List<GetInvoices_VM>
+
+<p>
+    Down bellow are listed invoices that are created. They can be modified at any time or you can create new invoice.
+    <a class="btn btn-danger" asp-action="CreateAnInvoice" asp-controller="Purchase">Create new invoice</a>
+</p>
+
+
+<table class="table">
+    <thead class="table-primary">
+        <tr>
+            <th>Customer</th>
+            <th>Customer country</th>
+            <th>Place of issue</th>
+            <th>Date of issue</th>
+            <th>Settled (BAM)</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inv in Model)
+        {
+            <tr class="focus-border cursor" onclick="location.href = '/Purchase/ModifyInvoice?InvoiceId=@inv.Id'">
+                <td>@inv.Customer</td>
+                <td>@inv.CustomerCountry</td>
+                <td>@inv.PlaceOfIssue</td>
+                <td>@inv.DateOfIssue.ToString("dd. MMM yyyy. HH:mm")</td>
+                <td>@Math.Round(inv.Settled, 2)</td>
+                <td><a asp-controller="Purchase" asp-action="RemoveInvoice" asp-route-InvoiceId="@inv.Id" class="btn btn-red">Remove</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

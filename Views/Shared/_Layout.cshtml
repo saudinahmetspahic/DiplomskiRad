@@ -47,88 +47,46 @@
 
     <div class="d-flex flex-column h-100-vh">
         <header class="zIndexUp">
-            <div id="short-menu-icon-2">
-                <div class="img-size-50"><i class="bi bi-list"></i></div>
-            </div>
-            @*<nav id="nav-bar-id-2" class="flex-1 navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3 padding-0">
-                <div class="container">
-                    <img class="navbar-brand" src="~/Images/Embedded/company_logo.png" />
-                    <div class="navbar-brand collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Catalog" asp-action="Index">Catalog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Chat" asp-action="Index">Contact</a>
-                                asp-controller="Home" asp-action="Contact"
-                            </li>
-                            @if (account != null)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Program" asp-action="Index">Programs</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Purchase" asp-action="IssueAnInvoice"></a>
-                                </li>
-                            }
-                            @if (isAdmin)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark padding-5" asp-area="" asp-controller="Administration" asp-action="Index">Administration</a>
-                                </li>
-                            }
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary padding-5" asp-area="" asp-controller="Login" asp-action="Account">@text</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>*@
             <nav id="nav-bar-id-2" class="nav-bar">
-                <div>
-                    <div class="logo">
-
-                    </div>
-                    <img class="" src="~/Images/Embedded/company_logo.jpg" />
-                </div>
+                <a asp-action="Index" asp-controller="Home">
+                    <img src="~/Images/Embedded/company_logo.jpg" alt="" />
+                </a>
                 <div class="">
-                    <ul class="nav-bar-ul">
+                    <div id="menu-list-icon" class="img-size-50"><i class="bi bi-list"></i></div>
+                    <ul id="menu-list-ul" class="nav-bar-ul">
                         <li class="nav-item">
-                            <a class="" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="" asp-area="" asp-controller="Catalog" asp-action="Index">Catalog</a>
+                            <a asp-controller="Catalog" asp-action="Index">Catalog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="" asp-area="" asp-controller="Chat" asp-action="Index">Contact</a> @*asp-controller="Home" asp-action="Contact"*@
+                            <a asp-controller="Chat" asp-action="Index">Contact</a>
                         </li>
                         @if (account != null)
                         {
                             <li class="nav-item">
-                                <a class="" asp-area="" asp-controller="Program" asp-action="Index">Programs</a>
+                                <a asp-controller="Program" asp-action="Index">Programs</a>
                             </li>
                             <li class="nav-item">
-                                <a class="" asp-area="" asp-controller="Purchase" asp-action="Index">Purchases</a>
+                                <a asp-controller="Purchase" asp-action="Index">Purchases</a>
                             </li>
                         }
                         @if (isAdmin)
                         {
                             <li class="nav-item">
-                                <a class="" asp-area="" asp-controller="Administration" asp-action="Index">Administration</a>
+                                <a asp-controller="Administration" asp-action="Index">Administration</a>
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="" asp-area="" asp-controller="Login" asp-action="Account">@text</a>
+                            <a asp-controller="Login" asp-action="Account">@text</a>
                         </li>
                     </ul>
                 </div>
             </nav>
 
         </header>
-        <div id="main-container" class="h-100">
+        <div id="main-container" class="h-100 w-100 overflow-x-hidden">
             <main role="main" class="pb-3 padding-20 h-100">
                 @RenderBody()
             </main>

@@ -224,7 +224,6 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetActivityDescription.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetActivityDetailsAjax.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetAttachmentDescription.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetProgramFeedback.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetProgramPreviews.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetPrograms.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\GetSearchPlansOptions.cshtml.g.cs
@@ -234,7 +233,6 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\ShowProgramDetails.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\GetProgramPurchasesDetails.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\GetUsersToAddToPurchase.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\IssueAnInvoice.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\PurchaseProgram.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Room\Default.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
@@ -253,3 +251,7 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Chat\GetChat.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Chat\ChatSettings.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\Index.cshtml.g.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\GetInvoices.cshtml.g.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\IssueAnInvoice.cshtml.g.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\AttachInvoiceToPurchase.cshtml.g.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Notification\GetNotificationDetails.cshtml.g.cs

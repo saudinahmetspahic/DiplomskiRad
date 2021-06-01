@@ -12,6 +12,7 @@ namespace WebApp.ViewModels.Purchase
         public DateTime DateCreated { get; set; }
         public string Creator { get; set; }
         public string ProgramName { get; set; }
+        public int InvoiceId { get; set; }
         public List<Participant> Participants { get; set; }
         public class Participant
         {

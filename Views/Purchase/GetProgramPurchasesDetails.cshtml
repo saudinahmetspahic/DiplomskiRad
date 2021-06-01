@@ -8,7 +8,7 @@
     var isAdmin = account.Role == UserRole.Admin;
 }
 
-<section class="d-flex justify-content-around margin-bottom-50 switch-to-column">
+<section class="d-flex justify-content-around margin-bottom-50 from-row-to-column">
     <div>
         <h5 class="h5-tag-style">Created</h5> <h6 class="text-center margin-bottom-20">@Model.DateCreated.ToShortDateString()</h6>
     </div>
@@ -23,7 +23,22 @@
     </div>
 </section>
 
-<p>In table down bellow are listed all participants for this purchase. If you want to add new one click 'Add participant'</p>
+
+@if (isAdmin)
+{
+    <div class="d-flex flex-row align-items-center margin-bottom-20">
+        <p class="margin-0">To create an invoice for this program click on this button.</p>
+        <a asp-action="GetInvoices" asp-controller="Purchase" class="btn btn-danger margin-side-10"><i class="bi bi-receipt"></i> Issue an invoice</a>
+    </div>
+}
+@if (Model.InvoiceId > 0)
+{
+    <div class="d-flex flex-row align-items-center margin-bottom-20">
+        <p class="margin-0">This program has invoice attached to it.</p>
+        <a asp-action="IssueAnInvoice" asp-controller="Purchase" asp-route-InvoiceId="@Model.InvoiceId" class="btn btn-primary margin-side-10"><i class="bi bi-receipt"></i> Show invoice details</a>
+    </div>
+}
+<p>All participants for this purchase are listed in table down bellow. If you want to add new one click 'Add participant'</p>
 <table class="table">
     <thead class="table-primary ">
         <tr>
@@ -52,12 +67,6 @@
     <p class="border-bottom focus-hover d-inline-block cursor padding-5" onclick="javascript: AddNewPurchaseParticipant('@Model.ProgramName', '@Model.PurchaseId');">ADD PARTICIPANT</p>
 </div>
 
-@if (isAdmin)
-{
-    <div class="d-flex flex-row">
-        <button onclick="location.href = '/Purchase/IssueAnInvoice?PurchaseId=@Model.PurchaseId'" class="w-100 padding-20 btn-danger"><i class="bi bi-receipt"></i> Issue an invoice</button>
-    </div>
-}
 
 
 <script>

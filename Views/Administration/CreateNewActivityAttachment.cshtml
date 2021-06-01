@@ -1,7 +1,7 @@
 ﻿@using WebApp.ViewModels.Administration
 @model AddNewActivityAttachment_VM
 
-<div class="flex-section-row margin-top-25 div-align-center w-75 switch-to-column">
+<div class="flex-section-row margin-top-25 div-align-center w-75 from-row-to-column column-reverse">
     <form enctype="multipart/form-data" class="form padding-5" asp-action="AddNewActivityAttachment" asp-controller="Administration">
 
         <input hidden asp-for="ActivityId" value="@Model.ActivityId" />
@@ -21,8 +21,8 @@
 
         <label class="form-label">Upload a photo that is related to attachment.</label>
         <div class="custom-file">
-            <input asp-for="Image" class="form-input custom-file-input" />
-            <label class="form-label custom-file-label">Choose picture</label>
+            <input asp-for="Image" class="custom-file-input form-input" />
+            <label class="custom-file-label form-label">Choose picture</label>
         </div>
 
         <button class="margin-top-5" type="submit">Create</button>

@@ -1,4 +1,8 @@
-﻿<style id="styles">
+﻿@using WebApp.ViewModels.Purchase
+@model IssueAnInvoice_VM
+
+
+<style id="styles">
     input, textarea {
         cursor: pointer;
     }
@@ -198,166 +202,155 @@
     }
 </style>
 
-<section id="content" class="box-shadow-small sectionMargin padding-20">
-    @* header *@
-    <div class="margin-bottom-20 d-flex switch-to-column">
-        <div class="w-50">
-            <h5 class="text-color-green">New respect d.o.o</h5>
-            <h5 class="text-color-green">www.new-respect.com</h5>
-            @*onmouseover="javascript: ShowHoverInfo(this, 'Adress&#10;Postal Code, City, Country&#10;Ph | Fax&#10;Email');"*@
-            @*onclick="javascript: CreateTextArea(this, 'padding-5 w-100 max-height-300 h-150 text-color-green');"*@
-            @*<div>*@
-            <textarea onblur="javascript: SetInputBorderVisibility(this);" class="padding-5 w-100 max-height-300 h-150 text-color-green" placeholder="Adress&#10;Postal Code, City, Country&#10;Ph | Fax&#10;Email"></textarea>
-            <div class="d-flex justify-content-between"><h5>PDV broj </h5><input onblur="javascript: SetInputBorderVisibility(this);" class="w-75" /></div>
-            @*</div>*@
-        </div>
-        <div class="w-50 d-flex justify-content-center align-items-center">
-            @* logo *@
-            <img alt="" src="~/Images/Embedded/company_logo.jpg" />
-        </div>
-    </div>
-
-    @* customer *@
-    <div class="margin-bottom-20 d-flex justify-content-end switch-to-column">
-        <div class="w-50 position-relative padding-50 d-flex flex-column justify-content-center align-items-center">
-            <div class="corner-border"></div>
-            <div class="corner-border"></div>
-            <div class="corner-border"></div>
-            <div class="corner-border"></div>
-
-            <input onblur="javascript: SetInputBorderVisibility(this);" class="margin-5 text-center" placeholder="Customer" />
-            <input onblur="javascript: SetInputBorderVisibility(this);" class="margin-5 text-center" placeholder="Country" />
-        </div>
-    </div>
-
-    @* data *@
-    <div class="margin-bottom-20">
-        <div class="d-flex flex-column justify-content-end align-items-end switch-to-column">
-            <div class="d-flex align-items-center font-weight-bold"><h5 class="margin-top-5">ESTIMATE </h5><input onblur="javascript: SetInputBorderVisibility(this);" class="margin-5 text-center" /></div>
-            <div class="d-flex align-items-center switch-to-column"><h6 class="margin-top-5">Place and date of issue </h6><input onblur="javascript: SetInputBorderVisibility(this);" placeholder="Place" class="margin-5 text-center" /><input onblur="javascript: SetInputBorderVisibility(this);" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="margin-5" /></div>
-        </div>
-        @* table *@
-        <div class="d-flex flex-column justify-content-center align-items-center padding-20">
-            <div id="tables" class="d-flex flex-column align-content-center"></div>
-            <div class="d-flex flex-column justify-content-center align-items-center toRemove">
-                <label>Insert table</label>
-                <div class="d-flex">
-                    <input id="Rows" onblur="javascript: SetInputBorderVisibility(this);" class="margin-5 text-center" type="number" placeholder="Rows" />
-                    <input id="Columns" onblur="javascript: SetInputBorderVisibility(this);" class="margin-5 text-center" type="number" placeholder="Columns" />
-                </div>
-                <button onclick="javascript: CreateNewTable();" class="btn-white-black w-100 padding-5 font-weight-bold">Create</button>
-            </div>
-        </div>
-    </div>
-
-    @* info *@
-    <div class="margin-bottom-20 switch-to-column">
-
-        <table class="w-75 switch-to-column">
-            <tr class="switch-to-column">
-                <td><label class="margin-0">Datum isporuke (date of delivery)</label></td>
-                <td><input onblur="javascript: SetInputBorderVisibility(this);" class="h-50 w-100" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" /></td>
-            </tr>
-            <tr class="switch-to-column">
-                <td><label class="h-50 margin-0">Izmireno (settled)</label></td>
-                <td class="d-flex justify-content-between align-items-center">
-                    <label class="margin-left-5 margin-bottom-0 font-weight-bold">BAM</label><input onblur="javascript: SetInputBorderVisibility(this);" class="h-50 w-40perc" type="number" id="value_bam" />
-                    <label class="margin-left-5 margin-bottom-0 font-weight-bold">EUR</label><input onblur="javascript: SetInputBorderVisibility(this);" class="h-50 w-40perc margin-left-5" type="number" id="value_eur" />
-                </td>
-            </tr>
-            <tr class="switch-to-column">
-                <td><label class="h-50 margin-0">Slovima (total - in words)</label></td>
-                <td><input onblur="javascript: SetInputBorderVisibility(this);" class="h-50 w-100" type="text" /></td>
-            </tr>
-            <tr class="switch-to-column">
-                <td><label class="h-50 margin-0">Nacin plaćanja (method of payment) </label></td>
-                <td><input onblur="javascript: SetInputBorderVisibility(this);" class="h-50 w-100" type="text" /></td>
-            </tr>
-            <tr class="switch-to-column">
-                <td><label class="h-50 margin-0">Rok za plaćanje (deadline for payment) </label></td>
-                <td><input onblur="javascript: SetInputBorderVisibility(this);" class="h-50 w-100" type="text" /></td>
-            </tr>
-        </table>
-
-        @*<div><label>Datum isporuke (date of delivery)</label><input type="date" value="@DateTime.Now" /></div>
-            <div><label>Izmireno (settled)</label><input type="text" placeholder="BAM" /><input type="text" placeholder="EUR" /></div>
-            <div><label>Slovima (total - in words)</label><input type="text" /></div>
-            <div><label>Nacin plaćanja (method of payment) </label><input type="text" /></div>
-            <div><label>Rok za plaćanje (deadline for payment) </label><input type="text" /></div>*@
-
-        <div class="margin-top-50 w-75 border-bottom border-dark">
-            <label class="font-weight-bold">Account to pay: €</label><input onblur="javascript: SetInputBorderVisibility(this);" class="margin-left-5 w-300px" type="text" placeholder="bank account" />
-        </div>
-    </div>
-
-    @* signature and seal *@
-    <div class="d-flex margin-bottom-20 padding-50 margin-top-25 margin-bottom-20 switch-to-column">
-        <div class="w-75 d-flex justify-content-center align-items-center">
-            <h2 class="seal">SEAL</h2>
-        </div>
-        <div class="w-25 d-flex flex-column align-items-center justify-content-end">
-            <h6>Director</h6>
-            <input onblur="javascript: SetInputBorderVisibility(this);" type="text" class="text-center" />
-        </div>
-    </div>
-
-    @* bank accounts *@
-    <div class="d-flex text-color-green switch-to-column">
-        <div class="w-50 d-flex flex-column">
-            <h5>Bank accounts</h5>
-            @* accounts *@
-            <button class="btn-white-black font-weight-bold toRemove" onclick="javascript: AddNewAccount();">Add bank account</button>
-            <div id="accounts" class="d-flex flex-column">
-
-            </div>
-        </div>
-        <div class="w-50 d-flex flex-column justify-content-center align-items-center">
-            <h6>New Respect Travel Agency</h6>
-            <div class="w-50 overflow-hidden text-center">
-                <img class="img-size-200 object-fit-contain" alt="" src="~/Images/Embedded/company_logo.jpg" />
-            </div>
-        </div>
-    </div>
-
-
-</section>
-
-<div class="margin-top-50 d-flex justify-content-center">
-    <button onclick="javascript: StoreIssue();" class="w-300px padding-20 btn-danger"><i class="bi bi-save-fill"></i> Save</button>
+<div class="d-flex align-items-center justify-content-center">
+    <p class="margin-0 margin-right-25">You can attach this invoice to specific purchase.</p>
+    <a asp-action="AttachInvoiceToPurchase" asp-controller="Purchase" asp-route-InvoiceId="@Model.Invoice.Id" class="btn btn-success"><i class="bi bi-save-fill"></i> Attach invoice</a>
 </div>
+
+<form class="form wide-form" asp-action="UpdateAnInvoice" asp-controller="Purchase">
+    <input class="hidden" type="number" asp-for="@Model.Invoice.Id" value="@Model.Invoice.Id" />
+    <section id="content" class="box-shadow-small sectionMargin padding-20">
+        @*header*@
+        <div class="margin-bottom-20 d-flex from-row-to-column">
+            <div class="w-50">
+                <h5 class="text-color-green">New respect d.o.o</h5>
+                <h5 class="text-color-green">www.new-respect.com</h5>
+                <div>
+                    @*"Adress&#10;Postal Code, City, Country&#10;Ph | Fax&#10;Email*@
+                    <input class="form-input" asp-for="@Model.Invoice.Adress" type="text" placeholder="Adress" />
+                    <input class="form-input" asp-for="@Model.Invoice.CountryCityPostal" type="text" placeholder="Country-City-Postal Code" />
+                    <input class="form-input" asp-for="@Model.Invoice.PhoneFax" type="text" placeholder="Phone-Fax" />
+                    <input class="form-input" asp-for="@Model.Invoice.Email" type="text" placeholder="Email" />
+                    @*<textarea onblur="javascript: SetInputBorderVisibility(this);" class="padding-5 w-100 max-height-300 h-150 text-color-green" placeholder="Adress&#10;Postal Code, City, Country&#10;Ph | Fax&#10;Email"></textarea>*@
+                    <div class="d-flex justify-content-between"><h5>PDV num. </h5><input class="form-input" asp-for="@Model.Invoice.PDVNumber" placeholder="PDV num" /></div>
+                </div>
+            </div>
+            <div class="w-50 d-flex justify-content-center align-items-center">
+                <img alt="" src="~/Images/Embedded/company_logo.jpg" />
+            </div>
+        </div>
+        @*customer*@
+        <div class="margin-bottom-20 d-flex justify-content-end switch-to-column">
+            <div class="w-50 position-relative padding-50 d-flex flex-column justify-content-center align-items-center">
+                <div class="corner-border"></div>
+                <div class="corner-border"></div>
+                <div class="corner-border"></div>
+                <div class="corner-border"></div>
+
+                <input class="form-input" asp-for="@Model.Invoice.CustomerCountry" onblur="javascript: SetInputBorderVisibility(this);" placeholder="Country" />
+                <input class="form-input" asp-for="@Model.Invoice.Customer" onblur="javascript: SetInputBorderVisibility(this);" placeholder="Customer" />
+            </div>
+        </div>
+        @*data*@
+        <div class="margin-bottom-20">
+            <div class="d-flex flex-column justify-content-end align-items-end switch-to-column">
+                <div class="d-flex align-items-center font-weight-bold"><h5 class="margin-top-5">ESTIMATE </h5><input asp-for="@Model.Invoice.EstimateNumber" onblur="javascript: SetInputBorderVisibility(this);" class="form-input margin-5 text-center" /></div>
+                <div class="d-flex align-items-center switch-to-column"><h6 class="margin-top-5 w-fit-content">Place and date of issue </h6><input asp-for="@Model.Invoice.PlaceOfIssue" onblur="javascript: SetInputBorderVisibility(this);" placeholder="Place" class="form-input margin-5 text-center" /><input asp-for="@Model.Invoice.DateOfIssue" onblur="javascript: SetInputBorderVisibility(this);" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-input margin-5" /></div>
+            </div>
+
+            <div class="d-flex flex-column justify-content-center align-items-center padding-20">
+                <div id="tables" class="d-flex flex-column align-content-center">
+                    <table id="InvoiceTable_Id" class="table table-secondary w-auto">
+                        @for (int i = 0; i < Model.Invoice.TableRows; i++)
+                        {
+                            <tr>
+                                @for (int j = 0; j < Model.Invoice.TableColumns; j++)
+                                {
+                                    <td onclick="javascript: CreateTextArea(this, @i, @j);">
+                                        @Model.Table.Where(w => w.Row == i && w.Column == j).Select(s => s.Value).FirstOrDefault()
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-center toRemove">
+                    <label>Insert table</label>
+                    <div class="d-flex">
+                        <input id="Rows" onblur="javascript: SetInputBorderVisibility(this);" class="form-input margin-5 text-center" type="number" placeholder="Rows" />
+                        <input id="Columns" onblur="javascript: SetInputBorderVisibility(this);" class="form-input margin-5 text-center" type="number" placeholder="Columns" />
+                    </div>
+
+                    <button type="button" id="CreateTable_Id" onclick="javascript: CreateNewTable();" class="btn-white-black w-100 padding-5 font-weight-bold">Create</button>
+                </div>
+                <a id="RemoveTable_Id" asp-action="RemoveInvoiceTable" asp-controller="Purchase" asp-route-InvoiceId="@Model.Invoice.Id" class="btn btn-white-black w-100 padding-5 font-weight-bold hidden">Remove table</a>
+            </div>
+        </div>
+        @*info*@
+        <div class="margin-bottom-20 switch-to-column">
+
+            <table class="w-75 switch-to-column">
+                <tr class="switch-to-column">
+                    <td><label class="margin-0">Datum isporuke (date of delivery)</label></td>
+                    <td><input asp-for="@Model.Invoice.DateOfDelivery" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-100" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" /></td>
+                </tr>
+                <tr class="switch-to-column">
+                    <td><label class="h-50 margin-0">Izmireno (settled)</label></td>
+                    <td class="d-flex justify-content-between align-items-center">
+                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">BAM</label><input asp-for="@Model.Invoice.SettledInBAM" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-40perc" type="number" id="value_bam" />
+                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">EUR</label><input onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-40perc margin-left-5" type="number" id="value_eur" value="@Math.Round(Model.Invoice.SettledInBAM / 1.95, 2)" />
+                    </td>
+                </tr>
+                <tr class="switch-to-column">
+                    <td><label class="h-50 margin-0">Slovima (total - in words)</label></td>
+                    <td><input asp-for="@Model.Invoice.TotalInWords" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-100" type="text" /></td>
+                </tr>
+                <tr class="switch-to-column">
+                    <td><label class="h-50 margin-0">Nacin plaćanja (method of payment) </label></td>
+                    <td><input asp-for="@Model.Invoice.MethodOfPayment" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-100" type="text" /></td>
+                </tr>
+                <tr class="switch-to-column">
+                    <td><label class="h-50 margin-0">Rok za plaćanje (deadline for payment) </label></td>
+                    <td><input asp-for="@Model.Invoice.DeadlineForPayment" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-100" type="text" /></td>
+                </tr>
+            </table>
+
+            <div class="margin-top-50 w-75 border-bottom border-dark">
+                <label class="font-weight-bold">Account to pay: €</label><input asp-for="@Model.Invoice.AccountToPay" onblur="javascript: SetInputBorderVisibility(this);" class="form-input margin-left-5 w-300px" type="text" placeholder="bank account" />
+            </div>
+        </div>
+        @*signature and seal*@
+        <div class="d-flex margin-bottom-20 padding-50 margin-top-25 margin-bottom-20 switch-to-column">
+            <div class="w-75 d-flex justify-content-center align-items-center">
+                <h2 class="seal">SEAL</h2>
+            </div>
+            <div class="w-25 d-flex flex-column align-items-center justify-content-end">
+                <h6>Director</h6>
+                <input asp-for="@Model.Invoice.Director" onblur="javascript: SetInputBorderVisibility(this);" type="text" class="form-input text-center" />
+            </div>
+        </div>
+        @*bank accounts*@
+        <div class="d-flex text-color-green from-row-to-column">
+            <div class="w-50 d-flex flex-column">
+                <h5>Additional bank account</h5>
+                <input asp-for="@Model.Invoice.AdditionalBankAccount" class="form-input" type="text" />
+                @*<button class="btn-white-black font-weight-bold toRemove" onclick="javascript: AddNewAccount();">Add bank account</button>*@
+                @*<div id="accounts" class="d-flex flex-column">
+
+                    </div>*@
+            </div>
+            <div class="w-50 d-flex flex-column justify-content-center align-items-center">
+                <h6>New Respect Travel Agency</h6>
+                <div class="overflow-hidden text-center">
+                    <img class="img-size-200 object-fit-contain" alt="" src="~/Images/Embedded/company_logo.jpg" />
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <button type="submit">Save</button>
+</form>
+
+
+
+
+
+
 
 <script>
 
-    $("#value_bam").on("blur", function (e) {
-        var value = e.target.value;
-        $("#value_eur").val((value / 1.95).toFixed(2));
-        SetInputBorderVisibility(document.getElementById("value_eur"));
-        //$("#value_eur").setAttribute("style", "border: 0px !important");
-    });
-    $("#value_eur").on("blur", function (e) {
-        var value = e.target.value;
-        $("#value_bam").val((value * 1.95).toFixed(2));
-        SetInputBorderVisibility(document.getElementById("value_bam"));
-        //$("#value_bam").setAttribute("style", "border: 0px !important");
-    });
-
-    function StoreIssue() {
-        $(".toRemove").css("display", "none");
-
-        var styles = document.getElementById('styles');
-        var panel = document.getElementById("content");
-        var printWindow = window.open('', '', 'height=400,width=800');
-        printWindow.document.write('<html><head><title>DIV Contents</title><style>');
-        printWindow.document.write(styles.innerHTML);
-        printWindow.document.write('</style></head><body >');
-        printWindow.document.write(panel.innerHTML);
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
-        setTimeout(function () {
-            printWindow.print();
-        }, 500);
-        return false;
-    }
     function CreateNewTable() {
         var rows = $("#Rows").val();
         var columns = $("#Columns").val();
@@ -366,6 +359,7 @@
             return;
         }
         var table = document.createElement("table");
+        table.id = "InvoiceTable_Id";
         table.className = "table table-secundary w-auto";
         for (var i = 0; i < rows; i++) {
             var tr = document.createElement("tr");
@@ -373,53 +367,33 @@
                 var td = document.createElement("td");
                 td.className = "table-cell padding-5";
                 td.addEventListener("click", function (e) {
-                    CreateTextArea(e.target, "");
-
-                    //var value = e.target.innerHTML;
-
-                    //var textarea = document.createElement("textarea");
-                    //textarea.className = "padding-5 w-100";
-                    //textarea.addEventListener("blur", function (s) {
-                    //    var value2 = s.target.value;
-                    //    if (value2 !== "") {
-                    //        e.target.innerHTML = "";
-                    //        e.target.append(value2);
-                    //    }
-                    //});
-                    //if(e.target.children.length == 0)
-                    //    textarea.value = value;
-                    //e.target.innerHTML = "";
-                    //e.target.append(textarea);
-
+                    CreateTextArea(e.target, i, j);
                 });
-                //var input = document.createElement("textarea");
-                //input.className = "w-100 margin-0 border-0";
-                //input.setAttribute('style', 'border: 1px solid darkgray !important');
-                //input.addEventListener("blur", function (e) { SetInputBorderVisibility(e.target); });
-                //td.appendChild(input);
                 tr.appendChild(td);
-                CreateTextArea(td, "");
+                CreateTextArea(td, i, j);
             }
             table.appendChild(tr);
         }
         document.getElementById("tables").appendChild(table);
-
+        $(".toRemove").remove();
+        $("#RemoveTable_Id").removeClass("hidden");
+        $.post("/Purchase/CreateInvoiceTable?InvoiceId=" + '@Model.Invoice.Id' + "&Rows=" + rows + "&Columns=" + columns);
     }
 
-    function CreateTextArea(e, classValue) {
-        var value = e.innerHTML;
 
+
+    function CreateTextArea(e, row, col) {
+        var value = e.innerHTML;
         var textarea = document.createElement("textarea");
-        //if (classValue !== "")
-        //    textarea.className = classValue;
-        //else
-            textarea.className = "padding-5 w-100";
+        textarea.className = "padding-5 w-100";
         textarea.addEventListener("blur", function (s) {
             var value2 = s.target.value;
             if (value2 !== "") {
                 e.innerHTML = "";
                 e.append(value2);
             }
+
+            $.post("/Purchase/SetTableData?InvoiceId=" + '@Model.Invoice.Id' + "&Row=" + row + "&Column=" + col + "&Value=" + value2);
         });
         if (e.children.length == 0)
             textarea.value = value;
@@ -427,320 +401,29 @@
         e.append(textarea);
     }
 
-    function CreateInput(e) {
-        var value = e.innerHTML;
-
-        var input = document.createElement("input");
-        input.addEventListener("blur", function (s) {
-            var value2 = s.target.value;
-            if (value2 !== "") {
-                e.innerHTML = "";
-                e.append(value2);
-            }
-        });
-        if (e.children.length == 0)
-            input.value = value;
-        e.innerHTML = "";
-        e.append(input);
-    }
 
 
-    function AddNewAccount() {
-        var accountDiv = document.getElementById("accounts");
-        var childrenCount = accountDiv.children.length;
-        if (childrenCount > 3) {
-            Message("You cant add new account (you reached max number of accounts).");
-            return;
+
+
+
+    $(document).ready(function () {
+        Message("Don't forget to save your work, or everything will be lost. To save click the button at bottom of the page.");
+
+        if (parseInt('@Model.Invoice.TableRows') > 0 && parseInt('@Model.Invoice.TableColumns') > 0) { //.Any()' === "True") {
+            $(".toRemove").remove();
+            $("#RemoveTable_Id").removeClass("hidden");
         }
-        if (childrenCount > 0) {
-            var value = accountDiv.lastChild.value;
-            if (value === "") {
-                Message("You cant add new account (there is empty value of previous account).");
-                return;
-            }
-        }
+    });
 
-        var input = document.createElement("input");
-        input.style.width = "100%";
-        input.style.border = "1px solid darkgray";
-        input.addEventListener("blur", function (e) { SetInputBorderVisibility(e.target); });
-        accountDiv.appendChild(input);
-    }
+    $("#value_bam").on("blur", function (e) {
+        var value = e.target.value;
+        $("#value_eur").val((value / 1.95).toFixed(2));
+        SetInputBorderVisibility(document.getElementById("value_eur"));
+    });
 
-    function SetInputBorderVisibility(e) {
-        var val = $(e).val();
-        if (val === "") {
-            e.setAttribute('style', 'border: 1px solid darkgray !important');
-        }
-        else {
-            e.setAttribute('style', 'border: 0px !important');
-        }
-    }
-
-
+    $("#value_eur").on("blur", function (e) {
+        var value = e.target.value;
+        $("#value_bam").val((value * 1.95).toFixed(2));
+        SetInputBorderVisibility(document.getElementById("value_bam"));
+    });
 </script>
-
-
-
-
-
-
-
-
-
-
-<!--<input hidden id="option" />
-<input hidden id="select" />-->
-@* toolbar *@
-<!--<section class="d-flex justify-content-between">-->
-@* tools *@
-<!--<div class="d-flex align-items-center">
-    <div class="tool" onclick="javascript: SetSelect();">
-        <button class="w-100 h-100"><i class="bi bi-hand-index-thumb-fill"></i></button>
-    </div>
-    <div class="tool" onclick="javascript: MoveSelect();">
-        <button class="w-100 h-100"><i class="bi bi-arrows-move"></i></button>
-    </div>
-    <div class="tool" onclick="javascript: CreateElement('section');">
-        <button class="w-100 h-100"><i class="bi bi-bounding-box"></i></button>
-    </div>
-    <div class="tool" onclick="javascript: SetOption('text');">
-        <button class="w-100 h-100"><i class="bi bi-textarea-t"></i></button>
-    </div>
-    <div class="tool">
-        <button class="w-100 h-100"><i class="bi bi-table"></i></button>
-    </div>
-    <div class="tool" onclick="javascript: ChangeVisibility();">
-        <button class="w-100 h-100"><i class="bi bi-eye-slash-fill"></i></button>
-    </div>
-</div>-->
-@* resize *@
-<!--<div class="d-flex flex-column justify-content-end">
-    <div class="d-flex justify-content-between"><h4 class="padding-5">WIDTH</h4> <input id="width" class="text-center margin-5" onblur="javascript: ChangeSize();" placeholder="%" /></div>
-    <div class="d-flex justify-content-between"><h4 class="padding-5">HEIGHT</h4> <input id="height" class="text-center margin-5" onblur="javascript: ChangeSize();" placeholder="%" /></div>
-</div>-->
-@* input value *@
-<!--<div class="d-flex flex-column justify-content-around align-items-center">
-        <h4>VALUE</h4>
-        <input id="InputValueId" type="text" placeholder="value.." class="text-center margin-left-5px padding-5" />
-    </div>
-</section>-->
-@* header *@
-<!--<section class="box-shadow-small sectionMargin">
-    <div id="content" class="position-relative padding-20 h-500">
-
-    </div>
-
-</section>
-
-<script>
-
-    function CreateElement(element) {
-        if (element === 'section') {
-            CreateSection();
-        }
-    }
-
-
-    function CreateSection() {
-        var option = $("#option").val();
-        if (option !== "section") {
-            $("#option").val("section");
-            ChangeCursor("add");
-        }
-        else {
-            $("#option").val("select");
-            ChangeCursor("default");
-        }
-    }
-
-    $("#content").on("click", function (e) { _ListenerOnClick(e); });
-
-    function _ListenerOnClick(e) {
-        var option = $("#option").val();
-
-        if (option === "select") {
-            $("#InputValueId").focus();
-            $("#InputValueId").on("input", function () {
-                var selected = $("#select").val();
-                $("#" + selected).html($("#InputValueId").val());
-                //e.target.innerHTML
-            });
-        }
-        else if (option === "section") {
-            //let result;
-            MakeMeSection(getRelativeCoordinates(e.target));
-            //$(this).appendTo(result);
-        }
-        else if (option === "text") {
-            AddText(e.target);
-        }
-
-    }
-
-    function AddText(section) {
-        var option = $("#option").val();
-        if (option === "text") {
-            var input = document.createElement("input");
-            alert(section);
-            section.appendChild(input);
-            //e.target.appendChild(input);
-        }
-    }
-
-    function MakeMeSection(coordinates) {
-        var counter = $(".focusable").length + 1;
-        var div = document.createElement("div");
-        div.id = "Focusable_" + counter;
-        div.className = "focusable";
-        div.style.position = "absolute";
-        div.addEventListener("click", function (e) {
-            $("#select").val("Focusable_" + counter);
-            _ListenerOnClick(e);
-            //MakeResizer(div, counter);
-
-            //var option = $("#option").val();
-            //if (option === "text") {
-            //    var input = document.createElement("input");
-            //    alert(e + " - " + e.target);
-            //    //e.target.appendChild(input);
-            //}
-        });
-        if (visibility)
-            div.style.border = "2px solid darkgray";
-        var x = coordinates.x;
-        var y = coordinates.y;
-        div.style.left = x + "px";
-        div.style.top = y + "px";
-
-        document.getElementById("content").appendChild(div);
-        MakeResizer(div, counter);
-        $("#select").val("Focusable_" + counter);
-        SetSelect();
-    }
-
-
-
-    //function MakeResizer(element, counter) {
-    //    if ($("#Resizer_" + counter) != null)
-    //        return;
-    //    var resizer = document.createElement("button");
-    //    resizer.id = "Resizer_" + counter;
-    //    resizer.innerHTML = "<i class='bi bi-aspect-ratio-fill'></i>";
-    //    resizer.style.fontSize = "15px";
-    //    resizer.style.position = "absolute";
-    //    resizer.style.right = "0px";
-    //    resizer.style.bottom = "0px";
-    //    resizer.style.width = "15px";
-    //    resizer.style.height = "15px";
-    //    resizer.addEventListener("mousedown", function () {
-    //        var e = window.event;
-    //        var posX = e.clientX;
-    //        var posY = e.clientY;
-    //        window.addEventListener("mousemove", function () {
-    //            var newe = this.window.event;
-    //            var newPosX = newe.clientX;
-    //            var newPosY = newe.clientY;
-    //            var result;
-    //            if (newPosX > posX)
-    //                result = "desno ";
-    //            else
-    //                result = "ljevo ";
-
-    //            if (newPosY > posY)
-    //                result += " dole";
-    //            else
-    //                result += " gore";
-
-    //            result += " (koordinate: " + (newPosX - posX) + " - " + (newPosY - posY) + ")";
-
-    //            console.log(result);
-    //        });
-    //    });
-    //    resizer.addEventListener("mouseup", function () {
-    //        resizer.removeEventListener("mousemove");
-    //    });
-    //    element.appendChild(resizer);
-    //}
-
-
-    function SetSelect() {
-        $("#option").val("select");
-        $("#select").val("");
-        ChangeCursor("hand");
-    }
-
-    function SetOption(option) {
-        $("#option").val(option);
-    }
-
-    var moveEnabled = false;
-    function MoveSelect() {
-        if (!moveEnabled) {
-            document.getElementById("content").addEventListener("mousedown", SetSelectedElementAtPosition);
-        }
-        else {
-            document.getElementById("content").removeEventListener("mousedown", SetSelectedElementAtPosition);
-        }
-        moveEnabled = !moveEnabled;
-
-    }
-
-    function SetSelectedElementAtPosition(e) {
-        var elementid = $("#select").val();
-        if (elementid === "")
-            return;
-        var coord = getRelativeCoordinates(e.target);
-        $("#" + elementid).css("left", coord.x);
-        $("#" + elementid).css("top", coord.y);
-    }
-
-    function ChangeSize() {
-        var elementid = $("#select").val();
-        var width = $("#width").val() + "%";
-        var height = $("#height").val() + "%";
-        var element = document.getElementById(elementid);
-        element.style.width = width;
-        element.style.height = height;
-        $("#width").val("");
-        $("#height").val("");
-    }
-
-    function getRelativeCoordinates(referenceElement) {
-        var e = window.event;
-        var posX = e.clientX;
-        var posY = e.clientY;
-        posX = posX - referenceElement.offsetLeft;
-        posY = posY - referenceElement.offsetTop;
-
-        return {
-            x: posX,
-            y: posY,
-        };
-
-    }
-
-    function ChangeCursor(state) {
-        if (state == "add") {
-            $("#content").css("cursor", "cell");
-        }
-        else if (state == "default") {
-            $("#content").css("cursor", "context-menu");
-        }
-        else if (state == "hand") {
-            $("#content").css("cursor", "pointer");
-        }
-    }
-
-    var visibility = false;
-    function ChangeVisibility() {
-        if (!visibility) {
-            $(".focusable").css("border", "2px solid darkgray");
-        }
-        else {
-            $(".focusable").css("border", "");
-        }
-        visibility = !visibility;
-    }
-
-</script>-->
