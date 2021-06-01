@@ -17,11 +17,11 @@
     </div>
     <form class="chat-input" onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="CreateMessage">
         <input type="hidden" name="roomId" value="@Model.Id">
-        <input type="text" name="message" id="message-input">
+        <input type="text" name="message" id="message-input" required max="150">
         <button type="submit" class="btn btn-warning min-w-200"><img class="h-100" src="/Images/Embedded/send.png" alt="" /></button>
     </form>
 </div>
-@*@section scripts {*@
+
 <script src="~/lib/signalr/signalr.js"></script>
 <script src="~/js/messageBuilder.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -70,4 +70,3 @@
     }
 
 </script>
-@*}*@

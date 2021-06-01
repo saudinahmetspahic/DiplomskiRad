@@ -6,7 +6,7 @@
     <input hidden value="@Model.ProgramId" asp-for="ProgramId" />
 
     <label class="form-label">Enter feedback</label>
-    <textarea class="form-input" asp-for="NewFB_Description"></textarea>
+    <textarea class="form-input" asp-for="NewFB_Description" required maxlength="500"></textarea>
     <button type="submit">Add</button>
 </form>
 

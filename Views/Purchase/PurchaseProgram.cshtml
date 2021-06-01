@@ -6,7 +6,7 @@
     var otherprograms = Model.Where(w => w.CreatedByMe == false).ToList();
 }
 
-@* programs created by me *@
+
 @if (myprograms.Count() > 0)
 {
     <p>You created these programs and you are just one click away from us. Purchase now! (Only allowed programs can be ordered)</p>

@@ -205,12 +205,7 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Administration\PurchasesOptions.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Catalog\Index.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Chat\AddGroupChatParticipants.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Chat\CreateNewGroupChat.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Chat\GetChatParticipants_Ajax.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Chat\GetGroupChatParticipants_Ajax.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Chat\Index.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Chat\OpenChatBox_Ajax.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Chat\OpenGroupChatBox_Ajax.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contact.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Login\AccountDetails.cshtml.g.cs
@@ -236,7 +231,6 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\PurchaseProgram.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Room\Default.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LandingPageLayout.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Sponsor\GetSponsorsInfo.cshtml.g.cs

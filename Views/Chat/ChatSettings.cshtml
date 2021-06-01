@@ -11,7 +11,7 @@
         <form class="form" asp-action="ChangeSettings" asp-controller="Chat">
             <input type="hidden" name="chat" value="@Model.Id">
             <label class="form-label" for="name">Change name</label>
-            <input class="form-input" type="text" name="name" value="@Model.Name">
+            <input class="form-input" type="text" name="name" value="@Model.Name" required>
 
             <label class="form-label">This group is @(Model.Type == ChatType.Private ? "private" : "public")</label>
             <label class="form-label">Change visibility of the group (private with admins access only or public for other clients as well)</label>

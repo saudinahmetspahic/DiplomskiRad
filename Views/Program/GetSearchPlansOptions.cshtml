@@ -25,27 +25,6 @@
 </div>
 
 
-@* MODAL AFTER i BADGE IS CLICKED *@
-<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="infoModalLabel"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="modalContent">
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 <script>
     function GetTags() {
@@ -105,12 +84,16 @@
         $.get("/Program/GetTagInfo?TagId=" + TagId, function (result, status) {
             if (status == "success") {
                 var r = JSON.parse(JSON.stringify(result));
-                $("#infoModalLabel").html(r.name);
-                $("#modalContent").html(r.description);
+
+                var descr = document.createElement("p");
+                descr.innerHTML = r.description;
+                descr.style.padding = "15px";
+                descr.style.textAlign = "justify";
+
+                MakeCustomModal(r.name, descr, false, null);
+
             }
         });
     }
 </script>
 
-
-@*{"id":2,"typeOfAttachment":4,"name":"D&H Donner","description":"Donner Kebab","priceToVisit":0}*@

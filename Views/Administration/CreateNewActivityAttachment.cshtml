@@ -7,17 +7,17 @@
         <input hidden asp-for="ActivityId" value="@Model.ActivityId" />
 
         <label class="form-label">Title</label>
-        <input class="form-input" asp-for="Name" />
+        <input class="form-input" asp-for="Name" required/>
 
         <label class="form-label">Type of attachment</label>
         <select class="form-input w-100" asp-for="TypeOfAttachment" asp-items="Model.TypeOfAttachmentSelect">
         </select>
 
         <label class=" form-label">Description</label>
-        <input class="form-input" asp-for="Description" />
+        <input class="form-input" asp-for="Description" required />
 
         <label class="form-label">Expected price to visit</label>
-        <input class="form-input" asp-for="PriceToVisit" type="number" />
+        <input class="form-input" asp-for="PriceToVisit" type="number" required min="0" max="10000000" />
 
         <label class="form-label">Upload a photo that is related to attachment.</label>
         <div class="custom-file">

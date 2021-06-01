@@ -11,10 +11,10 @@
 <section>
     <form enctype="multipart/form-data" asp-action="CreateNewNotification" asp-controller="Notification" class="form w-75 div-align-center">
         <label class="form-label">Title</label>
-        <input class="form-input" type="text" asp-for="Title" />
+        <input class="form-input" type="text" asp-for="Title" required />
 
         <label class="form-label">Description</label>
-        <textarea class="form-input w-100" type="text" asp-for="Description"></textarea>
+        <textarea class="form-input w-100" type="text" asp-for="Description" required maxlength="700"></textarea>
 
         <label class="form-label">Upload image (option)</label>
         <div class="custom-file">

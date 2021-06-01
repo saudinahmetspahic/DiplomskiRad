@@ -2,206 +2,6 @@
 @model IssueAnInvoice_VM
 
 
-<style id="styles">
-    input, textarea {
-        cursor: pointer;
-    }
-
-    .position-relative {
-        position: relative;
-    }
-
-    .d-flex {
-        display: flex;
-    }
-
-    .flex-column {
-        flex-direction: column;
-    }
-
-    .justify-content-between {
-        justify-content: space-between;
-    }
-
-    .justify-content-center {
-        justify-content: center;
-    }
-
-    .justify-content-end {
-        justify-content: flex-end;
-    }
-
-    .align-items-center {
-        align-items: center;
-    }
-
-    .align-items-end {
-        align-items: flex-end;
-    }
-
-    .sectionMargin {
-        margin: 50px 0px;
-    }
-
-    .padding-5 {
-        padding: 5px;
-    }
-
-    .padding-20 {
-        padding: 20px;
-    }
-
-    .padding-50 {
-        padding: 50px;
-    }
-
-    .margin-bottom-20 {
-        margin-bottom: 20px;
-    }
-
-    .w-50 {
-        width: 50%;
-    }
-
-    .w-75 {
-        width: 75%;
-    }
-
-    .w-100 {
-        width: 100%;
-    }
-
-    .h-50 {
-        height: 50%;
-    }
-
-    .margin-0 {
-        margin: 0px;
-    }
-
-    .margin-5 {
-        margin: 5px;
-    }
-
-    .max-height-300 {
-        max-height: 300px;
-    }
-
-    .h-150 {
-        height: 150px;
-    }
-
-    .text-color-green {
-        color: green;
-    }
-
-    .corner-border {
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        border-top: 1px solid darkgray;
-        border-left: 1px solid darkgray;
-    }
-
-        .corner-border:nth-child(1) {
-            bottom: 0;
-            left: 0;
-            border: 0px;
-            border-bottom: 1px solid darkgray;
-            border-left: 1px solid darkgray;
-        }
-
-        .corner-border:nth-child(2) {
-            bottom: 0;
-            right: 0;
-            border: 0px;
-            border-bottom: 1px solid darkgray;
-            border-right: 1px solid darkgray;
-        }
-
-        .corner-border:nth-child(3) {
-            top: 0;
-            right: 0;
-            border: 0px;
-            border-top: 1px solid darkgray;
-            border-right: 1px solid darkgray;
-        }
-
-        .corner-border:nth-child(4) {
-            top: 0;
-            left: 0;
-            border: 0px;
-            border-top: 1px solid darkgray;
-            border-left: 1px solid darkgray;
-        }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .font-weight-bold {
-        font-weight: bold;
-    }
-
-    .btn-white-black {
-        background-color: white;
-        border: 0px;
-        outline: 0px;
-        color: black;
-    }
-
-    .margin-left-5 {
-        margin-left: 5px;
-    }
-
-    .margin-bottom-0 {
-        margin-bottom: 0px;
-    }
-
-    .w-40perc {
-        width: 40%;
-    }
-
-    .margin-top-50 {
-        margin-top: 50px;
-    }
-
-    .border-bottom {
-        border-bottom: 1px solid;
-    }
-
-    .border-dark {
-        border-color: black;
-    }
-
-    .margin-bottom-20 {
-        margin-bottom: 20px;
-    }
-
-    .margin-top-25 {
-        margin-top: 25px;
-    }
-
-    .img-size-200 {
-        width: 200px;
-        height: 200px;
-    }
-
-    .object-fit-contain {
-        object-fit: contain;
-    }
-
-    .seal {
-        transform: rotate(15deg);
-        opacity: 0.2;
-        color: rgb(101, 97, 97);
-    }
-
-    .overflow-hidden {
-        overflow: hidden;
-    }
-</style>
-
 <div class="d-flex align-items-center justify-content-center">
     <p class="margin-0 margin-right-25">You can attach this invoice to specific purchase.</p>
     <a asp-action="AttachInvoiceToPurchase" asp-controller="Purchase" asp-route-InvoiceId="@Model.Invoice.Id" class="btn btn-success"><i class="bi bi-save-fill"></i> Attach invoice</a>
@@ -216,12 +16,10 @@
                 <h5 class="text-color-green">New respect d.o.o</h5>
                 <h5 class="text-color-green">www.new-respect.com</h5>
                 <div>
-                    @*"Adress&#10;Postal Code, City, Country&#10;Ph | Fax&#10;Email*@
                     <input class="form-input" asp-for="@Model.Invoice.Adress" type="text" placeholder="Adress" />
                     <input class="form-input" asp-for="@Model.Invoice.CountryCityPostal" type="text" placeholder="Country-City-Postal Code" />
                     <input class="form-input" asp-for="@Model.Invoice.PhoneFax" type="text" placeholder="Phone-Fax" />
                     <input class="form-input" asp-for="@Model.Invoice.Email" type="text" placeholder="Email" />
-                    @*<textarea onblur="javascript: SetInputBorderVisibility(this);" class="padding-5 w-100 max-height-300 h-150 text-color-green" placeholder="Adress&#10;Postal Code, City, Country&#10;Ph | Fax&#10;Email"></textarea>*@
                     <div class="d-flex justify-content-between"><h5>PDV num. </h5><input class="form-input" asp-for="@Model.Invoice.PDVNumber" placeholder="PDV num" /></div>
                 </div>
             </div>
@@ -237,15 +35,15 @@
                 <div class="corner-border"></div>
                 <div class="corner-border"></div>
 
-                <input class="form-input" asp-for="@Model.Invoice.CustomerCountry" onblur="javascript: SetInputBorderVisibility(this);" placeholder="Country" />
-                <input class="form-input" asp-for="@Model.Invoice.Customer" onblur="javascript: SetInputBorderVisibility(this);" placeholder="Customer" />
+                <input class="form-input" asp-for="@Model.Invoice.CustomerCountry"  placeholder="Country" />
+                <input class="form-input" asp-for="@Model.Invoice.Customer"  placeholder="Customer" />
             </div>
         </div>
         @*data*@
         <div class="margin-bottom-20">
             <div class="d-flex flex-column justify-content-end align-items-end switch-to-column">
-                <div class="d-flex align-items-center font-weight-bold"><h5 class="margin-top-5">ESTIMATE </h5><input asp-for="@Model.Invoice.EstimateNumber" onblur="javascript: SetInputBorderVisibility(this);" class="form-input margin-5 text-center" /></div>
-                <div class="d-flex align-items-center switch-to-column"><h6 class="margin-top-5 w-fit-content">Place and date of issue </h6><input asp-for="@Model.Invoice.PlaceOfIssue" onblur="javascript: SetInputBorderVisibility(this);" placeholder="Place" class="form-input margin-5 text-center" /><input asp-for="@Model.Invoice.DateOfIssue" onblur="javascript: SetInputBorderVisibility(this);" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-input margin-5" /></div>
+                <div class="d-flex align-items-center font-weight-bold"><h5 class="margin-top-5">ESTIMATE </h5><input asp-for="@Model.Invoice.EstimateNumber"  class="form-input margin-5 text-center" /></div>
+                <div class="d-flex align-items-center switch-to-column"><h6 class="margin-top-5 w-fit-content">Place and date of issue </h6><input asp-for="@Model.Invoice.PlaceOfIssue"  placeholder="Place" class="form-input margin-5 text-center" /><input asp-for="@Model.Invoice.DateOfIssue"  type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-input margin-5" /></div>
             </div>
 
             <div class="d-flex flex-column justify-content-center align-items-center padding-20">
@@ -268,8 +66,8 @@
                 <div class="d-flex flex-column justify-content-center align-items-center toRemove">
                     <label>Insert table</label>
                     <div class="d-flex">
-                        <input id="Rows" onblur="javascript: SetInputBorderVisibility(this);" class="form-input margin-5 text-center" type="number" placeholder="Rows" />
-                        <input id="Columns" onblur="javascript: SetInputBorderVisibility(this);" class="form-input margin-5 text-center" type="number" placeholder="Columns" />
+                        <input id="Rows"  class="form-input margin-5 text-center" type="number" placeholder="Rows" />
+                        <input id="Columns"  class="form-input margin-5 text-center" type="number" placeholder="Columns" />
                     </div>
 
                     <button type="button" id="CreateTable_Id" onclick="javascript: CreateNewTable();" class="btn-white-black w-100 padding-5 font-weight-bold">Create</button>
@@ -283,31 +81,31 @@
             <table class="w-75 switch-to-column">
                 <tr class="switch-to-column">
                     <td><label class="margin-0">Datum isporuke (date of delivery)</label></td>
-                    <td><input asp-for="@Model.Invoice.DateOfDelivery" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-100" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" /></td>
+                    <td><input asp-for="@Model.Invoice.DateOfDelivery"  class="form-input h-50 w-100" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" /></td>
                 </tr>
                 <tr class="switch-to-column">
                     <td><label class="h-50 margin-0">Izmireno (settled)</label></td>
                     <td class="d-flex justify-content-between align-items-center">
-                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">BAM</label><input asp-for="@Model.Invoice.SettledInBAM" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-40perc" type="number" id="value_bam" />
-                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">EUR</label><input onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-40perc margin-left-5" type="number" id="value_eur" value="@Math.Round(Model.Invoice.SettledInBAM / 1.95, 2)" />
+                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">BAM</label><input asp-for="@Model.Invoice.SettledInBAM"  class="form-input h-50 w-40perc" type="number" id="value_bam" />
+                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">EUR</label><input  class="form-input h-50 w-40perc margin-left-5" type="number" id="value_eur" value="@Math.Round(Model.Invoice.SettledInBAM / 1.95, 2)" />
                     </td>
                 </tr>
                 <tr class="switch-to-column">
                     <td><label class="h-50 margin-0">Slovima (total - in words)</label></td>
-                    <td><input asp-for="@Model.Invoice.TotalInWords" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-100" type="text" /></td>
+                    <td><input asp-for="@Model.Invoice.TotalInWords"  class="form-input h-50 w-100" type="text" /></td>
                 </tr>
                 <tr class="switch-to-column">
                     <td><label class="h-50 margin-0">Nacin plaćanja (method of payment) </label></td>
-                    <td><input asp-for="@Model.Invoice.MethodOfPayment" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-100" type="text" /></td>
+                    <td><input asp-for="@Model.Invoice.MethodOfPayment"  class="form-input h-50 w-100" type="text" /></td>
                 </tr>
                 <tr class="switch-to-column">
                     <td><label class="h-50 margin-0">Rok za plaćanje (deadline for payment) </label></td>
-                    <td><input asp-for="@Model.Invoice.DeadlineForPayment" onblur="javascript: SetInputBorderVisibility(this);" class="form-input h-50 w-100" type="text" /></td>
+                    <td><input asp-for="@Model.Invoice.DeadlineForPayment"  class="form-input h-50 w-100" type="text" /></td>
                 </tr>
             </table>
 
             <div class="margin-top-50 w-75 border-bottom border-dark">
-                <label class="font-weight-bold">Account to pay: €</label><input asp-for="@Model.Invoice.AccountToPay" onblur="javascript: SetInputBorderVisibility(this);" class="form-input margin-left-5 w-300px" type="text" placeholder="bank account" />
+                <label class="font-weight-bold">Account to pay: €</label><input asp-for="@Model.Invoice.AccountToPay"  class="form-input margin-left-5 w-300px" type="text" placeholder="bank account" />
             </div>
         </div>
         @*signature and seal*@
@@ -317,7 +115,7 @@
             </div>
             <div class="w-25 d-flex flex-column align-items-center justify-content-end">
                 <h6>Director</h6>
-                <input asp-for="@Model.Invoice.Director" onblur="javascript: SetInputBorderVisibility(this);" type="text" class="form-input text-center" />
+                <input asp-for="@Model.Invoice.Director"  type="text" class="form-input text-center" />
             </div>
         </div>
         @*bank accounts*@

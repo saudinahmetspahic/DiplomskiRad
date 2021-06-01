@@ -6,25 +6,19 @@
     <h2>Add new sponsor</h2>
     <p>Info about sposnsors you add will be shown on home page and will be visible to every guest.</p>
     <form enctype="multipart/form-data" asp-action="AddNewSponsor" asp-controller="Sponsor" method="post" class="form">
-        @*<div class="d-flex justify-content-between margin-top-5 switch-to-column">*@
             <label class="form-label">Name</label>
-            <input asp-for="NewSponsorToAdd.Name" type="text" placeholder="Company name" class="form-input" />
-        @*</div>
-        <div class="d-flex justify-content-between margin-top-5 switch-to-column">*@
+            <input asp-for="NewSponsorToAdd.Name" type="text" placeholder="Company name" class="form-input" required />
             <label class="form-label">Area of interest</label>
             <select asp-for="NewSponsorToAdd.AreaOfInterest" class="form-input">
                 <option value="0">Transport</option>
                 <option value="1">Catering</option>
                 <option value="2">Other</option>
             </select>
-        @*</div>
-        <div class="d-flex justify-content-between margin-top-5 switch-to-column">*@
             <label class="form-label">Upload a company logo.</label>
             <div class="custom-file">
                 <input asp-for="NewSponsorToAdd.Image" class="form-input custom-file-input" />
                 <label class="form-label custom-file-label">Choose picture</label>
             </div>
-        @*</div>*@
         <button type="submit">Add</button>
     </form>
 </div>
