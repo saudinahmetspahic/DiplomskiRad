@@ -22,20 +22,11 @@ namespace ChatApp.ViewComponents
             var loggedUserAccount = HttpContext.GetLoggedUser();
             var loggedUser = _ctx.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
 
-            //var chats = _ctx.ChatUsers
-            //    .Include(x => x.Chat)
-            //    .Where(x => x.UserId == userId
-            //        && x.Chat.Type == ChatType.Room)
-            //    .Select(x => x.Chat)
-            //    .ToList();
 
-            var chats = _ctx.ChatUser
-                .Include(x => x.Chat)
-                .Where(x => x.UserId == loggedUser.Id
-                    || x.User.UserAccount.Role == WebApp.EntityModels.UserRole.Admin)
-                .Select(x => x.Chat)
-                .Distinct()
-                .ToList();
+            var chats = _ctx.Chat
+                            .Include(i => i.Users)
+                            .Where(w => w.Users.Any(a => a.UserId == loggedUser.Id))
+                            .ToList();
 
             return View(chats);
         }

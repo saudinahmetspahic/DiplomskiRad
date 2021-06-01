@@ -2,13 +2,14 @@
 @model GetNotifications_VM
 
 <div class="notif-details">
-    <img src="/Images/Notification/@Model.ImageName" alt="" />
+    @{ var image = string.IsNullOrEmpty(Model.ImageName) ? "/Embedded/notifications.png" : "/Notification/" + Model.ImageName; }
+    <img src="/Images/@image" alt="" />
     <div>
         <h3>@Model.Title</h3>
         <h6>@Model.Author</h6>
         <h6>@Model.DateCreated.ToString("dd. MMM yyyy. HH:mm")</h6>
     </div>
-    <p>@Model.Description</p>
+    <p class="padding-10">@Model.Description</p>
 </div>
 
 

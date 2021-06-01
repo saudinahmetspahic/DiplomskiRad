@@ -147,6 +147,8 @@ namespace WebApp.Controllers
         [Autorization(true, true, false)]
         public IActionResult AddActivityToProgram(string ProgramName, int ActivityId, int Day)
         {
+            if (ProgramApproved(ProgramName))
+                return StatusCode(401);
             var program = _context.Program.Where(w => w.Name == ProgramName).FirstOrDefault();
             if (program == null)
                 return StatusCode(400);
@@ -179,6 +181,8 @@ namespace WebApp.Controllers
         [Autorization(true, true, false)]
         public async Task<IActionResult> RemoveActivityFromProgram(string ProgramName, int ActivityId, int Day)
         {
+            if (ProgramApproved(ProgramName))
+                return StatusCode(401);
             var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
             if (program == null)
                 return StatusCode(400);
@@ -301,6 +305,8 @@ namespace WebApp.Controllers
         [Autorization(true, true, false)]
         public IActionResult AddAttachmentToProgramActivity(string ProgramName, int ActivityId, int Day, int AttachmentId)
         {
+            if (ProgramApproved(ProgramName))
+                return StatusCode(401);
             var program = _context.Program.Where(w => w.Name == ProgramName).FirstOrDefault();
             if (program == null)
                 return StatusCode(400);
@@ -338,6 +344,8 @@ namespace WebApp.Controllers
         [Autorization(true, true, false)]
         public async Task<IActionResult> RemoveAttachmentFromProgramActivity(string ProgramName, int ActivityId, int Day, int AttachmentId)
         {
+            if (ProgramApproved(ProgramName))
+                return StatusCode(401);
             var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
             if (program == null)
                 return StatusCode(400);
@@ -382,6 +390,8 @@ namespace WebApp.Controllers
         public async Task<int> ChangeDay(string ProgramName, int OldValue, int NewValue)
         {
             var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
+            if (ProgramApproved(ProgramName))
+                return program.Id;
             var activities = await _context.ProgramActivity.Where(w => w.ProgramId == program.Id && w.DayOfProgram == OldValue).ToListAsync();
             foreach (var activity in activities)
             {
@@ -406,6 +416,8 @@ namespace WebApp.Controllers
         [Autorization(true, true, false)]
         public async Task ChangeActivityTime(string ProgramName, int Activity, int Day, DateTime Time)
         {
+            if (ProgramApproved(ProgramName))
+                return;
             var activity = await _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).FirstOrDefaultAsync();
             activity.Start = Time;
             _context.ProgramActivity.Update(activity);
@@ -421,6 +433,8 @@ namespace WebApp.Controllers
         [Autorization(true, true, false)]
         public async Task ChangeActivityDuration(string ProgramName, int Activity, int Day, int DedicatedHours)
         {
+            if (ProgramApproved(ProgramName))
+                return;
             var activity = await _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).FirstOrDefaultAsync();
             activity.DedicatedHours = DedicatedHours;
             _context.ProgramActivity.Update(activity);
@@ -489,6 +503,17 @@ namespace WebApp.Controllers
                
                 _context.SaveChanges();
             }
+        }
+
+        private bool ProgramApproved(string ProgramName)
+        {
+            var program = _context.Program.Where(w => w.Name == ProgramName).FirstOrDefault();
+            if(program != null)
+            {
+                if (program.ProgramState == ProgramState.Approved)
+                    return true;
+            }
+            return false;
         }
     }
 }

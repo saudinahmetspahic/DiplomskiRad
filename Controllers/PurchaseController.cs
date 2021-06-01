@@ -181,7 +181,7 @@ namespace WebApp.Controllers
             return View(inv);
         }
 
-        [Autorization(false, true)]
+        [Autorization(true, true)]
         public IActionResult IssueAnInvoice(int InvoiceId)
         {
             var inv = _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefault();
@@ -242,6 +242,7 @@ namespace WebApp.Controllers
             return RedirectToAction("IssueAnInvoice", new { InvoiceId = inv.Id });
         }
 
+        [Autorization(false, true)]
         public IActionResult UpdateAnInvoice(IssueAnInvoice_VM m)
         {
             var model = m.Invoice;
@@ -273,6 +274,7 @@ namespace WebApp.Controllers
             return RedirectToAction("GetInvoices");
         }
 
+        [Autorization(false, true)]
         public IActionResult RemoveInvoice(int InvoiceId)
         {
             var inv = _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefault();
@@ -287,6 +289,7 @@ namespace WebApp.Controllers
             return RedirectToAction("GetInvoices");
         }
 
+        [Autorization(false, true)]
         public void CreateInvoiceTable(int InvoiceId, int Rows, int Columns)
         {
             var inv = _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefault();
@@ -296,6 +299,7 @@ namespace WebApp.Controllers
             _context.SaveChanges();
         }
 
+        [Autorization(false, true)]
         public void SetTableData(int InvoiceId, int Row, int Column, string Value)
         {
             if (string.IsNullOrEmpty(Value)
@@ -324,6 +328,7 @@ namespace WebApp.Controllers
             _context.SaveChanges();
         }
 
+        [Autorization(false, true)]
         public async Task<IActionResult> RemoveInvoiceTable(int InvoiceId)
         {
             var inv = await _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefaultAsync();
@@ -340,6 +345,7 @@ namespace WebApp.Controllers
             return RedirectToAction("IssueAnInvoice", new { InvoiceId = InvoiceId });
         }
 
+        [Autorization(false, true)]
         public IActionResult AttachInvoiceToPurchase(int InvoiceId)
         {
             var model = new AttachInvoice_VM
@@ -358,6 +364,7 @@ namespace WebApp.Controllers
             return View(model);
         }
 
+        [Autorization(false, true)]
         public IActionResult AttachInvoice(AttachInvoice_VM model)  
         {
             var invoice = _context.Invoice.Where(w => w.Id == model.InvoiceId).FirstOrDefault();

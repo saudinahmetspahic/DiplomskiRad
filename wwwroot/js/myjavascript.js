@@ -474,6 +474,7 @@ function RemoveActivity(activity, day) {
 function ClearAttachments(button) {
     var parent = button.parentElement;
     parent.innerHTML = "";
+    parent.style.padding = "0px";
 }
 
 //////
