@@ -26,15 +26,15 @@
 
 @if (isAdmin)
 {
-    <div class="d-flex flex-row align-items-center margin-bottom-20">
-        <p class="margin-0">To create an invoice for this program click on this button.</p>
+    <div class="margin-bottom-20">
+        <p>To create an invoice for this program click on this button.</p>
         <a asp-action="GetInvoices" asp-controller="Purchase" class="btn btn-danger margin-side-10"><i class="bi bi-receipt"></i> Issue an invoice</a>
     </div>
-}
+} 
 @if (Model.InvoiceId > 0)
 {
-    <div class="d-flex flex-row align-items-center margin-bottom-20">
-        <p class="margin-0">This program has invoice attached to it.</p>
+    <div class="margin-bottom-20">
+        <p>This program has invoice attached to it.</p>
         <a asp-action="IssueAnInvoice" asp-controller="Purchase" asp-route-InvoiceId="@Model.InvoiceId" class="btn btn-primary margin-side-10"><i class="bi bi-receipt"></i> Show invoice details</a>
     </div>
 }
