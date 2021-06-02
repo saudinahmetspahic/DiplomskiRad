@@ -279,10 +279,10 @@ function AddActivity(day, activity, allowmodifications) {
 
     var maindiv = document.createElement("div");
     maindiv.id = "ActivityID_" + activity;
-    maindiv.className = "div-section-list-item activity box-shadow";
+    maindiv.className = "div-section-list-item activity box-shadow padding-0";
 
     var innerdiv1 = document.createElement("div");
-    innerdiv1.className = "d-flex row justify-content-between margin-side-10 margin-bottom-20 border-bottom switch-to-column";
+    innerdiv1.className = "d-flex row justify-content-between margin-side-10 margin-bottom-20 border-bottom activity-header";
 
     var headerdiv = document.createElement("div");
     headerdiv.className = "flex-section-row align-items-center";
@@ -291,7 +291,7 @@ function AddActivity(day, activity, allowmodifications) {
     iele.className = "bi bi-caret-up-fill";
 
     var h6 = document.createElement("h6");
-    h6.className = "cursor margin-0";
+    h6.className = "cursor margin-0 activity-name";
     h6.innerHTML = " Activity " + counter;
     h6.onclick = function () {
         CollapseDiv("Day_" + day + "_Activity_" + activity + "_Collapse");
@@ -381,7 +381,7 @@ function AddActivity(day, activity, allowmodifications) {
     //innerdiv3.id = "AddedAttachmentsDiv";
     //innerdiv3.classList = "div-section-list-item";
     button.classList = "btn btn-white-black w-100 padding-5";
-    button.innerHTML = "<i class='bi bi-arrow-down-square'></i> ADD NEW ATTACHMENT";
+    button.innerHTML = "+";//"<i class='bi bi-arrow-down-square'></i> ADD NEW ATTACHMENT";
     button.addEventListener("click", function () {
         SearchAttachments(day, activity);
     });
@@ -407,14 +407,14 @@ function AddActivity(day, activity, allowmodifications) {
 
     var h5 = document.createElement("h5");
     h5.innerHTML = "Added attachments";
-    h5.className = "text-center padding-5 background-purple text-color-white margin-bottom-0 cursor";
+    h5.className = "text-center padding-5 margin-bottom-0 cursor attachment-title";
     h5.addEventListener("click", function () {
         CollapseDiv("Day_" + day + "_Activity_" + activity + "_AttachmentsDiv");
     });
 
     var innerdiv4 = document.createElement("div"); // added attachments
     innerdiv4.id = "Day_" + day + "_Activity_" + activity + "_AttachmentsDiv";
-    innerdiv4.className = "w-100 padding-5 d-flex flex-row flex-wrap justify-content-start align-items-start border-color-custom border-size-3 overflow-hidden";
+    innerdiv4.className = "w-100 padding-5 d-flex flex-row flex-wrap justify-content-start align-items-start overflow-hidden border-0";
 
     //innerdiv2.appendChild(innerdiv1);
     innerdiv2.appendChild(p);
@@ -473,8 +473,9 @@ function RemoveActivity(activity, day) {
 
 function ClearAttachments(button) {
     var parent = button.parentElement;
-    parent.innerHTML = "";
-    parent.style.padding = "0px";
+    parent.remove();
+    //parent.innerHTML = "";
+    //parent.style.padding = "0px";
 }
 
 //////

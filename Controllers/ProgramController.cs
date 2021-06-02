@@ -27,7 +27,7 @@ namespace WebApp.Controllers
             _context = context;
         }
 
-        
+
         public IActionResult Index()
         {
             ViewData["Title"] = "Program Page";
@@ -208,7 +208,8 @@ namespace WebApp.Controllers
                 {
                     Id = s.Id,
                     DateCreated = s.Date_Created,
-                    Title = s.Name
+                    Title = s.Name,
+                    AllowModification = s.ProgramState != ProgramState.Approved
                 }).ToList()
             };
             return PartialView(model);
@@ -482,7 +483,7 @@ namespace WebApp.Controllers
             var loggedUserAccount = HttpContext.GetLoggedUser();
             var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
 
-            if(_context.Activity.Where(w => w.Id == ActivityId).Any())
+            if (_context.Activity.Where(w => w.Id == ActivityId).Any())
             {
                 var rate = _context.Rate.Where(w => w.ActivityId == ActivityId && w.UserId == loggedUser.Id).FirstOrDefault();
                 if (rate == null)
@@ -500,7 +501,7 @@ namespace WebApp.Controllers
                     rate.RateValue = Rate;
                     _context.Rate.Update(rate);
                 }
-               
+
                 _context.SaveChanges();
             }
         }
@@ -508,7 +509,7 @@ namespace WebApp.Controllers
         private bool ProgramApproved(string ProgramName)
         {
             var program = _context.Program.Where(w => w.Name == ProgramName).FirstOrDefault();
-            if(program != null)
+            if (program != null)
             {
                 if (program.ProgramState == ProgramState.Approved)
                     return true;

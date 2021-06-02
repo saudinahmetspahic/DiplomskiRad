@@ -273,7 +273,7 @@ img.object-fit-scale-down {
     width: 200px;
 }
 
-.w-250{
+.w-250 {
     width: 250px;
 }
 
@@ -929,11 +929,7 @@ button, button:active {
     grid-gap: 1rem;
 }
 
-.attachment-image {
-    max-width: 100%;
-    height: 150px;
-    object-fit: contain;
-}
+
 
 
 .feedback-block {
@@ -1478,8 +1474,20 @@ a:hover {
     padding: 10px;
 }
 
+.font-size-large{
+    font-size: large;
+}
+
 .background-purple {
     background-color: #4d3d5f;
+}
+
+.max-width-170px{
+    max-width: 170px;
+}
+
+.max-width-300px {
+    max-width: 300px;
 }
 
 .max-width-400px {
@@ -1740,7 +1748,6 @@ footer#footer {
         z-index: 3;
         line-height: 1.7rem;
         margin-bottom: 130px;
-        
     }
 
 .overflow-x-hidden {
@@ -1797,7 +1804,6 @@ footer#footer {
         min-width: 150px;
         width: auto;
         background-color: rgb(128, 128, 128);
- 
     }
 
 
@@ -1811,10 +1817,99 @@ footer#footer {
     color: white;
 }
 
-.flex-flow-wrap{
+.flex-flow-wrap {
     flex-flow: wrap;
 }
 
+.activity-header {
+    margin: 0px;
+    background: linear-gradient(180deg, #ededed8f, transparent);
+    margin-top: 10px;
+    padding-top: 0px;
+}
+
+.activity-name {
+    font-style: italic;
+    font-family: cursive;
+}
+
+.activity-title {
+    border-left: 3px solid greenyellow;
+    padding-left: 5px;
+    margin-left: 20px;
+}
+
+.activity-description {
+    max-height: 250px;
+    font-size: 14px;
+    font-style: oblique;
+    color: #888888;
+}
+
+
+.attachment-title {
+    background: none;
+    color: darkgray;
+    font-size: 15px;
+}
+
+.attachment-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.attachment-type {
+    text-align: center;
+    padding: 5px;
+    background: greenyellow;
+    color: white;
+    width: 170px;
+}
+
+.close-button {
+    position: sticky !important;
+    border-radius: 50%;
+    height: 25px !important;
+    width: 25px !important;
+    padding: 0px;
+}
+
+.font-weight-400 {
+    font-weight: 400;
+}
+
+.attachment-description {
+    max-height: 100%;
+    font-style: italic;
+    line-height: 1rem;
+    font-size: 14px;
+    border-color: greenyellow !important;
+}
+
+.attachment-price {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 13px;
+    min-width: 150px;
+    text-align: center;
+    border-bottom: 1px solid greenyellow;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.attachment-image {
+    max-width: 200px;
+    max-height: 300px;
+    object-fit: cover;
+    margin: 5px;
+}
+
+.border-custom-light {
+    border: 1px solid #00000021 !important;
+}
 
 
 @media only screen and (max-width : 1000px) {

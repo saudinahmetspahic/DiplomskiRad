@@ -2,18 +2,18 @@
 @model GetActivityAttachments_VM
 
 
-<div class="position-relative card padding-20 w-250 cursor">
+<div class="position-relative card padding-20 attachment-body">
     @if (Model.AllowModifications == true)
     {
-        <button onclick="javascript: RemoveAttachmentFromActivity(this, '@Model.Id');" class="position-absolute right0 top0 w-auto h-auto border-0 padding-5 btn-white-black"><i class="bi bi-x"></i></button>
+        <button onclick="javascript: RemoveAttachmentFromActivity(this, '@Model.Id');" class="position-absolute right0 top0 w-auto h-auto border-0 padding-5 btn-white-black border-radius-50"><i class="bi bi-x"></i></button>
     }
-    <div onclick="javascript: CollapseDiv('Attachment_Description_' + @Model.Id);">
-        <h6 class="text-align-left">@Model.TypeOfAttachment</h6>
-        <h3 class="text-align-left">@Model.Name</h3>
+    <div class="max-width-170px text-center">
+        <h6 class="attachment-type">@Model.TypeOfAttachment</h6>
+        <h3 class="font-weight-400 font-size-large">@Model.Name</h3>
     </div>
-    <p id="Attachment_Description_@Model.Id" class="border-bottom border-info text-align-left max-height-300 overflow-auto max-height-0 text-align-justify">@Model.Description</p>
+    <p id="Attachment_Description_@Model.Id" class="border-bottom border-info text-align-left max-height-300 overflow-auto attachment-description">@Model.Description</p>
 
-    <h6 class="text-align-right padding-5">Price: @(Math.Round(Model.PriceToVisit, 2)) BAM (@(Math.Round(Model.PriceToVisit / 1.95, 2)) €)</h6>
+    <h6 class="attachment-price">Price: @(Math.Round(Model.PriceToVisit, 2)) BAM (@(Math.Round(Model.PriceToVisit / 1.95, 2)) €)</h6>
     <img class="attachment-image" alt="Image" src="~/Images/Administration/@Model.ImageName" />
 </div>
 

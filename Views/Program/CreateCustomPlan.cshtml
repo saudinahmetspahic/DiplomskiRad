@@ -1,6 +1,7 @@
 ﻿@using WebApp.ViewModels.Program
 @model CreateCustomProgram_VM
 
+
 <div class="padding-bottom-50">
     <div id="CreateProgramDiv">
         <h3 class="margin-0">Create new program</h3>
@@ -37,7 +38,9 @@
             <tbody>
                 @foreach (var program in Model.OldPrograms)
                 {
-                    <tr class="cursor focus-border" onclick="javascript: LoadProgram('@program.Id', '@program.Title', 'BuildProgramDiv', true, true);">
+                    var allowMods = (program.AllowModification.ToString().ToLower() == "true" ? "true" : "false");                    
+                    <tr class="cursor focus-border" onclick="javascript: LoadProgram('@program.Id', '@program.Title', 'BuildProgramDiv', true, @allowMods);">
+                        <td>@allowMods</td>
                         <td>@program.Title</td>
                         <td>@program.DateCreated.ToShortDateString()</td>
                     </tr>
@@ -48,7 +51,7 @@
 
 
     <div id="BuildProgramDiv" class="hidden margin-bottom-20">
-      
+
 
     </div>
 

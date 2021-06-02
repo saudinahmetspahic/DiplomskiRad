@@ -35,7 +35,8 @@ namespace WebApp.ViewModels.Program
         {
             public int Id { get; set; }
             public string Title { get; set; }
-            public DateTime DateCreated { get; set; }   
+            public DateTime DateCreated { get; set; }
+            public bool AllowModification { get; set; }
         }
     }
 
