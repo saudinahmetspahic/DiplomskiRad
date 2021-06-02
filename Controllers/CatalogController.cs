@@ -34,17 +34,18 @@ namespace WebApp.Controllers
             {
                 attachments = attachments.Where(w => w.Name.Contains(searchValue) || w.Description.Contains(searchValue)).AsQueryable();
             }
- 
-            var items = attachments.Select(s => new CatalogPreview_VM
-            {
-                Title = s.Name,
-                Description = s.Description,
-                ImageName = s.ImageName,
-                Rate = (int)_context.Rate.Where(w => w.ActivityId == s.ActivityId).Select(s => (int?)s.RateValue).Average(),
-                Activity = s.Activity.Title,
-                Price = s.PriceToVisit,
-                Addons = (List<Tuple<TypeOfAddons, int>>)_context.AttachmentAddons.Where(w => w.AttachmentId == s.Id).Select(s => new Tuple<TypeOfAddons, int>(s.AddonType, s.Distance))
-            });
+
+            var items = attachments
+                .Select(s => new CatalogPreview_VM
+                {
+                    Title = s.Name,
+                    Description = s.Description,
+                    ImageName = s.ImageName,
+                    Rate = (int)(_context.Rate.Where(w => w.ActivityId == s.ActivityId).Select(s => (int?)s.RateValue).Average() ?? 0.0),
+                    Activity = s.Activity.Title,
+                    Price = s.PriceToVisit,
+                    Addons = (List<Tuple<TypeOfAddons, int>>)_context.AttachmentAddons.Where(w => w.AttachmentId == s.Id).Select(s => new Tuple<TypeOfAddons, int>(s.AddonType, s.Distance))
+                });
             ViewData["count"] = items.Count();
 
             switch (orderBy)

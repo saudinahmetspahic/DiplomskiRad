@@ -10,7 +10,8 @@
     @foreach (var attachment in Model)
     {
         <div class="d-flex w-100 margin-bottom-20">
-            <img class="attachment-image object-fit-contain" alt="Image" src="~/Images/Administration/@attachment.ImageName" />
+            @{ var image = string.IsNullOrEmpty(attachment.ImageName) ? "default.jpg" : attachment.ImageName; }
+            <img class="attachment-image object-fit-contain" alt="" src="~/Images/Administration/@image" />
             <div class="w-100 d-flex">
                 <div class="d-flex flex-column flex-1 align-items-center">
                     <h6 class="attachment-type align-self-start">@attachment.TypeOfAttachment</h6>
@@ -18,7 +19,7 @@
                     <h6 class="attachment-price min-w-130">Price: <strong>@Math.Round(attachment.PriceToVisit, 2) BAM (@(Math.Round(attachment.PriceToVisit / 1.95, 2)) €)</strong></h6>
                 </div>
                 <button class="margin-5" onclick="javascript: AddAttachmentToActivity('@attachment.Id', '@attachment.ActivityId', '@attachment.Day');"><i class="bi bi-plus font-size-20px"></i></button>
-               @* <div class=" zIndexUp" onmouseover="ShowHoverInfo(this, '@attachment.Description');"><i class="bi bi-info-circle-fill font-size-20px"></i></div>*@
+                @* <div class=" zIndexUp" onmouseover="ShowHoverInfo(this, '@attachment.Description');"><i class="bi bi-info-circle-fill font-size-20px"></i></div>*@
             </div>
         </div>
 

@@ -44,7 +44,8 @@
         {
             <div class="catalog-item text-align-left from-row-to-column">
                 <div class="catalog-image">
-                    <img src="./Images/Administration/@item.ImageName" class="object-fit-contain" alt="Alternate Text" />
+                    @{ var image = string.IsNullOrEmpty(item.ImageName) ? "default.jpg" : item.ImageName; }
+                    <img src="./Images/Administration/@image" class="object-fit-contain" alt="" />
                 </div>
                 <table class="catalog-table">
                     <tr>

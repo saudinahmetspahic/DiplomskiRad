@@ -20,7 +20,7 @@
                 <td class="padding-5">@item.NumberOfAttachments</td>
                 <td class="padding-5">@item.ExpectedPrice</td>
                 <td class="padding-5">@item.NumberOfAppInPlans</td>
-                <td class="padding-5">@item.Rating</td>
+                <td class="padding-5">@Math.Round((item.Rating ?? 0.0) / 1, 0)</td>
             </tr>
         }
     </tbody>

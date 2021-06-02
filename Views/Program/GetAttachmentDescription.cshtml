@@ -14,6 +14,7 @@
     <p id="Attachment_Description_@Model.Id" class="border-bottom border-info text-align-left max-height-300 overflow-auto attachment-description">@Model.Description</p>
 
     <h6 class="attachment-price">Price: @(Math.Round(Model.PriceToVisit, 2)) BAM (@(Math.Round(Model.PriceToVisit / 1.95, 2)) €)</h6>
-    <img class="attachment-image" alt="Image" src="~/Images/Administration/@Model.ImageName" />
+    @{ var image = string.IsNullOrEmpty(Model.ImageName) ? "default.jpg" : Model.ImageName; }
+    <img class="attachment-image" alt="Image" src="~/Images/Administration/@image" />
 </div>
 

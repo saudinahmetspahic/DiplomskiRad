@@ -40,7 +40,6 @@
                 {
                     var allowMods = (program.AllowModification.ToString().ToLower() == "true" ? "true" : "false");                    
                     <tr class="cursor focus-border" onclick="javascript: LoadProgram('@program.Id', '@program.Title', 'BuildProgramDiv', true, @allowMods);">
-                        <td>@allowMods</td>
                         <td>@program.Title</td>
                         <td>@program.DateCreated.ToShortDateString()</td>
                     </tr>
