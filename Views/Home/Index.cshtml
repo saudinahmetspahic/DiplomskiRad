@@ -37,7 +37,7 @@
     <div class="notification-list">
         @foreach (var notif in Model)
         {
-            <h4 onclick="javascript: GetNotificationDetails('@notif.Id');">@notif.Title</h4>
+            <h4 onclick="javascript: GetNotificationDetails('@notif.Id');"><span class="">@notif.DateCreated.ToString("dd MMM") @notif.DateCreated.ToString("HH:mm")</span> @notif.Title</h4>
         }
     </div>
 </div>

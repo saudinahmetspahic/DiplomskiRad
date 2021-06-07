@@ -1,0 +1,171 @@
+﻿.custom-container {
+    position: absolute;
+    top: 130px;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.custom-section {
+    position: relative;
+    height: 70vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+    .custom-section img {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+.top0 {
+    top: 0;
+}
+
+.bottom0 {
+    bottom: 0;
+}
+
+.left0 {
+    left: 0;
+}
+
+.right0 {
+    right: 0;
+}
+
+img.logo-img {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+img.rounded-profile-img {
+    position: absolute;
+    border-radius: 50%;
+    width: 400px;
+    height: 400px;
+    left: calc(50% - 200px);
+    bottom: 5%;
+    overflow: hidden;
+    border: 5px solid white;
+}
+
+img.profile-img-border{
+    border-bottom: 20px solid dodgerblue;
+    padding-bottom: 5px;
+}
+
+.h-100-vh {
+    height: 100vh;
+}
+
+.w-300px {
+    width: 300px;
+}
+
+.h-300px{
+    height: 300px;
+}
+
+img.object-fit-cover{
+    object-fit: cover !important;
+}
+
+img.object-fit-contain{
+    object-fit: contain !important;
+}
+
+.w-33perc {
+    width: 33%;
+}
+
+.border-radius-50 {
+    border-radius: 50px;
+}
+
+.background-white {
+    background-color: white;
+}
+
+.min-w-220{
+    min-width: 220px;
+}
+
+
+
+/*animations*/
+.background-animation-1 {
+    transition: ease-in-out;
+    transition-duration: 0.4s;
+}
+
+    .background-animation-1:hover {
+        color: white;
+        background-color: rgb(24, 133, 150);
+        box-shadow: rgb(89, 187, 145) 5px 5px initial;
+    }
+
+    .background-animation-1:hover a {
+        background-color: red;
+    }
+
+.background-animation-2 {
+    transition: ease-in-out;
+    transition-duration: 0.4s;
+}
+
+    .background-animation-2:hover {
+        color: white;
+        background-color: rgb(169, 186, 222);
+        box-shadow: rgb(38, 105, 179) 5px 5px initial;
+    }
+
+.background-animation-3 {
+    transition: linear;
+    transition-duration: 0.1s;
+}
+
+    .background-animation-3:hover {
+        /*color: white;*/
+        background-color: rgba(164, 160, 160, 0.2);
+        box-shadow: rgb(38, 105, 179) 5px 5px initial;
+    }
+
+/*scrollbar*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

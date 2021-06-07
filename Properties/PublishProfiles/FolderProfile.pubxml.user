@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\bin\publish\</_PublishTargetUrl>
+    <History>True|2021-06-07T16:02:52.9200601Z;True|2021-06-07T17:47:25.5328704+02:00;True|2021-06-07T12:20:12.6602896+02:00;True|2021-06-07T11:57:49.8117811+02:00;True|2021-06-06T21:24:38.1968907+02:00;True|2021-06-06T21:17:00.4932553+02:00;True|2021-06-06T15:20:06.8944727+02:00;True|2021-06-06T11:41:22.0627404+02:00;</History>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="cs">
+      <Value>Data Source=SQL5063.site4now.net%3bInitial Catalog=db_a75aa4_webapp%3bUser Id=db_a75aa4_webapp_admin%3bPassword=Saudin1998</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="WebApp.EF.MyContext">
+      <Value>Data Source=SQL5063.site4now.net%3bInitial Catalog=db_a75aa4_webapp%3bUser Id=db_a75aa4_webapp_admin%3bPassword=Saudin1998</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

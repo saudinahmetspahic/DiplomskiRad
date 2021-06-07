@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA9OZz/xlzzEmKvz4DrEMBFAAAAAACAAAAAAAQZgAAAAEAACAAAAB+ovY36+fDp27QcMW7nRxpdHkFAVMsNqww0Gw56RUdugAAAAAOgAAAAAIAACAAAAAZ11ynb6s23Evz3H9ydz48tyaUYSY4wsuiJaQviZhR3iAAAAAdf6IMv0AfLenxx34zS48wBfB3K6dWxso+k6FkmPDQ+kAAAAAG4KvSe6ntRgvf/PvNj5owrjFVWr1k40NKYRL+Ev366M8VVAjecN+sF5Ysm9Et9NQmr4vb7CbGQjNtIZWFB3E+</EncryptedPassword>
+    <History>True|2021-06-07T19:23:24.0165918Z;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="cs">
+      <Value>Data Source=SQL5063.site4now.net%3bInitial Catalog=db_a75aa4_webapp%3bUser Id=db_a75aa4_webapp_admin%3bPassword=Saudin1998</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="WebApp.EF.MyContext">
+      <Value>Data Source=SQL5063.site4now.net%3bInitial Catalog=db_a75aa4_webapp%3bUser Id=db_a75aa4_webapp_admin%3bPassword=Saudin1998</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

@@ -3,7 +3,7 @@
 
 
 <div class="d-flex align-items-center justify-content-center">
-    <p class="margin-0 margin-right-25">You can attach this invoice to specific purchase.</p>
+    <p class="margin-0 padding-5">You can attach this invoice to specific purchase.</p>
     <a asp-action="AttachInvoiceToPurchase" asp-controller="Purchase" asp-route-InvoiceId="@Model.Invoice.Id" class="btn btn-success"><i class="bi bi-save-fill"></i> Attach invoice</a>
 </div>
 
@@ -111,7 +111,7 @@
         @*signature and seal*@
         <div class="d-flex margin-bottom-20 padding-50 margin-top-25 margin-bottom-20 switch-to-column">
             <div class="w-75 d-flex justify-content-center align-items-center">
-                <h2 class="seal">SEAL</h2>
+                <h2 class="seal"></h2>
             </div>
             <div class="w-25 d-flex flex-column align-items-center justify-content-end">
                 <h6>Director</h6>
