@@ -432,7 +432,7 @@ GO
 IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210529135433_m1')
 BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-    VALUES (N'20210529135433_m1', N'5.0.2');
+    VALUES (N'20210529135433_m1', N'5.0.6');
 END;
 GO
 
@@ -469,7 +469,7 @@ GO
 IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20210529153145_m2')
 BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-    VALUES (N'20210529153145_m2', N'5.0.2');
+    VALUES (N'20210529153145_m2', N'5.0.6');
 END;
 GO
 

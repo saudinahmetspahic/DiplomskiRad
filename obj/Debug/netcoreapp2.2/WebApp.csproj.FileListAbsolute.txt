@@ -1,0 +1,4 @@
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp2.2\WebApp.csprojAssemblyReference.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp2.2\WebApp.AssemblyInfoInputs.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp2.2\WebApp.AssemblyInfo.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp2.2\WebApp.csproj.CoreCompileInputs.cache

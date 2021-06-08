@@ -1,0 +1,8 @@
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\net5.0\WebApp.csprojAssemblyReference.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\net5.0\WebApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\net5.0\WebApp.AssemblyInfoInputs.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\net5.0\WebApp.AssemblyInfo.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\net5.0\WebApp.csproj.CoreCompileInputs.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\net5.0\WebApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\net5.0\WebApp.RazorAssemblyInfo.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\net5.0\WebApp.RazorAssemblyInfo.cs
