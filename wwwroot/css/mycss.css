@@ -911,6 +911,7 @@ button, button:active {
     min-height: 400px;
     padding: 50px;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
     #sponsors > div {
@@ -1457,6 +1458,7 @@ a:hover {
     margin: 0px;
     list-style-type: none;
     overflow: auto;
+    padding: 0px;
 }
 
     .nav-bar-ul li {
@@ -1511,6 +1513,10 @@ a:hover {
     font-size: 30px;
 }
 
+.overflow-wrap-brake{
+    overflow-wrap: break-word;
+}
+
 #content {
     max-width: 1300px;
     margin: 50px auto;
@@ -1527,10 +1533,13 @@ a:hover {
 #notifications-details {
     flex: 1;
     overflow-y: scroll;
+    margin: 0px !important;
+    min-height: 200px;
 }
 
 .notification-list {
     min-width: 200px;
+    min-height: 200px;
     overflow: hidden;
     max-width: 400px;
     width: 50%;
@@ -1563,7 +1572,7 @@ a:hover {
             font-size: 13px;
             color: darkgray;
             font-style: italic;
-            border-top: 1px solid red;
+            border-top: 1px solid #513535;
         }
 
         .notification-list h4:hover {
@@ -1627,12 +1636,11 @@ footer#footer {
     background: #343232;
     color: white;
     padding: 30px 20px 50px 20px;
-    margin-left: -20px;
-    margin-right: -20px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    width: 100%;
 }
 
     footer#footer img {
@@ -1684,6 +1692,15 @@ footer#footer {
     #menu-list-icon:hover {
         animation: hopanimation linear .6s;
     }
+
+.border-decor {
+    border-radius: 10px;
+    border-top: 10px solid cadetblue;
+    border-bottom: 10px solid cadetblue;
+}
+
+
+
 
 @keyframes hopanimation {
     0%, 20%, 30%, 70%, 80%, 100% {
@@ -1927,6 +1944,10 @@ footer#footer {
     border: 1px solid #00000021 !important;
 }
 
+.z-main {
+    z-index: 2000000 !important;
+}
+
 
 @media only screen and (max-width : 840px) {
     .attachment-body {
@@ -1952,6 +1973,24 @@ footer#footer {
         flex-direction: column;
     }
 
+    footer#footer > div {
+        margin-top: auto;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    footer#footer h3, a {
+        text-align: center;
+    }
+
+    .chat-body {
+        padding: 5px;
+    }
+
+    .notif-details {
+        height: fit-content;
+        min-height: 200px;
+    }
 }
 
 
@@ -1966,12 +2005,13 @@ footer#footer {
     }
 
     .from-row-to-column {
-        flex-direction: column;
-        align-items: center;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
     }
 
         .from-row-to-column > * {
-            margin-bottom: 30px;
+            margin-bottom: 30px !important;
         }
 
     .column-reverse {
@@ -1983,10 +2023,17 @@ footer#footer {
     }
 
     .column-spread > * {
-        width: 100%;
-        max-width: unset;
+        width: 100% !important;
+        max-width: unset !important;
     }
 
+    .LogForms {
+        flex-direction: column-reverse;
+    }
+
+        .LogForms > * {
+            width: 100%;
+        }
 
 
     /*
@@ -2056,7 +2103,7 @@ footer#footer {
 */
 
 
-    /*#programsPreview {
+    #programsPreview {
         flex-direction: column;
         justify-content: space-between;
         min-height: 600px;
@@ -2066,7 +2113,7 @@ footer#footer {
         #programsPreview > * {
             width: 80%;
         }
-
+    /*
     #contact-lists-div {
         color: gray;
         flex-direction: column;

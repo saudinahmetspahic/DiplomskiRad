@@ -1,8 +1,8 @@
-﻿@using WebApp.ViewModels.Administration
+﻿@using WebApp.ViewModels.Program
 @model AddProgramFeedback_VM
 
 <h4 class="text-center margin-50">Add new feeedback to customers of @Model.ProgramName</h4>
-<form asp-action="AddingNewFeedback" asp-controller="Administration" class="form border-bottom-only padding-20 margin-top-50 margin-bottom-50 w-50 div-align-center d-flex flex-column">
+<form asp-action="AddingNewFeedback" asp-controller="Program" class="form border-bottom-only padding-20 margin-top-50 margin-bottom-50 w-50 div-align-center d-flex flex-column">
     <input hidden value="@Model.ProgramId" asp-for="ProgramId" />
 
     <label class="form-label">Enter feedback</label>
@@ -19,7 +19,7 @@
             <div class="feedback-block max-width-1200px div-align-center">
                 <h4>@fb.Creator</h4>
                 <h6>Created: @fb.Created.ToString("dd. MMM yyyy. HH:mm")</h6>
-                <p class="padding-20 text-align-justify text-color-darkcyan">@fb.Description</p>
+                <p class="padding-20 overflow-wrap-brake text-color-darkcyan">@fb.Description</p>
             </div>
         }
     </div>

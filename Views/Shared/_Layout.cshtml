@@ -47,7 +47,7 @@
 <body class="margin-0">
 
     <div class="d-flex flex-column h-100-vh">
-        <header class="zIndexUp">
+        <header class="z-main">
             <nav id="nav-bar-id-2" class="nav-bar">
                 <a asp-action="Index" asp-controller="Home">
                     <img src="~/Images/Embedded/company_logo.jpg" alt="" />
@@ -88,7 +88,7 @@
 
         </header>
         <div id="main-container" class="h-100 w-100 overflow-x-hidden">
-            <main role="main" class="pb-3 padding-20 h-100">
+            <main role="main" class="padding-20 h-100 overflow-auto overflow-x-hidden padding-left-50 padding-right-50">
                 @RenderBody()
             </main>
         </div>

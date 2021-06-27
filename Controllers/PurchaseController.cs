@@ -58,8 +58,12 @@ namespace WebApp.Controllers
                     City = x.Participant.City,
                     Country = x.Participant.Country,
                     Name = x.Participant.Name,
-                    ParticipantId = x.ParticipantId
-                }).ToList(),
+                    ParticipantId = x.ParticipantId,
+                    Arrival = x.Arrival,
+                    Group = x.ParticipantGroup
+                })
+                .OrderBy(o => o.Group)
+                .ToList(),
                 InvoiceId = _context.Invoice.Where(w => w.PurchaseId == PurchaseId).Select(x => x.Id).FirstOrDefault()
             }).FirstOrDefault();
             return View(model);
@@ -106,7 +110,9 @@ namespace WebApp.Controllers
                 var purchaseparticipant = new PurchaseParticipants
                 {
                     ParticipantId = loggedUser.Id,
-                    PurchaseId = purchase.Id
+                    PurchaseId = purchase.Id,
+                    Arrival = DateTime.Now,
+                    ParticipantGroup = 1
                 };
                 _context.PurchaseParticipants.Add(purchaseparticipant);
                 await _context.SaveChangesAsync();
@@ -126,7 +132,9 @@ namespace WebApp.Controllers
                 var participant = new PurchaseParticipants
                 {
                     PurchaseId = PurchaseId,
-                    ParticipantId = UserId
+                    ParticipantId = UserId,
+                    Arrival = purchase.DateCreated,
+                    ParticipantGroup = 1
                 };
                 _context.PurchaseParticipants.Add(participant);
                 await _context.SaveChangesAsync();
@@ -198,29 +206,6 @@ namespace WebApp.Controllers
                                     }).ToList()
             };
 
-            //var table = _context.InvoiceTable.Where(w => w.InvoiceId == invoice.Id).ToList().GroupBy(g => g.Row);
-            //int rinx = 0;
-            //foreach (var row in table)
-            //{
-            //    var r = new IssueAnInvoice_VM.Row
-            //    {
-            //        RowIdex = rinx,
-            //        Columns = new List<IssueAnInvoice_VM.Column>()
-            //    };
-            //    rinx++;
-
-            //    int inx = 0;
-            //    foreach (var column in row)
-            //    {
-            //        r.Columns.Add(new IssueAnInvoice_VM.Column
-            //        {
-            //            ColumnIndex = inx,
-            //            Value = column.Value
-            //        });
-            //        inx++;
-            //    }
-            //    m.Rows.Add(r);
-            //}
 
             return View(m);
         }
@@ -228,7 +213,6 @@ namespace WebApp.Controllers
         [Autorization(false, true)]
         public IActionResult ModifyInvoice(int InvoiceId)
         {
-            //var inv = _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefault();
             return RedirectToAction("IssueAnInvoice", new { InvoiceId = InvoiceId });
         }
 
@@ -365,7 +349,7 @@ namespace WebApp.Controllers
         }
 
         [Autorization(false, true)]
-        public IActionResult AttachInvoice(AttachInvoice_VM model)  
+        public IActionResult AttachInvoice(AttachInvoice_VM model)
         {
             var invoice = _context.Invoice.Where(w => w.Id == model.InvoiceId).FirstOrDefault();
             if (invoice != null)
@@ -375,6 +359,39 @@ namespace WebApp.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("IssueAnInvoice", new { InvoiceId = model.InvoiceId });
+        }
+
+        public async Task SetParticipantGroup(int PurchaseId, int ParticipantId, int Value)
+        {
+            var p = await _context.PurchaseParticipants.Where(w => w.PurchaseId == PurchaseId && w.ParticipantId == ParticipantId).FirstOrDefaultAsync();
+            if (p != null)
+            {
+                p.ParticipantGroup = Value;
+                _context.PurchaseParticipants.Update(p);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task SetParticipantArrivalDate(int PurchaseId, int ParticipantId, DateTime Value)
+        {
+            var p = await _context.PurchaseParticipants.Where(w => w.PurchaseId == PurchaseId && w.ParticipantId == ParticipantId).FirstOrDefaultAsync();
+            if (p != null)
+            {
+                p.Arrival = new DateTime(Value.Year, Value.Month, Value.Day, p.Arrival.Hour, p.Arrival.Minute, 0);
+                _context.PurchaseParticipants.Update(p);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task SetParticipantArrivalTime(int PurchaseId, int ParticipantId, DateTime Value)
+        {
+            var p = await _context.PurchaseParticipants.Where(w => w.PurchaseId == PurchaseId && w.ParticipantId == ParticipantId).FirstOrDefaultAsync();
+            if (p != null)
+            {
+                p.Arrival = new DateTime(p.Arrival.Year, p.Arrival.Month, p.Arrival.Day, Value.Hour, Value.Minute, 0);
+                _context.PurchaseParticipants.Update(p);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

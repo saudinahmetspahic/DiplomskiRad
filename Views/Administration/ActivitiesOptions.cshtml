@@ -15,12 +15,23 @@
     <tbody>
         @foreach (var item in Model)
         {
+            var rate = (int)Math.Round(item.Rating ?? 0.0);
+
             <tr class="focus-border" onclick="location.href = '/Administration/GetActivityDetails?ActivityId=@item.ActivityId'">
                 <td class="padding-5 text-align-left">@item.Title</td>
                 <td class="padding-5">@item.NumberOfAttachments</td>
                 <td class="padding-5">@item.ExpectedPrice</td>
                 <td class="padding-5">@item.NumberOfAppInPlans</td>
-                <td class="padding-5">@Math.Round((item.Rating ?? 0.0) / 1, 0)</td>
+                <td class="padding-5">
+                    @for (int i = 0; i < rate; i++)
+                    {
+                        <span class="text-color-red font-size-20px">&#9733;</span>
+                    }
+                    @for (int i = 0; i < (5 - rate); i++)
+                    {
+                        <span class="font-size-20px">&#9734;</span>
+                    }
+                </td>
             </tr>
         }
     </tbody>

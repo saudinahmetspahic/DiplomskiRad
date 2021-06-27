@@ -16,5 +16,8 @@ namespace WebApp.EntityModels
         [ForeignKey(nameof(PurchaseId))]
         public int PurchaseId { get; set; }
         public Purchase Purchase { get; set; }
+
+        public DateTime Arrival { get; set; }      
+        public int ParticipantGroup { get; set; }
     }
 }

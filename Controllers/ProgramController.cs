@@ -14,6 +14,7 @@ using System.Web;
 using WebApp.EntityModels;
 using WebApp.Helper;
 using static WebApp.Helper.Autorization;
+using WebApp.ViewModels.Program;
 
 namespace WebApp.Controllers
 {
@@ -148,7 +149,7 @@ namespace WebApp.Controllers
         public IActionResult AddActivityToProgram(string ProgramName, int ActivityId, int Day)
         {
             if (ProgramApproved(ProgramName))
-                return StatusCode(401);
+                return StatusCode(405);
             var program = _context.Program.Where(w => w.Name == ProgramName).FirstOrDefault();
             if (program == null)
                 return StatusCode(400);
@@ -182,7 +183,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> RemoveActivityFromProgram(string ProgramName, int ActivityId, int Day)
         {
             if (ProgramApproved(ProgramName))
-                return StatusCode(401);
+                return StatusCode(405);
             var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
             if (program == null)
                 return StatusCode(400);
@@ -307,7 +308,7 @@ namespace WebApp.Controllers
         public IActionResult AddAttachmentToProgramActivity(string ProgramName, int ActivityId, int Day, int AttachmentId)
         {
             if (ProgramApproved(ProgramName))
-                return StatusCode(401);
+                return StatusCode(405);
             var program = _context.Program.Where(w => w.Name == ProgramName).FirstOrDefault();
             if (program == null)
                 return StatusCode(400);
@@ -346,7 +347,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> RemoveAttachmentFromProgramActivity(string ProgramName, int ActivityId, int Day, int AttachmentId)
         {
             if (ProgramApproved(ProgramName))
-                return StatusCode(401);
+                return StatusCode(405);
             var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
             if (program == null)
                 return StatusCode(400);
@@ -515,6 +516,48 @@ namespace WebApp.Controllers
                     return true;
             }
             return false;
+        }
+
+        //
+        public IActionResult AddProgramFeedback(int ProgramId)
+        {
+            var loggedUserAccount = HttpContext.GetLoggedUser();
+            var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+            var program = _context.Program.Where(w => w.Id == ProgramId).FirstOrDefault();
+            if (!(program.CreatorId == loggedUser.Id || loggedUserAccount.Role == UserRole.Admin))
+                return RedirectToAction("ShowProgramDetails", new { ProgramId = ProgramId });
+
+            var model = new AddProgramFeedback_VM
+            {
+                ProgramId = ProgramId,
+                ProgramName = program.Name,
+                FeedBack = new List<AddProgramFeedback_VM.FB>()
+            };
+            model.FeedBack = _context.Feedback.Where(w => w.ProgramId == ProgramId).Select(s => new AddProgramFeedback_VM.FB
+            {
+                Creator = s.Creator.Name + " " + s.Creator.Surname,
+                Created = s.Created,
+                Description = s.Description
+            })
+                .OrderByDescending(o => o.Created)
+                .ToList();
+            return View(model);
+        }
+
+        public IActionResult AddingNewFeedback(AddProgramFeedback_VM model)
+        {
+            var loggedUserAccount = HttpContext.GetLoggedUser();
+            var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+            var fb = new Feedback
+            {
+                Created = DateTime.Now,
+                Description = model.NewFB_Description,
+                ProgramId = model.ProgramId,
+                CreatorId = loggedUser.Id
+            };
+            _context.Feedback.Add(fb);
+            _context.SaveChanges();
+            return RedirectToAction("AddProgramFeedback", new { ProgramId = model.ProgramId });
         }
     }
 }

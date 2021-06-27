@@ -30,7 +30,7 @@
         <p>To create an invoice for this program click on this button.</p>
         <a asp-action="GetInvoices" asp-controller="Purchase" class="btn btn-danger margin-side-10"><i class="bi bi-receipt"></i> Issue an invoice</a>
     </div>
-} 
+}
 @if (Model.InvoiceId > 0)
 {
     <div class="margin-bottom-20">
@@ -40,24 +40,36 @@
 }
 <p>All participants for this purchase are listed in table down bellow. If you want to add new one click 'Add participant'</p>
 <table class="table">
-    <thead class="table-primary ">
+    <thead>
         <tr>
+            <th>Group</th>
             <th>Name</th>
             <th>Coutry</th>
             <th>City</th>
             <th>Age</th>
+            <th>Arrival</th>
             <th class="w-50px">Remove</th>
         </tr>
     </thead>
     <tbody id="UserTable">
         @foreach (var participant in Model.Participants)
         {
-            <tr id="User_@participant.ParticipantId">
-                <td>@participant.Name</td>
-                <td>@participant.Country</td>
-                <td>@participant.City</td>
-                <td>@participant.Age</td>
-                <td class="cursor w-50px text-center" onclick="location.href = '/Purchase/RemoveUserFromPurchase?PurchaseId=@Model.PurchaseId&UserId=@participant.ParticipantId'"><i class="bi bi-x-square text-color-red"></i></td>
+
+            var g = participant.Group < 10 ? participant.Group : 9;
+            var g2 = participant.Group * 2 < 10 ? (participant.Group * 2) / 3 : 9;
+            var cls = "#3344" + g + g2;
+
+            <tr id="User_@participant.ParticipantId" style="background-color:@cls;">
+                <td class="text-white"><input class="w-50px" type="number" value="@participant.Group" oninput="javascript: ChangeGroup(this, '@Model.PurchaseId', '@participant.ParticipantId');" /></td>
+                <td class="text-white">@participant.Name</td>
+                <td class="text-white">@participant.Country</td>
+                <td class="text-white">@participant.City</td>
+                <td class="text-white">@participant.Age</td>
+                <td class="text-white">
+                    <input type="date" value="@participant.Arrival.ToString("yyyy-MM-dd")" onchange="javascript: ChangeArrivalDate(this, '@Model.PurchaseId', '@participant.ParticipantId');" />
+                    <input type="time" value="@participant.Arrival.ToString("HH:mm")" onchange="javascript: ChangeArrivalTime(this, '@Model.PurchaseId', '@participant.ParticipantId');" />
+                </td>
+                <td class="cursor w-50px text-center" onclick="location.href = '/Purchase/RemoveUserFromPurchase?PurchaseId=@Model.PurchaseId&UserId=@participant.ParticipantId'"><i class="bi bi-x-square text-white"></i></td>
             </tr>
         }
     </tbody>
@@ -70,6 +82,21 @@
 
 
 <script>
+    function ChangeGroup(elem, purchase, participant) {
+        var val = elem.value;
+        $.post("/Purchase/SetParticipantGroup?PurchaseId=" + purchase + "&ParticipantId=" + participant + "&Value=" + val);
+    }
+
+    function ChangeArrivalDate(elem, purchase, participant) {
+        var val = elem.value;
+        $.post("/Purchase/SetParticipantArrivalDate?PurchaseId=" + purchase + "&ParticipantId=" + participant + "&Value=" + val);
+    }
+
+    function ChangeArrivalTime(elem, purchase, participant) {
+        var val = elem.value;
+        $.post("/Purchase/SetParticipantArrivalTime?PurchaseId=" + purchase + "&ParticipantId=" + participant + "&Value=" + val);
+    }
+
     function AddUserToPurchase(e, UserId) {
         var PurchaseId = e.parentNode.id.substr(e.parentNode.id.length - 1, 1);
         $.get("/Purchase/AddUserToPurchase?PurchaseId=" + PurchaseId + "&UserId=" + UserId, function (result, status) {

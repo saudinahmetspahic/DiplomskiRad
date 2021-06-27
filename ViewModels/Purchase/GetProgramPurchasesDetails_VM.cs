@@ -20,7 +20,9 @@ namespace WebApp.ViewModels.Purchase
             public string Name { get; set; }
             public string Country { get; set; }
             public string City { get; set; }
+            public DateTime Arrival { get; set; }
             public int Age { get; set; }
+            public int Group { get; set; }
         }
     }
 }

@@ -7,7 +7,7 @@
 
 <div>
     <table class="table">
-        <tr class="from-row-to-column">
+        <tr class="from-row-to-column column-spread">
             <th class="table-primary">Title</th>
             <td>@Model.ProgramDetails.Name</td>
             <th class="table-primary">Creator</th>
@@ -21,7 +21,7 @@
         </tr>
     </table>
     <table class="table">
-        <tr class="from-row-to-column">
+        <tr class="from-row-to-column column-spread">
             <th class="table-primary">Number of sells</th>
             <td>@Model.NumberOfSells</td>
             <th class="table-primary">Expected price</th>
@@ -36,7 +36,7 @@
     </table>
 </div>
 
-<p class="margin-top-50">This is program made by @Model.ProgramDetails.Creator, that can be modified by administrators. Once administrator change program it will become private and change status to OnHold. Creator has to approve administrators changes before program can be applied. To modify program press the button at bottom of the page.</p>
+<p class="margin-top-50">This program, made by <strong>@Model.ProgramDetails.Creator</strong>, can be modified by administrators. Once administrator change program it will become private and change status to OnHold. Creator has to approve administrators changes before program can be applied. To modify program press the button at bottom of the page.</p>
 <div id="BuildProgramDiv">
     @*<h3 id="ProgramNameID"></h3>
         <div id="DaysDiv" class="div-section-list-item">
@@ -47,7 +47,7 @@
     <button onclick="javascript: AddDay(0, true);" class="btn-danger d-block div-align-center padding-10 margin-bottom-20"><i class="bi bi-plus-circle-fill"></i> ADD NEW DAY</button>
 }
 
-<div class="d-flex flex-row switch-to-column padding-bottom-50">
+<div class="d-flex flex-row from-row-to-column padding-bottom-50">
     <button onclick="javascript: ChangeState('@Model.ProgramDetails.Id', 'Change state', '@Model.ProgramDetails.ProgramState');" class="w-100 padding-20 btn-danger"><i class="bi bi-arrow-bar-right"></i> Change state</button>
     <button onclick="javascript: ChangeAccess('@Model.ProgramDetails.Id', 'Change access', '@Model.ProgramDetails.ProgramAccess');" class="w-100 padding-20 btn-danger"><i class="bi bi-binoculars-fill"></i> Change access</button>
     <a class="w-100 padding-20 btn btn-danger border-radius-0" asp-action="AddProgramFeedback" asp-controller="Administration" asp-route-ProgramId="@Model.ProgramDetails.Id"><i class="bi bi-binoculars-fill"></i> Add feedback</a>

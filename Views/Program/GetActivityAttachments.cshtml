@@ -14,7 +14,7 @@
             <img class="attachment-image object-fit-contain" alt="" src="~/Images/Administration/@image" />
             <div class="w-100 d-flex">
                 <div class="d-flex flex-column flex-1 align-items-center">
-                    <h6 class="attachment-type align-self-start">@attachment.TypeOfAttachment</h6>
+                    <h6 class="attachment-type">@attachment.TypeOfAttachment</h6>
                     <h3 class="attachment-title flex-1">@attachment.Name <span class=" zIndexUp" onmouseover="ShowHoverInfo(this, '@attachment.Description');"><i class="bi bi-info-circle-fill font-size-13px"></i></span></h3>
                     <h6 class="attachment-price min-w-130">Price: <strong>@Math.Round(attachment.PriceToVisit, 2) BAM (@(Math.Round(attachment.PriceToVisit / 1.95, 2)) €)</strong></h6>
                 </div>

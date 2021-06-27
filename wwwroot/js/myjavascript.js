@@ -124,7 +124,7 @@ function LoadProgram(ProgramId, Title, OutPutDiv, Switch, AllowModifications) {
             var a = document.createElement("a");
             a.className = "btn btn-secondary padding-5 margin-5";
             a.textContent = "See feedback";
-            a.href = "/Administration/AddProgramFeedback?ProgramId=" + ProgramId;
+            a.href = "/Program/AddProgramFeedback?ProgramId=" + ProgramId;
             fbdiv.appendChild(p);
             fbdiv.appendChild(a);
 
@@ -488,7 +488,7 @@ function AddNewActivity(day) {
 
     var maindiv = document.createElement("div");
     maindiv.id = "SearchNewActivities_ForDay_" + day;
-    maindiv.className = "padding-20 margin-top-25 d-flex justify-content-between";
+    maindiv.className = "border-decor padding-20 margin-top-25 d-flex justify-content-between";
 
     var innerdiv1 = document.createElement("div");
     innerdiv1.className = "flex-section-row-child-50 d-flex flex-column";

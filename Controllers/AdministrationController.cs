@@ -488,40 +488,6 @@ namespace WebApp.Controllers
             return Ok();
         }
 
-        public IActionResult AddProgramFeedback(int ProgramId)
-        {
-            var model = new AddProgramFeedback_VM
-            {
-                ProgramId = ProgramId,
-                ProgramName = _context.Program.Where(w => w.Id == ProgramId).Select(s => s.Name).FirstOrDefault(),
-                FeedBack = new List<AddProgramFeedback_VM.FB>()
-            };
-            model.FeedBack = _context.Feedback.Where(w => w.ProgramId == ProgramId).Select(s => new AddProgramFeedback_VM.FB
-            {
-                Creator = s.Creator.Name + " " + s.Creator.Surname,
-                Created = s.Created,
-                Description = s.Description
-            })
-                .OrderByDescending(o => o.Created)
-                .ToList();
-            return View(model);
-        }
-
-        public IActionResult AddingNewFeedback(AddProgramFeedback_VM model)
-        {
-            var loggedUserAccount = HttpContext.GetLoggedUser();
-            var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
-            var fb = new Feedback
-            {
-                Created = DateTime.Now,
-                Description = model.NewFB_Description,
-                ProgramId = model.ProgramId,
-                CreatorId = loggedUser.Id
-            };
-            _context.Feedback.Add(fb);
-            _context.SaveChanges();
-            return RedirectToAction("GetProgramDetails", new { ProgramId = model.ProgramId });
-        }
     }
 }
 

@@ -8,7 +8,7 @@
 {
     <div class="program-preview cursor-animation-1 cursor" id="ProgramPreview_@program.Id" onclick="location.href = '/Program/ShowProgramDetails?ProgramId=@program.Id'">
         <h3 class="text-align-left">@program.Name</h3>
-        <p class="text-align-justify max-height-100">@program.Description</p>
+        <p class="text-align-justify max-height-100 overflow-hidden">@program.Description</p>
         <div class="d-flex flex-row justify-content-center align-items-center margin-0 w-100 overflow-auto">
             @{ var counter = 0; }
             @foreach (var activity in program.Activities)

@@ -123,7 +123,6 @@ C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Pr
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Administration\AddProgramFeedback.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Catalog\Index.cshtml.g.cs
 C:\Users\saudi\source\repos\WebApp\WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Program\RateProgram.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\WebApp.csprojAssemblyReference.cache
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\WebApp.AssemblyInfoInputs.cache
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\WebApp.AssemblyInfo.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\WebApp.csproj.CoreCompileInputs.cache
@@ -192,7 +191,6 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\WebApp.RazorCoreGenerate.cache
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ActivitiesOptions.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Administration\AddNewImage.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Administration\AddProgramFeedback.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Administration\CreateNewActivity.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Administration\CreateNewActivityAttachment.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Administration\CustomersOptions.cshtml.g.cs
@@ -249,3 +247,5 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\IssueAnInvoice.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Purchase\AttachInvoiceToPurchase.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Notification\GetNotificationDetails.cshtml.g.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\WebApp.csproj.AssemblyReference.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\AddProgramFeedback.cshtml.g.cs
