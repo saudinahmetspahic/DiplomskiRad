@@ -1,43 +1,47 @@
 ﻿@using WebApp.ViewModels.Administration
 @model List<ActivityOptions_VM>
 
+    <div>
+        <h6>Activities</h6>
+        <p>Activities are the main parts of any program, assembled by smaller parts.</p>
+    </div>
 
-<table class="table m-auto">
-    <thead class="table-primary">
-        <tr>
-            <th class="padding-5">Title</th>
-            <th class="padding-5">Number of available attachments</th>
-            <th class="padding-5">Max. expected price</th>
-            <th class="padding-5">Number of appearances in plans</th>
-            <th class="padding-5">Customer rating</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            var rate = (int)Math.Round(item.Rating ?? 0.0);
-
-            <tr class="focus-border" onclick="location.href = '/Administration/GetActivityDetails?ActivityId=@item.ActivityId'">
-                <td class="padding-5 text-align-left">@item.Title</td>
-                <td class="padding-5">@item.NumberOfAttachments</td>
-                <td class="padding-5">@item.ExpectedPrice</td>
-                <td class="padding-5">@item.NumberOfAppInPlans</td>
-                <td class="padding-5">
-                    @for (int i = 0; i < rate; i++)
-                    {
-                        <span class="text-color-red font-size-20px">&#9733;</span>
-                    }
-                    @for (int i = 0; i < (5 - rate); i++)
-                    {
-                        <span class="font-size-20px">&#9734;</span>
-                    }
-                </td>
+    <table class="table table-responsive-xl m-auto">
+        <thead class="table-primary">
+            <tr>
+                <th class="padding-5">Title</th>
+                <th class="padding-5">Number of available attachments</th>
+                <th class="padding-5">Max. expected price</th>
+                <th class="padding-5">Number of appearances in plans</th>
+                <th class="padding-5">Customer rating</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var rate = (int)Math.Round(item.Rating ?? 0.0);
 
-<div class="text-center margin-top-25">
-    <p class="border-bottom focus-hover d-inline-block cursor padding-5" onclick="location.href = '/Administration/CreateNewActivity'">CREATE NEW ACTIVITY</p>
-</div>
+                <tr class="focus-border" onclick="location.href = '/Administration/GetActivityDetails?ActivityId=@item.ActivityId'">
+                    <td class="padding-5 text-align-left">@item.Title</td>
+                    <td class="padding-5">@item.NumberOfAttachments</td>
+                    <td class="padding-5">@item.ExpectedPrice</td>
+                    <td class="padding-5">@item.NumberOfAppInPlans</td>
+                    <td class="padding-5">
+                        @for (int i = 0; i < rate; i++)
+                        {
+                            <span class="text-color-red font-size-20px">&#9733;</span>
+                        }
+                        @for (int i = 0; i < (5 - rate); i++)
+                        {
+                            <span class="font-size-20px">&#9734;</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-center margin-top-25">
+        <p class="border-bottom focus-hover d-inline-block cursor padding-5" onclick="location.href = '/Administration/CreateNewActivity'">CREATE NEW ACTIVITY</p>
+    </div>
 

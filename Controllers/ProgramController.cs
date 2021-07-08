@@ -372,16 +372,31 @@ namespace WebApp.Controllers
             foreach (var activity in activities)
             {
                 var attachments = _context.ProgramActivityAttachment.Where(w => w.ProgramActivityId == activity.Id).ToList();
-                foreach (var attachment in attachments)
-                {
-                    _context.ProgramActivityAttachment.Remove(attachment);
-                }
+                //foreach (var attachment in attachments)
+                //{
+                    _context.ProgramActivityAttachment.RemoveRange(attachments);
+                //}
             }
-            foreach (var activity in activities)
+            //foreach (var activity in activities)
+            //{
+                _context.ProgramActivity.RemoveRange(activities);
+            //}
+
+            var purchases = _context.Purchase.Where(w => w.ProgramId == ProgramId).ToList();
+            foreach (var purchase in purchases)
             {
-                _context.ProgramActivity.Remove(activity);
+                var participants = _context.PurchaseParticipants.Where(w => w.PurchaseId == purchase.Id).ToList();
+                _context.PurchaseParticipants.RemoveRange(participants);
             }
+            _context.Purchase.RemoveRange(purchases);
+
+            var feedback = _context.Feedback.Where(w => w.ProgramId == ProgramId).ToList();
+            _context.Feedback.RemoveRange(feedback);
+
             var program = _context.Program.Where(w => w.Id == ProgramId).FirstOrDefault();
+
+
+
             _context.Program.Remove(program);
             _context.SaveChanges();
 
@@ -471,7 +486,7 @@ namespace WebApp.Controllers
                     Description = s.Description,
                     Image = s.ImageName,
                     CurrentRate = _context.Rate.Where(w => w.ActivityId == s.Id).Select(x => (int?)x.RateValue).Average() ?? 1.0,
-                    GivenRate = 1
+                    GivenRate = _context.Rate.Where(w => w.ActivityId == s.Id && w.UserId == loggedUser.Id).Select(x => x.RateValue).FirstOrDefault(),
                 }).ToList();
                 return View(model);
             }

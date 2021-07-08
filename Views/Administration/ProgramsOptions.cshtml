@@ -1,28 +1,73 @@
 ﻿@using WebApp.ViewModels.Administration
 @model List<ProgramsOptions_VM>
 
+    <div>
+        <h6 class="font-weight-bold">Program access</h6>
+        <p>Program access defines wheater guests and other users can review program or it is restricted for everyone except for creator and administrators.</p>
+        <label>Result</label>
+        <ul>
+            <li class="text-color-red font-weight-bold">
+                Private
+                <ul class="list-style-none text-color-black font-weight-normal">
+                    <li>Program is not visible for other users.</li>
+                </ul>
+            </li>
+            <li class="text-color-green font-weight-bold">
+                Public
+                <ul class="list-style-none text-color-black font-weight-normal">
+                    <li>Program is visible for everyone.</li>
+                </ul>
+            </li>
+        </ul>
 
-<table class="table">
-    <thead class="table-primary">
-        <tr>
-            <th>Title</th>
-            <th>Creator</th>
-            <th>Created</th>
-            <th>Program access</th>
-            <th>Program status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="cursor focus-border" onclick="location.href = '/Administration/GetProgramDetails?ProgramId=@item.Id'">
-                <td>@item.Name</td>
-                <td>@item.Creator</td>
-                <td>@item.Date_Created.ToShortDateString()</td>
-                <td>@item.ProgramAccess</td>
-                <td>@item.ProgramState</td>
+        <h6 class="font-weight-bold">Program status</h6>
+        <p>Program status defines wheater .</p>
+        <label>Result</label>
+        <ul>
+            <li class="text-color-red font-weight-bold">
+                Approved
+                <ul class="list-style-none text-color-black font-weight-normal">
+                    <li>Program that is approved by administrator is ready for use and can be ordered.</li>
+                </ul>
+            </li>
+            <li class="text-color-gray font-weight-bold">
+                OnHold
+                <ul class="list-style-none text-color-black font-weight-normal">
+                    <li>Program is waiting to be reviewed by administrator who will approve or dismiss it for use.</li>
+                </ul>
+            </li>
+            <li class="text-color-green font-weight-bold">
+                Refuse
+                <ul class="list-style-none text-color-black font-weight-normal">
+                    <li>Program is waiting to be reviewed by administrator who will approve or refuse it for use.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <p>Click on specific row to see more program details.</p>
+
+    <table class="table table-responsive-xl">
+        <thead class="table-primary">
+            <tr>
+                <th>Title</th>
+                <th>Creator</th>
+                <th>Created</th>
+                <th>Program access</th>
+                <th>Program status</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="cursor focus-border" onclick="location.href = '/Administration/GetProgramDetails?ProgramId=@item.Id'">
+                    <td>@item.Name</td>
+                    <td>@item.Creator</td>
+                    <td>@item.Date_Created.ToString("dd MMM yyyy - HH:mm")</td>
+                    <td>@item.ProgramAccess</td>
+                    <td>@item.ProgramState</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 

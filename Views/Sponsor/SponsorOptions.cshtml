@@ -25,11 +25,14 @@
 
 
 @foreach (var sponsor in Model.AddedSponsors)
-{   
+{
     <div class="margin-top-25 margin-bottom-20 padding-20 w-100 d-flex justify-content-center from-row-to-column">
-        <img class="max-width-400px max-height-300 object-fit-contain margin-5" src="/Images/Sponsors/@sponsor.ImageName" alt="" />
+        @{ 
+            var image = string.IsNullOrEmpty(sponsor.ImageName) ? "Administration/default.jpg" : "Sponsors/" + sponsor.ImageName;
+        }
+        <img class="max-width-400px max-height-300 object-fit-contain margin-5" src="/Images/@image" alt="" />
         <div class="padding-50">
-            <h3 class="margin-0">@sponsor.Name</h3>
+            <h3 class="margin-0 w-200">@sponsor.Name</h3>
             <h5>@sponsor.AreaOfInterest</h5>
             <button onclick="location.href = '/Sponsor/RemoveSponsor?SponsorId=@sponsor.Id'" class="margin-top-25 btn-white-black"><i class="bi bi-trash"></i> REMOVE</button>
         </div>

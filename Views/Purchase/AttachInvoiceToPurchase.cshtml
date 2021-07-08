@@ -7,8 +7,8 @@
 
 <form class="form" asp-action="AttachInvoice" asp-controller="Purchase">
     <input class="hidden" asp-for="@Model.InvoiceId" value="@Model.InvoiceId" />
-    <label class="form-label">Attach invoice to program</label>
-    <label class="form-label">Search programs</label>
+    <label class="form-label">Attach invoice to program purchase</label>
+    <label class="form-label">Search program purchases</label>
     <select class="form-input" asp-for="@Model.PurchaseId" asp-items="@Model.PurchasesList"></select>
    
     <button type="submit">Attach</button>

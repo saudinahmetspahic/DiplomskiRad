@@ -6,6 +6,9 @@
     <p class="margin-0 padding-5">You can attach this invoice to specific purchase.</p>
     <a asp-action="AttachInvoiceToPurchase" asp-controller="Purchase" asp-route-InvoiceId="@Model.Invoice.Id" class="btn btn-success"><i class="bi bi-save-fill"></i> Attach invoice</a>
 </div>
+@if(Model.Invoice.PurchaseId != 0){
+    <h6 class="text-center">This invoice has been attached to: @Model.Invoice.Purchase.Program.Name (@Model.Invoice.Purchase.DateCreated.ToString("dd MMM yyyy - HH:mm")) - Creator: @Model.Invoice.Purchase.Creator.Name @Model.Invoice.Purchase.Creator.Surname</h6>
+}
 
 <form class="form wide-form" asp-action="UpdateAnInvoice" asp-controller="Purchase">
     <input class="hidden" type="number" asp-for="@Model.Invoice.Id" value="@Model.Invoice.Id" />

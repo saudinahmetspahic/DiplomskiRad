@@ -127,8 +127,15 @@ namespace WebApp.Controllers
                 var uploadPath = Path.Combine(hostingEnvironment.WebRootPath, "Images", "Administration");
                 uniqueImageName = Guid.NewGuid() + "_" + model.Image.FileName;
                 var filePath = Path.Combine(uploadPath, uniqueImageName);
-                model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                //model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                using (var ms = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Image.CopyTo(ms);
+                }
             }
+
+
 
             var activity = new Activity
             {
@@ -276,7 +283,12 @@ namespace WebApp.Controllers
                 if (!System.IO.File.Exists(oldImagePath))
                 {
                     var filePath = Path.Combine(uploadPath, uniqueImageName);
-                    model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                    using (var ms = new FileStream(filePath, FileMode.Create))
+                    {
+                        model.Image.CopyTo(ms);
+                    }
+                    
                 }
             }
             await _context.SaveChangesAsync();

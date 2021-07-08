@@ -34,7 +34,7 @@
 @if (Model.InvoiceId > 0)
 {
     <div class="margin-bottom-20">
-        <p>This program has invoice attached to it.</p>
+        <p class="font-weight-bold">This program already has invoice attached to it.</p>
         <a asp-action="IssueAnInvoice" asp-controller="Purchase" asp-route-InvoiceId="@Model.InvoiceId" class="btn btn-primary margin-side-10"><i class="bi bi-receipt"></i> Show invoice details</a>
     </div>
 }
@@ -54,12 +54,13 @@
     <tbody id="UserTable">
         @foreach (var participant in Model.Participants)
         {
+            var g = participant.Group % 10;
+            g = (g * 5) + 35;
+            if (g > 100)
+                g = 100;
+            var col = "rgb(44 124 185 / " + g + "%)";
 
-            var g = participant.Group < 10 ? participant.Group : 9;
-            var g2 = participant.Group * 2 < 10 ? (participant.Group * 2) / 3 : 9;
-            var cls = "#3344" + g + g2;
-
-            <tr id="User_@participant.ParticipantId" style="background-color:@cls;">
+            <tr id="User_@participant.ParticipantId" class="font-weight-bold" style="background-color:@col;">
                 <td class="text-white"><input class="w-50px" type="number" value="@participant.Group" oninput="javascript: ChangeGroup(this, '@Model.PurchaseId', '@participant.ParticipantId');" /></td>
                 <td class="text-white">@participant.Name</td>
                 <td class="text-white">@participant.Country</td>
@@ -84,7 +85,16 @@
 <script>
     function ChangeGroup(elem, purchase, participant) {
         var val = elem.value;
-        $.post("/Purchase/SetParticipantGroup?PurchaseId=" + purchase + "&ParticipantId=" + participant + "&Value=" + val);
+        $.post("/Purchase/SetParticipantGroup?PurchaseId=" + purchase + "&ParticipantId=" + participant + "&Value=" + val, function (result, status) {
+            if (status === "success") {
+                var g = val % 10;
+                g = (g * 5) + 35;
+                if (g > 100)
+                    g = 100;
+                var col = "rgb(44 124 185 / " + g + "%)";
+                $("#User_" + participant).css("background-color", col);
+            }
+        });
     }
 
     function ChangeArrivalDate(elem, purchase, participant) {

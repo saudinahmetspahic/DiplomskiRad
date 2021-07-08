@@ -37,7 +37,9 @@ namespace WebApp.Controllers
                 ImageName = s.ImageName,
                 Author = s.Author.Name + " " + s.Author.Surname,
                 AllowModifications = AllowModifications
-            }).ToList();
+            })
+                .OrderByDescending(o => o.DateCreated)
+                .ToList();
             return PartialView(notifications);
         }
 

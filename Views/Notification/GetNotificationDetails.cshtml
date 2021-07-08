@@ -3,9 +3,9 @@
 
 <div class="notif-details">
     @{ var image = string.IsNullOrEmpty(Model.ImageName) ? "/Embedded/notifications.png" : "/Notification/" + Model.ImageName; }
-    <img src="/Images/@image" alt="" />
+    <img class="img-blur-5px" src="/Images/@image" alt="" />
     <div>
-        <h3>@Model.Title</h3>
+        <h3 class="text-color-orange">@Model.Title</h3>
         <h6>@Model.Author</h6>
         <h6>@Model.DateCreated.ToString("dd. MMM yyyy. HH:mm")</h6>
     </div>

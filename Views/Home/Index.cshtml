@@ -26,6 +26,11 @@
     <p>Search programs</p>
 </div>
 
+<div class="max-width-1000px text-center font-family-eras-itc">
+    <h5 class="font-weight-bold">Create and order program for </h5>
+    <p>After you log in, you can start creating your program. We will show you interesting landmarks and you choose what you want to visit and when. You can also search for programs that are ready to be ordered.</p>
+</div>
+
 <div id="programsPreview" class="font-family-ubuntu">
 
 </div>
@@ -39,8 +44,10 @@
         <div class="notification-list">
             @foreach (var notif in Model)
             {
-                <h4 onclick="javascript: GetNotificationDetails('@notif.Id');"><span class="">@notif.DateCreated.ToString("dd MMM") @notif.DateCreated.ToString("HH:mm")</span> @notif.Title</h4>
+                <p class="text-color-lightblue d-inline-block"><img src="/Images/Embedded/blue-bell.png" alt="" /> @notif.DateCreated.ToString("dd MMM") @notif.DateCreated.ToString("HH:mm")</p>
+                <h4 onclick="javascript: GetNotificationDetails('@notif.Id');">@notif.Title</h4>
             }
+            @*<i class="fa fa-dot-circle-o bell-icon"></i>*@
         </div>
     </div>
 }
@@ -49,51 +56,117 @@
     <p>Need help?</p>
 </div>
 
-<div class="margin-bottom-50 margin-top-50">
+<div class="max-width-1000px text-center font-family-eras-itc">
+    <h5 class="font-weight-bold">Conntact us via e-mail to get more info!</h5>
+    <p>Send an e-mail if you need help or more info. You can also find us on social networks. We will reply as soon as possible.</p>
+</div>
+
+<div class="margin-bottom-50 margin-top-50 d-flex background-pyramid-blue from-row-to-column column-spread">
     <div class="custom-a">
-        <div class="w-200"></div>
-        <div class="custom-a-text">
-            <h4>Explore</h4>
+        <div>
+            <h4 class="text-pyramid-yellow">Explore</h4>
             <p>Let us help you explore Bosnia and Herzegovina. It is country full of landmarks worth visiting wherever you are coming from.</p>
         </div>
     </div>
     <div class="custom-a">
-        <div class="custom-a-text">
-            <h4>Contact us</h4>
+        <div class="margin-top-25">
+            <h4 class="text-pyramid-yellow">Contact us</h4>
             <p>Feel free to send us a message and we will reply in no time. You can chat with us via this app or you can send us an email.</p>
         </div>
-        <div class="w-200"></div>
     </div>
     <div class="custom-a">
-        <div class="w-200"></div>
-        <div class="custom-a-text">
-            <h4>Build</h4>
+        <div class="margin-top-50">
+            <h4 class="text-pyramid-yellow">Build</h4>
             <p>We are ready to take you on adventure you create. Build your own program and demand your wishes. We will make it happen.</p>
         </div>
     </div>
+
 </div>
 
 <div class="line">
     <p>Our friends</p>
 </div>
 
-<div id="sponsors" class="sectionMargin">
-
+<div class="max-width-1000px text-center font-family-eras-itc">
+    <h5 class="font-weight-bold">Our friends and partners that work with us!</h5>
+    <p>As travel agency, we collaborate with many companies to provide the best service for our clients.</p>
 </div>
 
+@*<div id="sponsors" class="sectionMargin">
+
+    </div>*@
+
+<div class="position-relative">
+    @*<div class="wrapper">*@
+    @*class="outer"*@
+    <div id="sponsors">
+        @*<div class="card" style="--delay:0;">
+                <div class="content">
+                    <div class="img"><img src="#" alt=""></div>
+                    <div class="details">
+                        <span class="name">Sumit Kapoor</span>
+                        <p>Frontend Developer</p>
+                    </div>
+                </div>
+                <a href="#">Follow</a>
+            </div>
+            <div class="card" style="--delay:1;">
+                <div class="content">
+                    <div class="img"><img src="#" alt=""></div>
+                    <div class="details">
+                        <span class="name">Andrew Neil</span>
+                        <p>YouTuber & Blogger</p>
+                    </div>
+                </div>
+                <a href="#">Follow</a>
+            </div>
+            <div class="card" style="--delay:2;">
+                <div class="content">
+                    <div class="img"><img src="#" alt=""></div>
+                    <div class="details">
+                        <span class="name">Saudin Ahmetspahic</span>
+                        <p>Programmer</p>
+                    </div>
+                </div>
+                <a href="#">Follow</a>
+            </div>*@
+        @*</div>
+            </div>*@
+    </div>
+</div>
+
+
+
+
 <footer id="footer">
-    <div>
-        <img src="~/Images/Embedded/company_logo.jpg" alt="" />
-        <div class="d-flex margin-5"><div class="footer-icon"><i class="fa fa-map-marker pr-10"></i></div> Bosnia & Herzegovina<br />Zenica<br />Branilaca Bosne 14</div>
-        <div class="d-flex margin-5"><div class="footer-icon"><i class="fa fa-phone pr-10"></i></div> +387/62-973-830</div>
-        <div class="d-flex margin-5"><div class="footer-icon"><i class="fa fa-envelope-o pr-10"></i></div> respectzajim@gmail.com</div>
+    <img src="~/Images/Embedded/company_logo.jpg" alt="" />
+    <div class="align-items-center">
+        <table>
+            <tr>
+                <td class="padding-5"><i class="fa fa-map-marker pr-10"></i></td>
+                <td class="padding-5 border-left-simple text-left">Bosnia & Herzegovina<br />Zenica<br />Branilaca Bosne 14</td>
+            </tr>
+            <tr>
+                <td class="padding-5"><i class="fa fa-phone pr-10"></i></td>
+                <td class="padding-5 border-left-simple text-left">+387/62-973-830</td>
+            </tr>
+            <tr>
+                <td class="padding-5"><i class="fa fa-envelope-o pr-10"></i></td>
+                <td class="padding-5 border-left-simple text-left">respectzajim@gmail.com</td>
+            </tr>
+        </table>
+
+
+        @*<div class="d-flex margin-5 w-100"><div class="footer-icon"><i class="fa fa-map-marker pr-10"></i></div> Bosnia & Herzegovina<br />Zenica<br />Branilaca Bosne 14</div>
+            <div class="d-flex margin-5 w-100"><div class="footer-icon"><i class="fa fa-phone pr-10"></i></div> +387/62-973-830</div>
+            <div class="d-flex margin-5 w-100"><div class="footer-icon"><i class="fa fa-envelope-o pr-10"></i></div> respectzajim@gmail.com</div>*@
     </div>
     <div>
-        <h3>Links</h3>
-        <a asp-action="Index" asp-controller="Catalog">Catalog</a>
-        <a asp-action="Index" asp-controller="Chat">Contact</a>
-        <a asp-action="Index" asp-controller="Program">Programs</a>
-        <a asp-action="Index" asp-controller="Purchase">Purchases</a>
+        <h3 class="text-center">Links</h3>
+        <a class="a-btn" asp-action="Index" asp-controller="Catalog">Catalog</a>
+        <a class="a-btn" asp-action="Index" asp-controller="Chat">Contact</a>
+        <a class="a-btn" asp-action="Index" asp-controller="Program">Programs</a>
+        <a class="a-btn" asp-action="Index" asp-controller="Purchase">Purchases</a>
     </div>
     <p class="rsv">2021 - New Respect - Travel Agency</p>
 </footer>
@@ -139,7 +212,6 @@
                     if (count > 3) {
                         count = count - 3;
 
-                        console.log(count);
                         for (var i = 0; i < count; i++) {
                             $("#programsPreview").children().first().remove();
                         }

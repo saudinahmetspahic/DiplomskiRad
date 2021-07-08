@@ -192,7 +192,13 @@ namespace WebApp.Controllers
         [Autorization(true, true)]
         public IActionResult IssueAnInvoice(int InvoiceId)
         {
-            var inv = _context.Invoice.Where(w => w.Id == InvoiceId).FirstOrDefault();
+            var inv = _context.Invoice
+                .Include(i => i.Purchase)
+                .ThenInclude(i => i.Creator)
+                .Include(i => i.Purchase)
+                .ThenInclude(i => i.Program)
+                .Where(w => w.Id == InvoiceId)
+                .FirstOrDefault();
             var m = new IssueAnInvoice_VM
             {
                 Invoice = inv,
@@ -332,15 +338,19 @@ namespace WebApp.Controllers
         [Autorization(false, true)]
         public IActionResult AttachInvoiceToPurchase(int InvoiceId)
         {
+            var purchaseId = _context.Invoice.Where(w => w.Id == InvoiceId).Select(s => s.PurchaseId).FirstOrDefault();
+
             var model = new AttachInvoice_VM
             {
                 InvoiceId = InvoiceId,
                 PurchasesList = _context.Purchase
                                 .Include(i => i.Program)
+                                .Include(i => i.Creator)
                                 .Select(s => new SelectListItem
                                 {
-                                    Text = s.Program.Name + " (" + s.DateCreated.ToString("dd. MMM yyyy.") + ")",
-                                    Value = s.Id.ToString()
+                                    Text = s.Program.Name + " (" + s.DateCreated.ToString("dd. MMM yyyy.") + ") - " + s.Creator.Name + " " + s.Creator.Surname,
+                                    Value = s.Id.ToString(),
+                                    Selected = purchaseId == s.Id
                                 })
                                 .ToList()
 
