@@ -192,6 +192,7 @@ namespace WebApp.Controllers
         [Autorization(true, true)]
         public IActionResult IssueAnInvoice(int InvoiceId)
         {
+            var loggedUserAccount = HttpContext.GetLoggedUser();
             var inv = _context.Invoice
                 .Include(i => i.Purchase)
                 .ThenInclude(i => i.Creator)
@@ -209,7 +210,8 @@ namespace WebApp.Controllers
                                         Column = s.Column,
                                         Row = s.Row,
                                         Value = s.Value
-                                    }).ToList()
+                                    }).ToList(),
+                AllowModifications = loggedUserAccount.Role == UserRole.Admin
             };
 
 
@@ -290,13 +292,13 @@ namespace WebApp.Controllers
         }
 
         [Autorization(false, true)]
-        public void SetTableData(int InvoiceId, int Row, int Column, string Value)
+        public IActionResult SetTableData(int InvoiceId, int Row, int Column, string Value)
         {
             if (string.IsNullOrEmpty(Value)
                 || InvoiceId < 0
                 || (Row < 0 || Row > 25)
                 || (Column < 0 || Column > 15))
-                return;
+                return NotFound();
 
             var invtable = _context.InvoiceTable.Where(w => w.InvoiceId == InvoiceId && w.Row == Row && w.Column == Column).FirstOrDefault();
             if (invtable != null)
@@ -316,6 +318,7 @@ namespace WebApp.Controllers
                 _context.InvoiceTable.Add(invtable);
             }
             _context.SaveChanges();
+            return StatusCode(200);
         }
 
         [Autorization(false, true)]

@@ -1,9 +1,9 @@
 ﻿@using WebApp.ViewModels.Administration
 @model CustomerDetails_VM
 
-<div class="flex-section-row from-row-to-column column-reverse">
+<div class="flex-section-row from-row-to-column column-reverse column-spread">
     <div class="flex-section-row-child-50 d-flex flex-column justify-content-between">
-        <table class="table">
+        <table class="table table-responsive-xl">
             <thead>
                 <tr>
                     <th class="table-primary">Name</th>
@@ -36,7 +36,7 @@
             </thead>
         </table>
 
-        <table class="table margin-0">
+        <table class="table table-responsive-xl margin-0">
             <thead>
                 <tr>
                     <th class="table-primary">Registered</th>
@@ -82,7 +82,7 @@
 </div>
 
 <p class="margin-top-25 font-italic">List of ordered programs</p>
-<table class="table w-100 overflow-auto table-to-block">
+<table class="table w-100 table-responsive-xl overflow-auto table-to-block">
     <thead class="table-light">
         <tr>
             <th>Title</th>
@@ -109,7 +109,7 @@
 </table>
 
 <p class="margin-top-25 font-italic">List of created programs</p>
-<table class="table w-100 overflow-auto margin-bottom-50">
+<table class="table w-100 table-responsive-xl overflow-auto margin-bottom-50">
     <thead class="table-light">
         <tr>
             <th>Title</th>

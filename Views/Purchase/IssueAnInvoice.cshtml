@@ -1,17 +1,20 @@
 ﻿@using WebApp.ViewModels.Purchase
 @model IssueAnInvoice_VM
 
-
-<div class="d-flex align-items-center justify-content-center">
-    <p class="margin-0 padding-5">You can attach this invoice to specific purchase.</p>
-    <a asp-action="AttachInvoiceToPurchase" asp-controller="Purchase" asp-route-InvoiceId="@Model.Invoice.Id" class="btn btn-success"><i class="bi bi-save-fill"></i> Attach invoice</a>
-</div>
-@if(Model.Invoice.PurchaseId != 0){
-    <h6 class="text-center">This invoice has been attached to: @Model.Invoice.Purchase.Program.Name (@Model.Invoice.Purchase.DateCreated.ToString("dd MMM yyyy - HH:mm")) - Creator: @Model.Invoice.Purchase.Creator.Name @Model.Invoice.Purchase.Creator.Surname</h6>
+@if (Model.AllowModifications)
+{
+    <div class="d-flex align-items-center justify-content-center">
+        <p class="margin-0 padding-5">You can attach this invoice to specific purchase.</p>
+        <a asp-action="AttachInvoiceToPurchase" asp-controller="Purchase" asp-route-InvoiceId="@Model.Invoice.Id" class="btn btn-success"><i class="bi bi-save-fill"></i> Attach invoice</a>
+    </div>
+    @if (Model.Invoice.Purchase != null && Model.Invoice.Purchase.Creator != null && Model.Invoice.Purchase.Program != null)
+    {
+        <h6 class="text-center">This invoice has been attached to: @Model.Invoice.Purchase.Program?.Name (@Model.Invoice.Purchase?.DateCreated.ToString("dd MMM yyyy - HH:mm")) - Creator: @Model.Invoice.Purchase.Creator?.Name @Model.Invoice.Purchase.Creator?.Surname</h6>
+    }
 }
 
 <form class="form wide-form" asp-action="UpdateAnInvoice" asp-controller="Purchase">
-    <input class="hidden" type="number" asp-for="@Model.Invoice.Id" value="@Model.Invoice.Id" />
+    <input class="issue-input hidden" type="number" asp-for="@Model.Invoice.Id" value="@Model.Invoice.Id" />
     <section id="content" class="box-shadow-small sectionMargin padding-20">
         @*header*@
         <div class="margin-bottom-20 d-flex from-row-to-column">
@@ -19,11 +22,11 @@
                 <h5 class="text-color-green">New respect d.o.o</h5>
                 <h5 class="text-color-green">www.new-respect.com</h5>
                 <div>
-                    <input class="form-input" asp-for="@Model.Invoice.Adress" type="text" placeholder="Adress" />
-                    <input class="form-input" asp-for="@Model.Invoice.CountryCityPostal" type="text" placeholder="Country-City-Postal Code" />
-                    <input class="form-input" asp-for="@Model.Invoice.PhoneFax" type="text" placeholder="Phone-Fax" />
-                    <input class="form-input" asp-for="@Model.Invoice.Email" type="text" placeholder="Email" />
-                    <div class="d-flex justify-content-between"><h5>PDV num. </h5><input class="form-input" asp-for="@Model.Invoice.PDVNumber" placeholder="PDV num" /></div>
+                    <input class="issue-input form-input" asp-for="@Model.Invoice.Adress" type="text" placeholder="Adress" />
+                    <input class="issue-input form-input" asp-for="@Model.Invoice.CountryCityPostal" type="text" placeholder="Country-City-Postal Code" />
+                    <input class="issue-input form-input" asp-for="@Model.Invoice.PhoneFax" type="text" placeholder="Phone-Fax" />
+                    <input class="issue-input form-input" asp-for="@Model.Invoice.Email" type="text" placeholder="Email" />
+                    <div class="d-flex justify-content-between"><h5>PDV num. </h5><input class="issue-input form-input" asp-for="@Model.Invoice.PDVNumber" placeholder="PDV num" /></div>
                 </div>
             </div>
             <div class="w-50 d-flex justify-content-center align-items-center">
@@ -38,44 +41,56 @@
                 <div class="corner-border"></div>
                 <div class="corner-border"></div>
 
-                <input class="form-input" asp-for="@Model.Invoice.CustomerCountry"  placeholder="Country" />
-                <input class="form-input" asp-for="@Model.Invoice.Customer"  placeholder="Customer" />
+                <input class="issue-input form-input text-center" asp-for="@Model.Invoice.CustomerCountry" placeholder="Country" />
+                <input class="issue-input form-input text-center" asp-for="@Model.Invoice.Customer" placeholder="Customer" />
             </div>
         </div>
         @*data*@
         <div class="margin-bottom-20">
             <div class="d-flex flex-column justify-content-end align-items-end switch-to-column">
-                <div class="d-flex align-items-center font-weight-bold"><h5 class="margin-top-5">ESTIMATE </h5><input asp-for="@Model.Invoice.EstimateNumber"  class="form-input margin-5 text-center" /></div>
-                <div class="d-flex align-items-center switch-to-column"><h6 class="margin-top-5 w-fit-content">Place and date of issue </h6><input asp-for="@Model.Invoice.PlaceOfIssue"  placeholder="Place" class="form-input margin-5 text-center" /><input asp-for="@Model.Invoice.DateOfIssue"  type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-input margin-5" /></div>
+                <div class="d-flex align-items-center font-weight-bold"><h5 class="margin-top-5">ESTIMATE </h5><input asp-for="@Model.Invoice.EstimateNumber" class="issue-input form-input margin-5 text-center" /></div>
+                <div class="d-flex align-items-center switch-to-column"><h6 class="margin-top-5 w-fit-content">Place and date of issue </h6><input asp-for="@Model.Invoice.PlaceOfIssue" placeholder="Place" class="issue-input form-input margin-5 text-center" /><input asp-for="@Model.Invoice.DateOfIssue" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="issue-input form-input margin-5" /></div>
             </div>
 
             <div class="d-flex flex-column justify-content-center align-items-center padding-20">
                 <div id="tables" class="d-flex flex-column align-content-center">
-                    <table id="InvoiceTable_Id" class="table table-secondary w-auto">
+                    <table id="InvoiceTable_Id" class="table table-responsive-xl w-auto">
                         @for (int i = 0; i < Model.Invoice.TableRows; i++)
                         {
                             <tr>
                                 @for (int j = 0; j < Model.Invoice.TableColumns; j++)
                                 {
-                                    <td onclick="javascript: CreateTextArea(this, @i, @j);">
-                                        @Model.Table.Where(w => w.Row == i && w.Column == j).Select(s => s.Value).FirstOrDefault()
+                                    <td class="position-relative min-w-200">
+                                        @if (Model.AllowModifications)
+                                        {
+                                            <span class="edit-textarea" onclick="javascript: InputText(@i, @j);"><i class="fas fa-pen"></i></span>
+                                        }
+                                        <span id="text_@(i)_@(j)">@Model.Table.Where(w => w.Row == i && w.Column == j).Select(s => s.Value).FirstOrDefault()</span>
                                     </td>
+                                    @*<td onclick="javascript: CreateTextArea(this, @i, @j);">@Model.Table.Where(w => w.Row == i && w.Column == j).Select(s => s.Value).FirstOrDefault()</td>*@
+
+                                    @*<td>
+                                            <textarea class="issue-textarea" onblur="javascript: TextAreaOnBlur(this, '@i', '@j')">@Model.Table.Where(w => w.Row == i && w.Column == j).Select(s => s.Value).FirstOrDefault()</textarea>
+                                        </td>*@
                                 }
                             </tr>
                         }
                     </table>
 
                 </div>
-                <div class="d-flex flex-column justify-content-center align-items-center toRemove">
-                    <label>Insert table</label>
-                    <div class="d-flex">
-                        <input id="Rows"  class="form-input margin-5 text-center" type="number" placeholder="Rows" />
-                        <input id="Columns"  class="form-input margin-5 text-center" type="number" placeholder="Columns" />
-                    </div>
+                @if (Model.AllowModifications)
+                {
+                    <div class="d-flex flex-column justify-content-center align-items-center toRemove">
+                        <label></label>
+                        <div class="d-flex">
+                            <input id="Rows" class="issue-input form-input margin-5 text-center" type="number" placeholder="Rows" />
+                            <input id="Columns" class="issue-input form-input margin-5 text-center" type="number" placeholder="Columns" />
+                        </div>
 
-                    <button type="button" id="CreateTable_Id" onclick="javascript: CreateNewTable();" class="btn-white-black w-100 padding-5 font-weight-bold">Create</button>
-                </div>
-                <a id="RemoveTable_Id" asp-action="RemoveInvoiceTable" asp-controller="Purchase" asp-route-InvoiceId="@Model.Invoice.Id" class="btn btn-white-black w-100 padding-5 font-weight-bold hidden">Remove table</a>
+                        <button type="button" id="CreateTable_Id" onclick="javascript: CreateNewTable();" class="btn-white-black w-100 padding-5 font-weight-bold">Create</button>
+                    </div>
+                    <a id="RemoveTable_Id" asp-action="RemoveInvoiceTable" asp-controller="Purchase" asp-route-InvoiceId="@Model.Invoice.Id" class="btn btn-white-black w-100 padding-5 font-weight-bold hidden">Remove table</a>
+                }
             </div>
         </div>
         @*info*@
@@ -84,31 +99,31 @@
             <table class="w-75 switch-to-column">
                 <tr class="switch-to-column">
                     <td><label class="margin-0">Datum isporuke (date of delivery)</label></td>
-                    <td><input asp-for="@Model.Invoice.DateOfDelivery"  class="form-input h-50 w-100" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" /></td>
+                    <td><input asp-for="@Model.Invoice.DateOfDelivery" class="issue-input form-input h-50 w-100" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" /></td>
                 </tr>
                 <tr class="switch-to-column">
                     <td><label class="h-50 margin-0">Izmireno (settled)</label></td>
                     <td class="d-flex justify-content-between align-items-center">
-                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">BAM</label><input asp-for="@Model.Invoice.SettledInBAM"  class="form-input h-50 w-40perc" type="number" id="value_bam" />
-                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">EUR</label><input  class="form-input h-50 w-40perc margin-left-5" type="number" id="value_eur" value="@Math.Round(Model.Invoice.SettledInBAM / 1.95, 2)" />
+                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">BAM</label><input asp-for="@Model.Invoice.SettledInBAM" class="issue-input form-input h-50 w-40perc margin-left-5" type="number" id="value_bam" />
+                        <label class="margin-left-5 margin-bottom-0 font-weight-bold">EUR</label><input class="issue-input form-input h-50 w-40perc margin-left-5" type="number" id="value_eur" value="@Math.Round(Model.Invoice.SettledInBAM / 1.95, 2)" />
                     </td>
                 </tr>
                 <tr class="switch-to-column">
                     <td><label class="h-50 margin-0">Slovima (total - in words)</label></td>
-                    <td><input asp-for="@Model.Invoice.TotalInWords"  class="form-input h-50 w-100" type="text" /></td>
+                    <td><input asp-for="@Model.Invoice.TotalInWords" class="issue-input form-input h-50 w-100" type="text" /></td>
                 </tr>
                 <tr class="switch-to-column">
                     <td><label class="h-50 margin-0">Nacin plaćanja (method of payment) </label></td>
-                    <td><input asp-for="@Model.Invoice.MethodOfPayment"  class="form-input h-50 w-100" type="text" /></td>
+                    <td><input asp-for="@Model.Invoice.MethodOfPayment" class="issue-input form-input h-50 w-100" type="text" /></td>
                 </tr>
                 <tr class="switch-to-column">
                     <td><label class="h-50 margin-0">Rok za plaćanje (deadline for payment) </label></td>
-                    <td><input asp-for="@Model.Invoice.DeadlineForPayment"  class="form-input h-50 w-100" type="text" /></td>
+                    <td><input asp-for="@Model.Invoice.DeadlineForPayment" class="issue-input form-input h-50 w-100" type="text" /></td>
                 </tr>
             </table>
 
             <div class="margin-top-50 w-75 border-bottom border-dark">
-                <label class="font-weight-bold">Account to pay: €</label><input asp-for="@Model.Invoice.AccountToPay"  class="form-input margin-left-5 w-300px" type="text" placeholder="bank account" />
+                <label class="font-weight-bold">Account to pay: €</label><input asp-for="@Model.Invoice.AccountToPay" class="issue-input form-input margin-left-5 w-300px" type="text" placeholder="bank account" />
             </div>
         </div>
         @*signature and seal*@
@@ -118,14 +133,14 @@
             </div>
             <div class="w-25 d-flex flex-column align-items-center justify-content-end">
                 <h6>Director</h6>
-                <input asp-for="@Model.Invoice.Director"  type="text" class="form-input text-center" />
+                <input asp-for="@Model.Invoice.Director" type="text" class="issue-input form-input text-center" />
             </div>
         </div>
         @*bank accounts*@
         <div class="d-flex text-color-green from-row-to-column">
             <div class="w-50 d-flex flex-column">
                 <h5>Additional bank account</h5>
-                <input asp-for="@Model.Invoice.AdditionalBankAccount" class="form-input" type="text" />
+                <input asp-for="@Model.Invoice.AdditionalBankAccount" class="issue-input form-input" type="text" />
                 @*<button class="btn-white-black font-weight-bold toRemove" onclick="javascript: AddNewAccount();">Add bank account</button>*@
                 @*<div id="accounts" class="d-flex flex-column">
 
@@ -141,7 +156,10 @@
 
 
     </section>
-    <button type="submit">Save</button>
+    @if (Model.AllowModifications)
+    {
+        <button type="submit">Save</button>
+    }
 </form>
 
 
@@ -151,6 +169,39 @@
 
 
 <script>
+    function InputText(row, col) {
+        if ('@Model.AllowModifications' === "True") {
+            var text = document.getElementById("text_" + row + "_" + col);
+            var val = text.innerHTML;
+            text.innerHTML = "";
+
+            var div = document.createElement("div");
+            div.className = "w-100 h-100 padding-5";
+
+
+            var textarea = document.createElement("textarea");
+            textarea.className = "padding-5 w-100 min-w-200";
+            textarea.value = val;
+
+            var bttn = document.createElement("button");
+            bttn.type = "button";
+            bttn.innerHTML = "Save";
+            bttn.addEventListener("click", function () {
+                $.get("/Purchase/SetTableData?InvoiceId=" + '@Model.Invoice.Id' + "&Row=" + row + "&Column=" + col + "&Value=" + textarea.value, function (result, status) {
+                    if (status === "success") {
+                        text.innerHTML = textarea.value;
+                    }
+                });
+            });
+
+            div.appendChild(textarea);
+            div.appendChild(bttn);
+
+            text.appendChild(div);
+        }
+        else
+            Message("You are not allowed to modify this issue.");
+    }
 
     function CreateNewTable() {
         var rows = $("#Rows").val();
@@ -161,17 +212,30 @@
         }
         var table = document.createElement("table");
         table.id = "InvoiceTable_Id";
-        table.className = "table table-bordered w-auto";
+        table.className = "table table-responsive-xl w-auto";
         for (var i = 0; i < rows; i++) {
             var tr = document.createElement("tr");
             for (var j = 0; j < columns; j++) {
                 var td = document.createElement("td");
-                td.className = "table-cell padding-5";
-                td.addEventListener("click", function (e) {
-                    CreateTextArea(e.target, i, j);
+                td.className = "position-relative min-w-200";
+
+                var span1 = document.createElement("span");
+                span1.className = "edit-textarea";
+                span1.id = i + "_" + j;
+                span1.addEventListener("click", function (e) {
+                    var x = e.currentTarget.id.split("_");
+                    InputText(x[0], x[1]);
                 });
+                span1.innerHTML = "<i class='fas fa-pen'></i>";
+
+                var span2 = document.createElement("span");
+                span2.id = "text_" + i + "_" + j;
+
+                if ('@Model.AllowModifications' === "True") {
+                    td.appendChild(span1);
+                }
+                td.appendChild(span2);
                 tr.appendChild(td);
-                CreateTextArea(td, i, j);
             }
             table.appendChild(tr);
         }
@@ -182,37 +246,23 @@
     }
 
 
-
-    function CreateTextArea(e, row, col) {
-        var value = e.innerHTML;
-        var textarea = document.createElement("textarea");
-        textarea.className = "padding-5 w-100";
-        textarea.addEventListener("blur", function (s) {
-            var value2 = s.target.value;
-            if (value2 !== "") {
-                e.innerHTML = "";
-                e.append(value2);
-            }
-
-            $.post("/Purchase/SetTableData?InvoiceId=" + '@Model.Invoice.Id' + "&Row=" + row + "&Column=" + col + "&Value=" + value2);
-        });
-        if (e.children.length == 0)
-            textarea.value = value;
-        e.innerHTML = "";
-        e.append(textarea);
-    }
-
-
-
-
-
-
     $(document).ready(function () {
         Message("Don't forget to save your work, or everything will be lost. To save click the button at bottom of the page.");
 
         if (parseInt('@Model.Invoice.TableRows') > 0 && parseInt('@Model.Invoice.TableColumns') > 0) { //.Any()' === "True") {
             $(".toRemove").remove();
             $("#RemoveTable_Id").removeClass("hidden");
+        }
+
+        if ('@Model.AllowModifications' == 'False') {
+            var inputs = document.getElementsByClassName("issue-input");
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = true;
+            }
+            var tabletextareas = document.getElementsByClassName("issue-textarea");
+            for (var i = 0; i < tabletextareas.length; i++) {
+                tabletextareas[i].disabled = true;
+            }
         }
     });
 

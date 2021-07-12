@@ -3,7 +3,7 @@
 
 <div class="d-flex flex-column h-100">
     <div class="position-relative">
-        <a class="btn btn-danger position-absolute left top" asp-action="ChatSettings" asp-controller="Chat" asp-route-ChatId="@Model.Id">Settings</a>
+        <a class="btn btn-danger position-absolute left top zIndexUp" asp-action="ChatSettings" asp-controller="Chat" asp-route-ChatId="@Model.Id">Settings</a>
     </div>
     <div class="chat-body">
         @foreach (var message in Model.Messages)

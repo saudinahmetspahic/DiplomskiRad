@@ -8,8 +8,8 @@ namespace WebApp.ViewModels.Purchase
 {
     public class IssueAnInvoice_VM
     {
-        public Invoice Invoice { get; set; }
-         
+        public Invoice Invoice { get; set; }    
+        public bool AllowModifications { get; set; }
         public List<TableContent> Table { get; set; }
         public class TableContent
         {

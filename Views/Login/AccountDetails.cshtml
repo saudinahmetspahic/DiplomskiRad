@@ -12,7 +12,7 @@
     }
 </style>
 
-<div class="padding-50 text-center">
+<div class="padding-bottom-50 text-center">
     <form class="form" asp-action="LogOut" asp-controller="Login">
         <label class="form-label">To log out press button down bellow.</label>
         <button class="btn-red" type="submit">Log out</button>
@@ -54,7 +54,7 @@
 
 @if (Model.IsAdmin == true)
 {
-    <div class="d-flex justify-content-around margin-top-50 padding-top-50 padding-bottom-50 border-top border-info from-row-to-column">
+    <div class="d-flex justify-content-around margin-top-50 padding-top-50 padding-bottom-50 border-top border-info from-row-to-column column-spread">
         <div>
             <h5>You have administrator permissions</h5>
             <p>Add new administrator (search user and click on it)</p>
@@ -87,7 +87,7 @@
 @if (Model.Purchases.Any())
 {
     <p class="w-100 margin-top-50 padding-5 border-top border-info">List of program purcheses.<br />Click on row to see more details about specific purchase.</p>
-    <table class="table table-light w-100">
+    <table class="table table-light table-responsive-xl w-100">
         <thead class="table-primary">
             <tr>
                 <th>Created</th>
