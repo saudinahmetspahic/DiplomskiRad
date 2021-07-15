@@ -3,51 +3,51 @@
 
 <div class="flex-section-row from-row-to-column column-reverse column-spread">
     <div class="flex-section-row-child-50 d-flex flex-column justify-content-between">
-        <table class="table table-responsive-xl">
+        <table class="table table-responsive-xl text-center">
             <thead>
                 <tr>
-                    <th class="table-primary">Name</th>
+                    <th class="table-primary w-50">Name</th>
                     <td>@Model.CustomerDetails.Name</td>
                 </tr>
                 <tr>
-                    <th class="table-primary">Surname</th>
+                    <th class="table-primary w-50">Surname</th>
                     <td>@Model.CustomerDetails.Surname</td>
                 </tr>
                 <tr>
-                    <th class="table-primary">Age</th>
+                    <th class="table-primary w-50">Age</th>
                     <td>@Model.CustomerDetails.Age</td>
                 </tr>
                 <tr>
-                    <th class="table-primary">Country</th>
+                    <th class="table-primary w-50">Country</th>
                     <td>@Model.CustomerDetails.Country</td>
                 </tr>
                 <tr>
-                    <th class="table-primary">City</th>
+                    <th class="table-primary w-50">City</th>
                     <td>@Model.CustomerDetails.City</td>
                 </tr>
                 <tr>
-                    <th class="table-primary">Phone</th>
+                    <th class="table-primary w-50">Phone</th>
                     <td>@Model.CustomerDetails.Phone</td>
                 </tr>
                 <tr>
-                    <th class="table-primary">Email</th>
+                    <th class="table-primary w-50">Email</th>
                     <td>@Model.CustomerDetails.Email</td>
                 </tr>
             </thead>
         </table>
 
-        <table class="table table-responsive-xl margin-0">
+        <table class="table table-responsive-xl margin-0 text-center">
             <thead>
                 <tr>
-                    <th class="table-primary">Registered</th>
+                    <th class="table-primary w-50">Registered</th>
                     <td>@Model.DateRegistered.ToShortDateString()</td>
                 </tr>
                 <tr>
-                    <th class="table-primary">Collaborate (currently)</th>
+                    <th class="table-primary w-50">Collaborate (currently)</th>
                     <td>@(Model.CurrentlyOnPlan ? "Yes" : "No")</td>
                 </tr>
                 <tr>
-                    <th class="table-primary">Number of collaborations</th>
+                    <th class="table-primary w-50">Number of collaborations</th>
                     <td>@Model.NumberOfPlansOredered</td>
                 </tr>
             </thead>
@@ -81,7 +81,7 @@
     </div>
 </div>
 
-<p class="margin-top-25 font-italic">List of ordered programs</p>
+<p class="margin-top-25 font-italic font-weight-bold">List of ordered programs</p>
 <table class="table w-100 table-responsive-xl overflow-auto table-to-block">
     <thead class="table-light">
         <tr>
@@ -98,9 +98,9 @@
         {
             <tr>
                 <td>@orderedPlan.Title</td>
-                <td>@orderedPlan.DateOrdered.ToShortDateString()</td>
-                <td>@orderedPlan.DateStart.ToShortDateString()</td>
-                <td>@orderedPlan.DateFinish.ToShortDateString()</td>
+                <td>@orderedPlan.DateOrdered.ToString("dd MMM. yyyy HH:mm")</td>
+                <td>@orderedPlan.DateStart.ToString("dd MMM. yyyy HH:mm")</td>
+                <td>@orderedPlan.DateFinish.ToString("dd MMM. yyyy HH:mm")</td>
                 <td>@(orderedPlan.ForGroup == true ? "Group" : "Single")</td>
                 <td>@(orderedPlan.Finished == true ? "Finished" : "Active")</td>
             </tr>
@@ -108,7 +108,7 @@
     </tbody>
 </table>
 
-<p class="margin-top-25 font-italic">List of created programs</p>
+<p class="margin-top-25 font-italic font-weight-bold">List of created programs</p>
 <table class="table w-100 table-responsive-xl overflow-auto margin-bottom-50">
     <thead class="table-light">
         <tr>

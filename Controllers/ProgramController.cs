@@ -436,15 +436,29 @@ namespace WebApp.Controllers
             if (ProgramApproved(ProgramName))
                 return;
             var activity = await _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).FirstOrDefaultAsync();
-            activity.Start = Time;
+            var d = new DateTime(activity.Start.Year, activity.Start.Month, activity.Start.Day) + Time.TimeOfDay;
+            activity.Start = d; 
             _context.ProgramActivity.Update(activity);
             await _context.SaveChangesAsync();
         }
 
-        public string GetCurrentTimeOfActivity(string ProgramName, int Activity, int Day)
+        [Autorization(true, true, false)]
+        public async Task ChangeActivityDate(string ProgramName, int Activity, int Day, DateTime Date)
+        {
+            if (ProgramApproved(ProgramName))
+                return;
+            var activity = await _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).FirstOrDefaultAsync();
+            var d = new DateTime(Date.Year, Date.Month, Date.Day) + activity.Start.TimeOfDay;
+            activity.Start = d;
+            _context.ProgramActivity.Update(activity);
+            await _context.SaveChangesAsync();
+        }
+
+        public DateTime GetCurrentTimeOfActivity(string ProgramName, int Activity, int Day)
         {
             var date = _context.ProgramActivity.Where(w => w.Program.Name == ProgramName && w.ActivityId == Activity && w.DayOfProgram == Day).Select(s => s.Start).FirstOrDefault();
-            return date.ToString("HH:mm");
+            //return date.ToString("HH:mm");
+            return date;
         }
 
         [Autorization(true, true, false)]

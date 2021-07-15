@@ -361,9 +361,9 @@ namespace WebApp.Controllers
             var purchases = _context.Purchase.Include(i => i.Program).Where(w => w.CreatorId == user.Id).ToList();
             foreach (var purchase in purchases)
             {
-                var attachments = _context.ProgramActivityAttachment.Where(w => w.ProgramActivity.ProgramId == purchase.ProgramId);
-                var date_start = attachments.OrderBy(s => s.PlannedStart).Select(s => s.PlannedStart).FirstOrDefault();
-                var date_finish = attachments.OrderByDescending(s => s.PlannedFinish).Select(s => s.PlannedFinish).FirstOrDefault();
+                var activities = _context.ProgramActivity.Where(w => w.ProgramId == purchase.ProgramId);
+                var date_start = activities.OrderBy(o => o.Start).Select(s => s.Start).FirstOrDefault();
+                var date_finish = activities.OrderByDescending(o => o.Start).Select(s => s.Start.AddHours(s.DedicatedHours)).FirstOrDefault();
 
                 model.PlansOrdered_Redirection.Add(new CustomerDetails_VM.OrderedPlan_Details
                 {

@@ -1,33 +1,37 @@
 ﻿@using WebApp.ViewModels.Administration
 @model List<CustomersOptions_VM>
 
+    <h5>Users</h5>
+    <p>
+        List of registered users. Click to see more details.
+    </p>
 
-<table class="table table-responsive-xl">
-    <thead class="table-primary">
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Age</th>
-            <th>Country</th>
-            <th>City</th>
-            <th>Phone</th>
-            <th>Email</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr class="cursor focus-border" onclick="location.href = '/Administration/GetUserDetails?UserId=@user.Id'">
-                <td>@user.Name</td>
-                <td>@user.Surname</td>
-                <td>@user.Age</td>
-                <td>@user.Country</td>
-                <td>@user.City</td>
-                <td>@user.Phone</td>
-                <td>@user.Email</td>
+    <table class="table table-responsive-xl margin-top-25">
+        <thead class="table-primary">
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Age</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Phone</th>
+                <th>Email</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr class="cursor focus-border" onclick="location.href = '/Administration/GetUserDetails?UserId=@user.Id'">
+                    <td>@user.Name</td>
+                    <td>@user.Surname</td>
+                    <td>@user.Age</td>
+                    <td>@user.Country</td>
+                    <td>@user.City</td>
+                    <td>@user.Phone</td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
 

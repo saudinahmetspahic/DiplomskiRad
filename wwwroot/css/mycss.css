@@ -1042,6 +1042,7 @@ img.presentation-section-bg {
     justify-content: space-around;
     background-color: white;
     margin: 20px 0px 20px 20px;
+    box-shadow: 0px 0px 5px 10px #0000000a;
 }
 
 .catalog-table {
@@ -1114,6 +1115,13 @@ img.presentation-section-bg {
 
     .catalog-addon h6 {
         color: rgba(128, 128, 128, 0.4);
+    }
+
+    .w-140px{
+        width: 140px;
+    }
+    .w-95px{
+        width: 95px;
     }
 
 .addon-image {
@@ -2183,7 +2191,7 @@ footer#footer {
 .attachment-description {
     max-height: 100%;
     font-style: italic;
-    line-height: 1rem;
+    line-height: 1.1rem;
     font-size: 14px;
     border-color: greenyellow !important;
 }
@@ -2543,6 +2551,11 @@ footer#footer {
                 border-radius: 20px 5px;
             }
 
+
+
+
+
+
 @media (max-width: 600px) {
     html {
         font-size: 12px;
@@ -2559,15 +2572,6 @@ footer#footer {
     }
 }
 /*----*/
-
-
-
-
-
-
-
-
-
 
 
 
