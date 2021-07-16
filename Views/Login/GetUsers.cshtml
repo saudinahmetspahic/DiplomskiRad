@@ -4,7 +4,6 @@
 
 @foreach (var pearson in Model)
 {
-    //onclick = "SetPearsonAdmin('@pearson.Id');"
     <a class="btn btn-light" asp-action="SetAdmin" asp-controller="Login" asp-route-UserId="@pearson.Id">@pearson.Description</a>
 }
 

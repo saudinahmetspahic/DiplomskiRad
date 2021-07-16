@@ -1,0 +1,14 @@
+﻿@using WebApp.ViewModels.Catalog
+@model CatalogPreview_VM
+
+
+<div>
+    <div class="w-100 max-height-500">
+        @{ var image = string.IsNullOrEmpty(Model.ImageName) ? "default.jpg" : Model.ImageName; }
+        <img src="/Images/Administration/@image" class="object-fit-cover w-100 h-300px" alt="" />
+    </div>
+    <div class="max-width-700px padding-20 div-align-center">
+        <h5>@Model.Title</h5>
+        <p>@Model.Description</p>
+    </div>
+</div> 

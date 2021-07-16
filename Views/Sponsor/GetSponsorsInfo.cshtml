@@ -1,6 +1,6 @@
 ﻿@using WebApp.ViewModels.Sponsor
 @model List<SponsorOptions_VM.AddedSponsor>
-@*@{ var counter = 0; }*@
+
 
 <div class="marquee">
     <ul class="marquee-content">
@@ -17,44 +17,10 @@
                 </div>
             </li>
         }
-        @*<li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li>11</li>
-            <li>12</li>*@
+
     </ul>
 </div>
 
-@*<div class="sponsor">*@
-@*@{*@
-<!--var image = string.IsNullOrEmpty(sponsor.ImageName) ? "Administration/default.jpg" : "Sponsors/" + sponsor.ImageName;-->
-@* }*@
-@*
-    <img class="img-size-200 object-fit-contain sponsor-image" src="/Images/@image" alt="" />
-    <h4 class="sponsor-title">@sponsor.Name</h4>
-    <h6 class="sponsor-type">@sponsor.AreaOfInterest</h6>*@
-
-
-
-@*<div class="card sponsor" style="--delay:@counter;">
-    <div class="content">
-        <div class="img"><img src="/Images/@image" alt=""></div>
-        <div class="details">
-            <span class="name">@sponsor.Name</span>
-            <p>@sponsor.AreaOfInterest</p>*@
-@*</div>
-    </div>*@
-@*<a href="#">Follow</a>*@
-<!--</div>-->
-@*</div>*@
-<!--counter++;-->
-        @*}*@
 
 <script>
     $(document).ready(function () {
@@ -69,17 +35,6 @@
             marqueeContent.appendChild(marqueeContent.children[i].cloneNode(true));
         }
 
-        @*<!--var d = $(".card");
-        console.log(d, d.length);
-        for (var i = 0; i < d.length; i++) {
-            //animation - delay: calc(3s * var(--delay));-->
-
-            d.css("animation-duration", @Model.Count() * 3 + "s");
-            console.log(d.css("animation-duration"));
-            <!--//d.css("animation-delay", (i * 3) + "s");
-            d.attr('style', 'animation-delay: ' + (i * 3) + 's !important');
-            console.log(d.css("animation-delay"));
-        }-->*@
     });
 </script>
 

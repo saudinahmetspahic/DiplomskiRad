@@ -50,7 +50,8 @@
                 <table class="catalog-table table-responsive-xl">
                     <tr>
                         <td>
-                            <h3>@item.Title</h3>
+                            <a class="btn btn-gradient" asp-action="CatalogItemDetails" asp-controller="Catalog" asp-route-AttachmentId="@item.Id">See details</a>
+                            <h3 class="margin-top-5">@item.Title</h3>
                             <p class="catalog-table-activity"><i class="bi bi-geo-alt-fill text-color-orange"></i> @item.Activity</p>
                         </td>
                         <td class="catalog-table-rate">

@@ -38,6 +38,7 @@ namespace WebApp.Controllers
             var items = attachments
                 .Select(s => new CatalogPreview_VM
                 {
+                    Id = s.Id,
                     Title = s.Name,
                     Description = s.Description,
                     ImageName = s.ImageName,
@@ -66,6 +67,19 @@ namespace WebApp.Controllers
             var model = await PeginationList<CatalogPreview_VM>.CreateAsync(items, pageIndex, 6);
             ViewData["hasPrevious"] = model.HasPreviousPage;
             ViewData["hasNext"] = model.HasNextPage;
+            return View(model);
+        }
+
+        public IActionResult CatalogItemDetails(int AttachmentId)
+        {
+            var model = _context.ActivityAttachment.Where(w => w.Id == AttachmentId).Select(s => new CatalogPreview_VM
+            {
+                Id = AttachmentId,
+                ImageName = s.ImageName,
+                Description = s.Description,
+                Title = s.Name
+            }).FirstOrDefault();
+
             return View(model);
         }
     }

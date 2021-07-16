@@ -6,6 +6,8 @@
 
 
     <div class="chat-body">
+        <h6 class="text-center">Chat rooms you can join.</h6>
+        <h6 class="text-center">(@Model.Count())</h6>
         @foreach (var chat in Model)
         {
             <a class="room-button" asp-controller="Chat" asp-action="JoinRoom" asp-route-id="@chat.Id">

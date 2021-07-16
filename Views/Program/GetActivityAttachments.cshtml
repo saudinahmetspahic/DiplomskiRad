@@ -19,24 +19,9 @@
                     <h6 class="attachment-price min-w-130">Price: <strong>@Math.Round(attachment.PriceToVisit, 2) BAM (@(Math.Round(attachment.PriceToVisit / 1.95, 2)) €)</strong></h6>
                 </div>
                 <button class="margin-5" onclick="javascript: AddAttachmentToActivity('@attachment.Id', '@attachment.ActivityId', '@attachment.Day');"><i class="bi bi-plus font-size-20px"></i></button>
-                @* <div class=" zIndexUp" onmouseover="ShowHoverInfo(this, '@attachment.Description');"><i class="bi bi-info-circle-fill font-size-20px"></i></div>*@
             </div>
         </div>
 
-
-
-        @*<div class="card w-250 h-200 cursor overflow-hidden position-relative">
-                <img class="w-100 h-100 object-fit-cover" alt="Image" src="~/Images/Administration/@attachment.ImageName" />
-
-                <h6 class="text-align-left text-white padding-5 position-absolute left0 top0">Price: @Math.Round(attachment.PriceToVisit, 2) BAM (@(Math.Round(attachment.PriceToVisit / 1.95, 2)) €)</h6>
-                <div class="position-absolute padding-5 left0 bottom0">
-                    <h6 class="text-align-left text-white">@attachment.TypeOfAttachment</h6>
-                    <h3 class="text-align-left text-white">@attachment.Name</h3>
-                </div>
-                <button class="btn-transparent position-absolute top0 left0 w-100 h-100 btn-white-black padding-5 background-animation-3" onclick="javascript: AddAttachmentToActivity('@attachment.Id', '@attachment.ActivityId', '@attachment.Day');"><i class="bi bi-plus font-size-100px"></i></button>
-                <div class="btn-transparent position-absolute bottom0 right0 btn-white-black padding-5 zIndexUp" onmouseover="ShowHoverInfo(this, '@attachment.Description');"><i class="bi bi-info-circle-fill font-size-20px"></i></div>
-
-            </div>*@
 
     }
 

@@ -7,7 +7,7 @@
     </div>
 
     <table class="table table-responsive-xl m-auto">
-        <thead class="table-primary">
+        <thead>
             <tr>
                 <th class="padding-5">Title</th>
                 <th class="padding-5">Number of available attachments</th>
@@ -21,7 +21,7 @@
             {
                 var rate = (int)Math.Round(item.Rating ?? 0.0);
 
-                <tr class="focus-border" onclick="location.href = '/Administration/GetActivityDetails?ActivityId=@item.ActivityId'">
+                <tr class="focus-border cursor" onclick="location.href = '/Administration/GetActivityDetails?ActivityId=@item.ActivityId'">
                     <td class="padding-5 text-align-left">@item.Title</td>
                     <td class="padding-5">@item.NumberOfAttachments</td>
                     <td class="padding-5">@item.ExpectedPrice</td>

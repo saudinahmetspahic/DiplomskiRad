@@ -9,9 +9,9 @@
         @foreach (var message in Model.Messages)
         {
             <div class="message">
-                <header>@message.Name:</header>
-                <p>@message.Text</p>
-                <footer>@message.Timestamp</footer>
+                <p class="message-time">@message.Timestamp</p>
+                <p class="message-text">@message.Text</p>
+                <p class="message-writer">@message.Name</p>
             </div>
         }
     </div>
@@ -35,9 +35,9 @@
     connection.on("RecieveMessage", function (data) {
         var message = messageBuilder()
             .createMessage()
-            .withHeader(data.name)
-            .withParagraph(data.text)
-            .withFooter(data.timestamp)
+            .withTime(data.timestamp)
+            .withText(data.text)
+            .withWriter(data.name)
             .build();
 
         document.querySelector('.chat-body').append(message);
