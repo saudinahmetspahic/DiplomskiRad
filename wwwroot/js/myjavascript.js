@@ -392,7 +392,6 @@ function AddActivity(day, activity, allowmodifications) {
             p.innerHTML = result;
         }
     });
-    p.style.marginRight = "10px";
 
     var button = document.createElement("button"); // add attachment
     //innerdiv3.id = "AddedAttachmentsDiv";
