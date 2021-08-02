@@ -78,7 +78,7 @@ namespace WebApp.Controllers
                                 Id = program.Id,
                                 Name = program.Name,
                                 Description = program.Description,
-                                Activities = _context.ProgramActivity.Where(w => w.ProgramId == program.Id).Select(s => s.Activity.Title).Take(5).ToList()
+                                Activities = _context.ProgramActivity.Where(w => w.ProgramId == program.Id).Select(s => new Tuple<int, string>(s.ActivityId, s.Activity.Title)).Take(5).ToList()
                             });
                         }
                     }
@@ -96,7 +96,7 @@ namespace WebApp.Controllers
                 Id = s.Id,
                 Name = s.Name,
                 Description = s.Description,
-                Activities = _context.ProgramActivity.Where(w => w.ProgramId == s.Id).OrderBy(o => o.DayOfProgram).Select(x => x.Activity.Title).Take(3).ToList()
+                Activities = _context.ProgramActivity.Where(w => w.ProgramId == s.Id).OrderBy(o => o.DayOfProgram).Select(x => new Tuple<int, string>(x.ActivityId, x.Activity.Title)).Take(3).ToList()
             }).ToList();
             if (model.Count() != numberOfPrograms && numberOfPrograms < 3)
                 return StatusCode(406); // not acceptable

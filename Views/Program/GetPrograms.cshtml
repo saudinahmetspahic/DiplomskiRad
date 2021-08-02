@@ -22,12 +22,12 @@
                     <div>
                         @i.Description
                     </div>
-                    <div class="w-100 overflow-auto d-flex flex-row justify-content-center align-items-center border-top border-dark margin-top-25">
+                    <div class="w-100 overflow-auto d-flex flex-row justify-content-center align-items-center border-top border-dark margin-top-25 padding-10">
                         @{ var counter = 0; }
                         @foreach (var activity in i.Activities)
                         {
                             <div class="padding-5">
-                                @activity
+                                <a class="btn-catalog" asp-action="CatalogFullItemDetails" asp-controller="Catalog" asp-route-ActivityId="@activity.Item1">@activity.Item2</a> 
                                 @{counter++;}
                             </div>
                             @if (counter < i.Activities.Count())

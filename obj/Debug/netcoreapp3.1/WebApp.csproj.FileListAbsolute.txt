@@ -250,3 +250,4 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\WebApp.csproj.AssemblyReference.cache
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Program\AddProgramFeedback.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Catalog\CatalogItemDetails.cshtml.g.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Debug\netcoreapp3.1\Razor\Views\Catalog\CatalogFullItemDetails.cshtml.g.cs

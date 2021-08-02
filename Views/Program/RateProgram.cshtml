@@ -3,39 +3,39 @@
 
 
 <div>
-    <h3>Rating @Model.ProgramName</h3>
+    <h3 class="font-family-quicksand">Rating @Model.ProgramName</h3>
     @foreach (var item in Model.Activities)
     {
-        <div class="d-flex max-width-1200px div-align-center margin-top-50 box-shadow-black flex-flow-wrap">
-            <img class="img-size-200" src="/Images/Administration/@item.Image" alt="" />
-            <p class="flex-1 padding-20 padding-right-50 text-align-justify">
-                @item.Description
+<div class="d-flex max-width-1200px div-align-center margin-top-50 box-shadow-black d-flex align-items-start from-row-to-column column-spread">
+    <img class="img-size-200 object-fit-contain" src="/Images/Administration/@item.Image" alt="" />
+    <p class="flex-1 padding-20  text-align-justify">
+        @item.Description
+    </p>
+    <div class="min-w-200 max-width-400px text-center d-flex justify-content-center">
+        <div class="text-center padding-20">
+            <p class="background-purple text-color-white padding-10 min-w-220">
+                Current rate:
+                @for (int i = 0; i < Math.Round((decimal)item.CurrentRate, 0); i++)
+                {
+                    <i class="bi bi-star-fill text-color-orange"></i>
+                }
+                @for (int i = 0; i < 5 - Math.Round((decimal)item.CurrentRate, 0); i++)
+                {
+                    <i class="bi bi-star-fill text-color-gray"></i>
+                }
             </p>
-            <div class="min-w-200 max-width-400px text-center d-flex justify-content-center">
-                <div class="text-center padding-20">
-                    <p class="background-purple text-color-white padding-10 min-w-220">
-                        Current rate:
-                        @for (int i = 0; i < Math.Round((decimal)item.CurrentRate, 0); i++)
-                        {
-                            <i class="bi bi-star-fill text-color-orange"></i>
-                        }
-                        @for (int i = 0; i < 5 - Math.Round((decimal)item.CurrentRate, 0); i++)
-                        {
-                            <i class="bi bi-star-fill text-color-gray"></i>
-                        }
+            <div id="given_value_@item.ActivityId" class="w-100">
+                @for (int i = 0; i < (int)item.GivenRate; i++)
+                {
+                    <p class="d-inline-block">
+                        <i class="bi bi-star-fill text-color-orange"></i>
                     </p>
-                    <div id="given_value_@item.ActivityId" class="w-100">
-                        @for (int i = 0; i < (int)item.GivenRate; i++)
-                        {
-                            <p class="d-inline-block">
-                                <i class="bi bi-star-fill text-color-orange"></i>
-                            </p>
-                        }
-                    </div>
-                    <input oninput="javascript: ChangeRate(this, '@Model.ProgramId', '@item.ActivityId');" type="range" name="rateArray" min="1" max="5" value="@item.GivenRate" />
-                </div>
+                }
             </div>
+            <input oninput="javascript: ChangeRate(this, '@Model.ProgramId', '@item.ActivityId');" type="range" name="rateArray" min="1" max="5" value="@item.GivenRate" />
         </div>
+    </div>
+</div>
     }
 </div>
 

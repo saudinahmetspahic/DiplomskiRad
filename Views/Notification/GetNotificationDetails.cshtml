@@ -5,11 +5,11 @@
     @{ var image = string.IsNullOrEmpty(Model.ImageName) ? "/Embedded/notifications.png" : "/Notification/" + Model.ImageName; }
     <img class="img-blur-5px" src="/Images/@image" alt="" />
     <div>
-        <h3 class="text-color-orange">@Model.Title</h3>
-        <h6>@Model.Author</h6>
-        <h6>@Model.DateCreated.ToString("dd. MMM yyyy. HH:mm")</h6>
+        <h3 class="text-color-orange font-family-quicksand">@Model.Title</h3>
+        <h6 class="font-family-quicksand">@Model.Author</h6>
+        <h6 class="font-family-quicksand">@Model.DateCreated.ToString("dd. MMM yyyy. HH:mm")</h6>
     </div>
-    <p class="padding-10">@Model.Description</p>
+    <p class="padding-10 font-family-quicksand">@Model.Description</p>
 </div>
 
 

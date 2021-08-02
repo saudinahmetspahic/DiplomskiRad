@@ -10,6 +10,6 @@ namespace WebApp.ViewModels.Program
         public int Id { get; set; }
         public string Name { get; set; }    
         public string Description { get; set; } 
-        public List<string> Activities { get; set; }
+        public List<Tuple<int, string>> Activities { get; set; } // id, name
     }
 }

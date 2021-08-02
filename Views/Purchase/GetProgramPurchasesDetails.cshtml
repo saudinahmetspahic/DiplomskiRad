@@ -16,7 +16,7 @@
         <h5 class="h5-tag-style">Creator</h5> <h6 class="text-center margin-bottom-20">@Model.Creator</h6>
     </div>
     <div class="position-relative">
-        <h5 class="h5-tag-style">Title</h5> <h6 class="text-center margin-bottom-20">@Model.ProgramName <a class="rate-star" asp-action="RateProgram" asp-controller="Program" asp-route-ProgramId="@Model.ProgramId"><i class="bi bi-star-fill text-color-orange"></i></a></h6>
+        <h5 class="h5-tag-style">Title</h5> <h6 class="text-center margin-bottom-20">@Model.ProgramName <a onmouseover="javascript: ShowHoverInfo(this, 'Rate this program activities');" class="rate-star" asp-action="RateProgram" asp-controller="Program" asp-route-ProgramId="@Model.ProgramId"><i class="bi bi-star-fill text-color-orange"></i></a></h6>
     </div>
     <div>
         <h5 class="h5-tag-style">Participants</h5> <h6 class="text-center margin-bottom-20">@Model.Participants.Count()</h6>

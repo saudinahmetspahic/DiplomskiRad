@@ -1,0 +1,54 @@
+﻿@using WebApp.ViewModels.Catalog
+@model FullCatalogPreview
+
+
+
+<section>
+    <div class="w-100 max-height-500">
+        @*@{ var image = string.IsNullOrEmpty(Model.Image) ? "default.jpg" : Model.Image; }*@
+        @{
+            var img = string.IsNullOrEmpty(Model.Image) ? "default.jpg" : Model.Image;
+        }
+        <img src="/Images/Administration/@img" class="object-fit-cover w-100 h-300px" alt="" />
+    </div>
+    <div class="padding-20 div-align-center d-flex justify-content-between align-items-center">
+        <h5 class="font-family-quicksand font-weight-bold">@Model.ActivityTitle</h5>
+        @if (Model.Rate > 0)
+        {
+            <p class="font-family-quicksand">@Model.Rate <i class="bi bi-star-fill text-color-orange"></i></p>
+        }
+    </div>
+    <div>
+        @foreach (var att in Model.Attachments)
+        {
+            <div class="catalog-item-wrapper">
+                <div>
+                    <h5 class="font-family-quicksand font-weight-bold">@att.Title</h5>
+                    <p class="font-family-quicksand">@att.Description</p>
+                </div>
+                <div>
+                    <div class="catalog-item-price">Price @att.Price BAM</div>
+                    <div class="d-flex justify-content-center align-items-start">
+                        @foreach (var adon in att.Addons)
+                        {
+                            <p class="d-flex flex-column font-size-20px text-center text-color-gray">
+                                @*@adon.Item1*@
+                                @{ 
+                                    var adonimage = adon.Item1 + ".png";
+                                }
+                                <img class="img-size-30" src="/Images/Addons/@adonimage" alt="" />
+                                @if (adon.Item2 > 0)
+                                {
+                                    <span class="font-size-13px">@adon.Item2</span>
+                                }
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</section>
+
+

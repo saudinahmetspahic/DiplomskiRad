@@ -82,5 +82,27 @@ namespace WebApp.Controllers
 
             return View(model);
         }
+
+        public IActionResult CatalogFullItemDetails(int ActivityId)
+        {
+            var model = _context.Activity.Where(w => w.Id == ActivityId).Select(s => new FullCatalogPreview
+            {
+                ActivityId = ActivityId,
+                ActivityTitle = s.Title,
+                Image = s.ImageName,
+                Rate = (int)(_context.Rate.Where(w => w.ActivityId == ActivityId).Select(c => (int?)c.RateValue).Average() ?? 0.0),
+                Attachments = _context.ActivityAttachment.Where(w => w.ActivityId == ActivityId).Select(x => new FullCatalogPreview.CatalogAttachment
+                {
+                    Id = x.Id,
+                    Title = x.Name,
+                    Price = x.PriceToVisit,
+                    Description = x.Description,
+                    ImageName = x.ImageName,
+                    Addons = _context.AttachmentAddons.Where(w => w.AttachmentId == x.Id).Select(c => new Tuple<TypeOfAddons, int>(c.AddonType, c.Distance)).ToList(),
+                }).ToList()
+            }).FirstOrDefault();
+
+            return View(model);
+        }
     }
 }

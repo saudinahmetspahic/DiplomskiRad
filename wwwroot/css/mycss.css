@@ -959,6 +959,10 @@ background: #04275c;
     font-family: 'Ubuntu', sans-serif;
 }
 
+.font-family-quicksand{
+    font-family: 'Quicksand', sans-serif;
+}
+
 .w-100px {
     width: 100px !important;
 }
@@ -1072,6 +1076,7 @@ img.presentation-section-bg {
 
     .catalog-table h3 {
         margin: 0px;
+        font-family: 'Quicksand', sans-serif;
     }
 
 .catalog-table-activity {
@@ -1099,6 +1104,7 @@ img.presentation-section-bg {
     /*    width: 30%;*/
     width: 200px;
     height: 200px;
+    padding: 5px;
     /*    height: 180px;*/
 }
 
@@ -1131,6 +1137,26 @@ img.presentation-section-bg {
     .catalog-addon h6 {
         color: rgba(128, 128, 128, 0.4);
     }
+
+.catalog-item-wrapper {
+    border-top: 1px solid gray;
+    padding-top: 10px;
+    font-family: 'Quicksand';
+}
+.catalog-item-price {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+    color: #1baaa3;
+}
+
+.btn-catalog {
+    border-radius: 0px !important;
+    background: #6f88fb !important;
+}
+
 
 .w-140px {
     width: 140px;
@@ -1632,47 +1658,33 @@ a:hover {
 
 #notifications-details {
     flex: 1;
-    overflow-y: scroll;
+    overflow: hidden;
     margin: 0px !important;
     min-height: 200px;
     z-index: 2;
 }
 
 .notification-list {
-    position: relative;
-    min-width: 250px;
-    max-width: 400px;
-    width: 50%;
-    margin: 0px;
     height: 100%;
-    background: linear-gradient( 90deg, #201f5f, #1570b5);
-    /*position: absolute;
+    text-align: right;
+    background: linear-gradient(270deg, black, rgb(0 0 0 / 0.8), rgb(0 0 0 / 0.6), rgb(0 0 0 / 0.4), transparent);
+    position: absolute;
+    top: 0px;
     right: 0px;
-    top: 0px;*/
-    /*bottom: 0px;*/
-    /*z-index: 3;
-    display: flex;
-    justify-content: flex-end;
-    transition: 1s linear ease-in !important;
-    height: 50px;*/
-    /*---*/
-    /*   min-width: 200px;*/
-    /*    min-height: 200px;*/
-    /*overflow: hidden;
+    z-index: 2;
+    width: auto;
     max-width: 400px;
-    width: auto;*/
-    /*background-color: #666666;*/ /*#4d3d5f;*/
-    /*color: white;
-    padding: 5px;
-    overflow-y: scroll;
-    -ms-overflow-style: none;*/
+    padding: 10px;
+/*    max-height: calc(100% - 20px);*/
+    height: 100%;
+    overflow: auto;
 }
 
     .notification-list h4 {
         padding: 10px;
         color: white;
         color: #b9b1b1;
-        font-family: 'Eras ITC';
+        font-family: 'Quicksand', sans-serif;
         font-size: 17px;
         cursor: pointer;
         transition: 0.4s linear;
@@ -1694,7 +1706,6 @@ a:hover {
         background: white;
         color: #04255d;
         border-color: #f8c200;
-        text-align: left !important;
         animation: 1s;
         padding: 7px;
         margin-left: 10px;
@@ -1715,7 +1726,7 @@ a:hover {
 }
 
     .btn-gradient:hover {
-        color: #2baea6;
+        color: #3ae8e0;
     }
 
 
@@ -1860,6 +1871,8 @@ a:hover {
         background: #04255d73;
         padding: 10px;
         border-radius: 5px;
+        width: auto;
+        display: inline-block;
     }
 
     .notif-details h6, h3, p {
@@ -1880,6 +1893,7 @@ a:hover {
         background: #04255d52;
         border-radius: 10px;
         animation: grow-animation 1s linear;
+        max-width: calc(100% - 400px);
     }
 
 @keyframes grow-animation {
@@ -2148,6 +2162,10 @@ footer#footer {
     max-width: 300px;
     object-fit: contain;
     border-radius: 10px;
+}
+
+.custom-a p{
+    font-family: 'Quicksand', sans-serif;
 }
 
 .custom-a-text {
@@ -2597,13 +2615,13 @@ footer#footer {
     box-shadow: 0px 0px 5px rgba(0,0,0,0.2);*/
     }
 
-        .sponsor-content .img img {
-            position: relative;
-            height: 100%;
-            width: 100%;
-            border-radius: 50%;
-            object-fit: contain;
-        }
+            .sponsor-content .img img {
+                position: relative;
+                height: 100%;
+                width: 100%;
+                border-radius: 50%;
+                object-fit: contain;
+            }
 
     .sponsor-content .details {
         width: 100%;
@@ -2617,7 +2635,8 @@ footer#footer {
 
         .sponsor-content .details span {
             font-size: 18px;
-            padding: 3px 5px;
+            padding: 5px;
+            font-family: 'Quicksand', sans-serif;
         }
 
         .sponsor-content .details p {
