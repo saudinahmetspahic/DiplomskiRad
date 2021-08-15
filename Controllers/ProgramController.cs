@@ -385,6 +385,14 @@ namespace WebApp.Controllers
             var purchases = _context.Purchase.Where(w => w.ProgramId == ProgramId).ToList();
             foreach (var purchase in purchases)
             {
+                var invoice = _context.Invoice.Where(w => w.PurchaseId == purchase.Id).FirstOrDefault();
+                if(invoice != null)
+                {
+                    var tablecontent = _context.InvoiceTable.Where(w => w.InvoiceId == invoice.Id);
+                    _context.InvoiceTable.RemoveRange(tablecontent);
+                    _context.Invoice.Remove(invoice);
+                }
+
                 var participants = _context.PurchaseParticipants.Where(w => w.PurchaseId == purchase.Id).ToList();
                 _context.PurchaseParticipants.RemoveRange(participants);
             }

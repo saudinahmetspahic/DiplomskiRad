@@ -2381,7 +2381,12 @@ footer#footer {
     text-align: center;
 }
 
+.box-wrp{
+    display: flex;
+}
+
 .box-desc {
+    flex-grow: 1;
     background: #04275c;
     color: white;
     width: 130px;
@@ -2395,6 +2400,7 @@ footer#footer {
 }
 
 .box-val {
+    flex-grow: 1;
     color: #04275c;
     width: 130px;
     height: 50px;

@@ -243,7 +243,7 @@ namespace WebApp.Controllers
             {
                 inv.AccountToPay = model.AccountToPay;
                 inv.AdditionalBankAccount = model.AdditionalBankAccount;
-                inv.Adress = model.Adress;
+                inv.Address = model.Address;
                 inv.CountryCityPostal = model.CountryCityPostal;
                 inv.Customer = model.Customer;
                 inv.CustomerCountry = model.CustomerCountry;

@@ -6,27 +6,46 @@
 }
 
 <div class="d-flex flex-flow-wrap column-spread">
-    <div class="box-desc">Title</div>
-    <div class="box-val">@Model.ProgramDetails.Name</div>
-    <div class="box-desc">Creator</div>
-    <div class="box-val">@Model.ProgramDetails.Creator</div>
-    <div class="box-desc">Created</div>
-    <div class="box-val">@Model.ProgramDetails.Date_Created.ToString("dd MMM yyyy")</div>
-    <div class="box-desc">Last state change</div>
-    <div class="box-val">@Model.DateStateChanged.ToString("dd MMM yyyy HH:mm")</div>
-    <div class="box-desc">Last access change</div>
-    <div class="box-val">@Model.DateAccessChanged.ToString("dd MMM yyyy HH:mm")</div>
-    <div class="box-desc">Number of sells</div>
-    <div class="box-val">@Model.NumberOfSells</div>
-    <div class="box-desc">Expected price</div>
-    <div class="box-val">@Model.ProgramPriceExpected BAM</div>
-    <div class="box-desc">Total income (sells)</div>
-    <div class="box-val">@Model.TotalPriceOfSellsExpected BAM</div>
-    <div class="box-desc">Access</div>
-    <div class="box-val" id="ProgramAccessID">@Model.ProgramDetails.ProgramAccess</div>
-    <div class="box-desc">Status</div>
-    <div class="box-val" id="ProgramStatusID">@Model.ProgramDetails.ProgramState</div>
-
+    <div class="box-wrp">
+        <div class="box-desc">Title</div>
+        <div class="box-val">@Model.ProgramDetails.Name</div>
+    </div>
+    <div class="box-wrp">
+        <div class="box-desc">Creator</div>
+        <div class="box-val">@Model.ProgramDetails.Creator</div>
+    </div>
+    <div class="box-wrp">
+        <div class="box-desc">Created</div>
+        <div class="box-val">@Model.ProgramDetails.Date_Created.ToString("dd MMM yyyy")</div>
+    </div>
+    <div class="box-wrp">
+        <div class="box-desc">Last state change</div>
+        <div class="box-val">@Model.DateStateChanged.ToString("dd MMM yyyy HH:mm")</div>
+    </div>
+    <div class="box-wrp">
+        <div class="box-desc">Last access change</div>
+        <div class="box-val">@Model.DateAccessChanged.ToString("dd MMM yyyy HH:mm")</div>
+    </div>
+    <div class="box-wrp">
+        <div class="box-desc">Number of sells</div>
+        <div class="box-val">@Model.NumberOfSells</div>
+    </div>
+    <div class="box-wrp">
+        <div class="box-desc">Expected price</div>
+        <div class="box-val">@Model.ProgramPriceExpected BAM</div>
+    </div>
+    <div class="box-wrp">
+        <div class="box-desc">Total income (sells)</div>
+        <div class="box-val">@Model.TotalPriceOfSellsExpected BAM</div>
+    </div>
+    <div class="box-wrp">
+        <div class="box-desc">Access</div>
+        <div class="box-val" id="ProgramAccessID">@Model.ProgramDetails.ProgramAccess</div>
+    </div>
+    <div class="box-wrp">
+        <div class="box-desc">Status</div>
+        <div class="box-val" id="ProgramStatusID">@Model.ProgramDetails.ProgramState</div>
+    </div>
 </div>
 
 <p class="margin-top-50">This program, made by <strong>@Model.ProgramDetails.Creator</strong>, can be modified by administrators. Once administrator change program it will become private and change status to OnHold. Creator should approve administrators changes before program can be applied. To modify program press the button at bottom of the page.</p>

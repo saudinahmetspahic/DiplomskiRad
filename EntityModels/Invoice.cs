@@ -8,8 +8,8 @@ namespace WebApp.EntityModels
 {
     public class Invoice
     {
-        public int Id { get; set; }
-        public string Adress { get; set; }
+        public int Id { get; set; } 
+        public string Address { get; set; }
         public string CountryCityPostal { get; set; }
         public string PhoneFax { get; set; }
         public string Email { get; set; }
