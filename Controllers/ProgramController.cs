@@ -18,7 +18,7 @@ using WebApp.ViewModels.Program;
 
 namespace WebApp.Controllers
 {
-    [Autorization(true, true, true)]
+    //[Autorization(true, true, true)]
     public class ProgramController : Controller
     {
         MyContext _context;
@@ -117,6 +117,7 @@ namespace WebApp.Controllers
 
             var loggedUserAccount = HttpContext.GetLoggedUser();
             var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+
             var program = new EntityModels.Program
             {
                 Name = ProgramName,
@@ -198,11 +199,16 @@ namespace WebApp.Controllers
             return Ok();
         }
 
-        [Autorization(true, true, false)]
+        //[Autorization(false, true, false)]
         public IActionResult CreateCustomPlan()
         {
             var loggedUserAccount = HttpContext.GetLoggedUser();
+            if(loggedUserAccount == null)
+            {
+                return StatusCode(401);
+            }
             var loggedUser = _context.User.Where(w => w.UserAccountId == loggedUserAccount.Id).FirstOrDefault();
+
             var model = new CreateCustomProgram_VM
             {
                 OldPrograms = _context.Program.Where(w => w.CreatorId == loggedUser.Id).Select(s => new CreateCustomProgram_VM.OldProgram
@@ -556,6 +562,7 @@ namespace WebApp.Controllers
         }
 
         //
+        [Autorization(true, true, false)]
         public IActionResult AddProgramFeedback(int ProgramId)
         {
             var loggedUserAccount = HttpContext.GetLoggedUser();

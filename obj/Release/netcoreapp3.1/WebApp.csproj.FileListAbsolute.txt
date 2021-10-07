@@ -50,7 +50,6 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\bin\Release\netcorea
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\bin\Release\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\WebApp.csprojAssemblyReference.cache
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\WebApp.AssemblyInfoInputs.cache
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\WebApp.AssemblyInfo.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\WebApp.csproj.CoreCompileInputs.cache
@@ -65,7 +64,6 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcorea
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\WebApp.RazorCoreGenerate.cache
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\Razor\Views\Administration\ActivitiesOptions.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\Razor\Views\Administration\AddNewImage.cshtml.g.cs
-C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\Razor\Views\Administration\AddProgramFeedback.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\Razor\Views\Administration\CreateNewActivity.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\Razor\Views\Administration\CreateNewActivityAttachment.cshtml.g.cs
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\Razor\Views\Administration\CustomersOptions.cshtml.g.cs
@@ -124,3 +122,7 @@ C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcorea
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\WebApp.dll
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\WebApp.pdb
 C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\WebApp.genruntimeconfig.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\WebApp.csproj.AssemblyReference.cache
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\Razor\Views\Catalog\CatalogFullItemDetails.cshtml.g.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\Razor\Views\Catalog\CatalogItemDetails.cshtml.g.cs
+C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\obj\Release\netcoreapp3.1\Razor\Views\Program\AddProgramFeedback.cshtml.g.cs

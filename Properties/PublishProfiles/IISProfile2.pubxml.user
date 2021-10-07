@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhfNDVUE2RkaH2YVaeXpTNwAAAAACAAAAAAAQZgAAAAEAACAAAACiymM+b9LO+2ccdkzJ9J2Y7pGfr3fwgbTJpxd/RBqkFgAAAAAOgAAAAAIAACAAAAC2x2/dN0ZF3tiGhBV7u+9q2/fKY7zZ7bwgeQ8erPdvOiAAAABFBlCT1hV19I8y1gE+80DLEnpqT2Mmsm/+Jez1DAC/a0AAAABnjulI/5l9SisBmoMKwaU92SMKVW6u3DfN9pB4J8+1dFFkEDxQ0u9ZfO4ohXBkztaS8THtLIJYoFNeGXm/ywSk</EncryptedPassword>
+    <History>False|2021-10-07T14:47:41.3460075Z;False|2021-10-07T16:30:18.9630504+02:00;</History>
+    <_PublishTargetUrl>ftp://ftp.site4now.net/site1</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>05/21/2021 21:08:33</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>09/08/2021 09:43:14</publishTime>
+    </File>
+    <File Include="Microsoft.Data.SqlClient.dll">
+      <publishTime>08/25/2020 23:24:48</publishTime>
+    </File>
+    <File Include="Microsoft.Identity.Client.dll">
+      <publishTime>05/18/2020 20:11:54</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.JsonWebTokens.dll">
+      <publishTime>10/18/2019 23:39:24</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.Logging.dll">
+      <publishTime>10/18/2019 23:40:20</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.Protocols.dll">
+      <publishTime>10/18/2019 23:41:02</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.Protocols.OpenIdConnect.dll">
+      <publishTime>10/18/2019 23:48:48</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.Tokens.dll">
+      <publishTime>10/18/2019 23:43:40</publishTime>
+    </File>
+    <File Include="Newtonsoft.Json.dll">
+      <publishTime>03/20/2017 20:03:18</publishTime>
+    </File>
+    <File Include="runtimes/unix/lib/netcoreapp3.1/Microsoft.Data.SqlClient.dll">
+      <publishTime>08/25/2020 23:25:12</publishTime>
+    </File>
+    <File Include="runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll">
+      <publishTime>08/25/2020 20:34:56</publishTime>
+    </File>
+    <File Include="runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.pdb">
+      <publishTime>08/25/2020 20:31:56</publishTime>
+    </File>
+    <File Include="runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll">
+      <publishTime>08/25/2020 20:35:06</publishTime>
+    </File>
+    <File Include="runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.pdb">
+      <publishTime>08/25/2020 20:31:56</publishTime>
+    </File>
+    <File Include="runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll">
+      <publishTime>08/25/2020 20:34:56</publishTime>
+    </File>
+    <File Include="runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.pdb">
+      <publishTime>08/25/2020 20:31:56</publishTime>
+    </File>
+    <File Include="runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll">
+      <publishTime>08/25/2020 20:34:56</publishTime>
+    </File>
+    <File Include="runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.pdb">
+      <publishTime>08/25/2020 20:31:56</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netcoreapp3.1/Microsoft.Data.SqlClient.dll">
+      <publishTime>08/25/2020 23:24:48</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll">
+      <publishTime>11/15/2019 08:53:44</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>11/15/2019 08:53:46</publishTime>
+    </File>
+    <File Include="System.IdentityModel.Tokens.Jwt.dll">
+      <publishTime>10/18/2019 23:38:18</publishTime>
+    </File>
+    <File Include="System.Runtime.Caching.dll">
+      <publishTime>11/15/2019 08:37:36</publishTime>
+    </File>
+    <File Include="System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>11/15/2019 08:37:42</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>10/07/2021 16:34:53</publishTime>
+    </File>
+    <File Include="WebApp.deps.json">
+      <publishTime>10/07/2021 16:34:52</publishTime>
+    </File>
+    <File Include="WebApp.dll">
+      <publishTime>10/07/2021 16:34:44</publishTime>
+    </File>
+    <File Include="WebApp.exe">
+      <publishTime>10/07/2021 16:34:44</publishTime>
+    </File>
+    <File Include="WebApp.pdb">
+      <publishTime>10/07/2021 16:34:44</publishTime>
+    </File>
+    <File Include="WebApp.runtimeconfig.json">
+      <publishTime>10/07/2021 16:23:55</publishTime>
+    </File>
+    <File Include="WebApp.Views.dll">
+      <publishTime>10/07/2021 16:34:46</publishTime>
+    </File>
+    <File Include="WebApp.Views.pdb">
+      <publishTime>10/07/2021 16:34:46</publishTime>
+    </File>
+    <File Include="wwwroot/css/BootstrapAddiontal.css">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/css/mycss.css">
+      <publishTime>08/13/2021 10:51:08</publishTime>
+    </File>
+    <File Include="wwwroot/css/mycss2.css">
+      <publishTime>05/31/2021 18:08:18</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.css">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Addons/AirConditioner.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Addons/CityCenter.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Addons/Other.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Addons/Parking.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Addons/Restaurant.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Addons/Shopping.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Addons/TV.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Addons/WiFi.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/18b3242e-b13e-41f9-9f07-9739bd4e57c2_travnik.jpg">
+      <publishTime>05/31/2021 16:24:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/27364126-700c-4933-91ec-9dea14bb0f48_sarajevo.jpg">
+      <publishTime>05/25/2021 15:01:52</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/2a92c24e-9f0b-4d32-b9ed-fde4842dad70_gold.png">
+      <publishTime>06/02/2021 18:12:04</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/435ae08d-4930-40de-8026-ff1e756b88ce_unmo_preloader.png">
+      <publishTime>07/06/2021 17:43:27</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/4bc321c4-d465-49c6-91fd-805d82fe21a7_pyramid.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/4c2b07bc-9b71-4a60-b9ad-63f5239b9859_bascarsija.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/55bab120-85c6-4f19-ac40-382585b5be9c_mostar1.jpg">
+      <publishTime>08/11/2021 09:59:59</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/57c5d349-a476-4a9b-a186-0e05fb9d9d19_bascarsija.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/60101bc7-1764-46a1-b36d-6e27c6eed6b1_airport_sarajevo.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/69adca07-8aea-48bc-976a-b65be45c7b5f_Cevapi_in_Travnik.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/6c08dc92-fc4d-4215-8975-2c0cc364dd6f_airport_sarajevo.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/6caa76ae-35e4-48fa-aa82-03f1fd7f3e5a_unmo_preloader.png">
+      <publishTime>07/06/2021 17:41:10</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/7bfa926a-2440-41c9-9877-5e5c1738819e_bascarsija.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/7ca6f683-9b25-4d45-b862-29989b3b8f79_bascarsija.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/7dbdb3db-30ab-44f6-a7d5-80bdd3742582_travnik.jpg">
+      <publishTime>07/12/2021 20:51:38</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/82004cf2-a83f-46be-ad40-0db1772ede16_old-bridge.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/8af00447-b7a6-41ef-a90c-2b65e6d65abf_sponsors.png">
+      <publishTime>07/06/2021 17:43:08</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/99c3ecf8-a547-43c1-a343-6179adceeda8_travnik.jpg">
+      <publishTime>05/25/2021 12:43:30</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/9f6aa1b4-e366-4658-8a61-6f956ff0c8b9_old-bridge.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/a57c6de9-5850-4d34-ae97-5b9c0846d5cf_OIP.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/a58ef3c8-fe0c-48d5-a91c-6b5c5a1c3385_pyramid.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/aac34336-a5bc-4234-ac38-cce52c9f3003_sponsors.png">
+      <publishTime>07/06/2021 17:29:40</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/adef749b-e242-468d-83f3-11b7c058b993_OIP.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/b61e0800-e641-4d55-bb70-c7de8188acca_travnik.jpg">
+      <publishTime>07/12/2021 20:32:41</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/bdc85453-4720-4e5e-b17a-714e267058e3_sarajevo.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/c45acd71-350b-4cb2-8bd2-d714ff5384c1_bascarsija.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/cf0508f0-d2d6-4da7-83b7-fe778f0f48e1_pyramid.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/d0f96060-7db2-4fb5-aee0-ae6b54bcc424_travnik.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/d1a75d59-84ca-4b09-b8da-db5c85bd0fd5_R.jpg">
+      <publishTime>08/11/2021 10:01:19</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/de125760-c1e7-4bcf-982a-e935f956e825_sarajevo.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/default.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/f6504204-9266-4286-ad54-072fb56afaa9_download.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/f84274ad-f7e4-4737-93e0-116f84c312b1_travnik.jpg">
+      <publishTime>05/29/2021 16:02:19</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Administration/fdc3e084-168b-4fdc-94d0-5de3f7b31638_sponsors.png">
+      <publishTime>07/12/2021 20:54:42</publishTime>
+    </File>
+    <File Include="wwwroot/Images/bascarsija.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/add.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/arrow-right.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/blue-bell.png">
+      <publishTime>07/04/2021 21:47:39</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/company_logo.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/company_logo.png">
+      <publishTime>05/29/2021 19:49:54</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/customers.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/messaging.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/notices.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/notifications.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/options.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/plan.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/plan2.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/pyr_logo.png">
+      <publishTime>06/02/2021 22:04:11</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/remove.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/section-bg-1.jpg">
+      <publishTime>07/16/2021 21:01:20</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/sells.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/send.png">
+      <publishTime>06/01/2021 17:25:27</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/settings.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/sponsors.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Embedded/world-map.jpg">
+      <publishTime>07/15/2021 23:44:15</publishTime>
+    </File>
+    <File Include="wwwroot/Images/konjic.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/kravice.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Notification/152d9c78-5703-4d35-9047-1ecbc832be47_travnik.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Notification/1b3ffa83-1aa6-48cb-9490-3c757a319f42_travnik.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Notification/54654a3b-d772-4a75-953f-1769dfabc211_travnik.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Notification/6a572e6b-dfe1-4567-a463-fd1cb239bc28_sponsors.png">
+      <publishTime>05/30/2021 19:03:49</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Notification/7e2e92bf-536f-41e3-adbc-880c30d9921e_sells.png">
+      <publishTime>05/25/2021 15:37:47</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Notification/911bedc7-0630-4434-941c-01f62afcf6c2_unmo_preloader.png">
+      <publishTime>06/28/2021 21:56:29</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Notification/967b8a39-3bd4-48c9-a39d-c977eea37c34_pyramid.jpg">
+      <publishTime>05/30/2021 19:03:35</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Notification/eae0666f-a323-45c2-8b8a-5e69416b2ce2_sells.png">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/old-bridge.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/pliva.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/pyramid.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/semir_osmanagic.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/12b55a7b-61bb-42d3-b2f0-7ea55093157f_sponsors.png">
+      <publishTime>07/07/2021 13:50:49</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/2d898b53-8540-4eb7-b2b8-4fed8751a362_sponsors.png">
+      <publishTime>05/31/2021 15:29:04</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/3863232c-887b-417d-a0a5-5527e5cee20f_logo-almy.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/3d5acf1c-79d4-4ca7-b2d0-f6644248616c_sponsors.png">
+      <publishTime>07/07/2021 13:51:40</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/5d85c449-4498-477e-ae3c-51adaf8e1113_bristol.jpg">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/5dd17fc1-9244-4a30-9ef0-c3307b2bb17f_logo-almy.jpg">
+      <publishTime>05/31/2021 15:38:52</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/5edf7b7a-a9f2-468a-a236-7d3c121bbe15_unmo_preloader.png">
+      <publishTime>07/07/2021 14:43:55</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/a4a53e00-4c82-46c7-aec6-0078131d3da5_sponsors.png">
+      <publishTime>07/07/2021 13:50:13</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/c6820c1c-9168-4c87-8858-6a8fd4f0c7ed_download.jpg">
+      <publishTime>05/25/2021 16:56:58</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/e42dcbfe-4c26-49a7-845e-dbc3076fa999_sponsors.png">
+      <publishTime>07/07/2021 13:49:20</publishTime>
+    </File>
+    <File Include="wwwroot/Images/Sponsors/e9b1eeed-e224-4796-8011-a4e0e5c6933b_sponsors.png">
+      <publishTime>07/07/2021 13:49:31</publishTime>
+    </File>
+    <File Include="wwwroot/js/messageBuilder.js">
+      <publishTime>07/16/2021 22:35:38</publishTime>
+    </File>
+    <File Include="wwwroot/js/myjavascript.js">
+      <publishTime>07/18/2021 20:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/js/site.js">
+      <publishTime>05/22/2021 21:48:56</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/LICENSE">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.min.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.min.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/LICENSE.md">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.map">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/LICENSE.txt">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/signalr.js">
+      <publishTime>05/21/2021 21:08:34</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

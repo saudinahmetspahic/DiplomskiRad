@@ -124,7 +124,7 @@ function LoadProgram(ProgramId, Title, OutPutDiv, Switch, AllowModifications) {
             var a = document.createElement("a");
             a.className = "btn btn-secondary padding-5 margin-5";
             a.textContent = "See feedback";
-            a.href = "/Administration/AddProgramFeedback?ProgramId=" + ProgramId;
+            a.href = "/Program/AddProgramFeedback?ProgramId=" + ProgramId;
             fbdiv.appendChild(p);
             fbdiv.appendChild(a);
 
@@ -316,19 +316,35 @@ function AddActivity(day, activity, allowmodifications) {
     var timediv = document.createElement("div");
     timediv.className = "d-flex flex-column align-items-end w-100";
 
+    var inputdate = document.createElement("input");
+    inputdate.className = "input-time w-140px";
+    inputdate.type = "date";
+    inputdate.valueAsDate = new Date(2000, 1, 1);
+
     var input = document.createElement("input");
-    input.className = "input-time";
+    input.className = "input-time w-95px";
     input.type = "time";
     input.value = "00:00";
+
     var ProgramName = $("#ProgramNameID").val();
     $.get("/Program/GetCurrentTimeOfActivity?ProgramName=" + ProgramName + "&Activity=" + activity + "&Day=" + day, function (result, status) {
         if (status == "success") {
-            input.value = result; //"12:00" 
+            var date = new Date(result);
+            var datestring = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+            var timestring = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
+
+            input.value = timestring;
+            inputdate.value = datestring;
         }
     });
 
-    if (allowmodifications == false)
+    if (allowmodifications == false) {
         input.disabled = true;
+        inputdate.disabled = true;
+    }
+    inputdate.addEventListener("change", function () {
+        $.post("/Program/ChangeActivityDate?ProgramName=" + ProgramName + "&Activity=" + activity + "&Day=" + day + "&Date=" + inputdate.value);
+    });
     input.addEventListener("blur", function () {
         $.post("/Program/ChangeActivityTime?ProgramName=" + ProgramName + "&Activity=" + activity + "&Day=" + day + "&Time=" + input.value);
     });
@@ -355,6 +371,7 @@ function AddActivity(day, activity, allowmodifications) {
     dedicatedtimediv.appendChild(pp);
     dedicatedtimediv.appendChild(inputhours);
 
+    timediv.appendChild(inputdate);
     timediv.appendChild(input);
     timediv.appendChild(dedicatedtimediv);
 
@@ -375,7 +392,6 @@ function AddActivity(day, activity, allowmodifications) {
             p.innerHTML = result;
         }
     });
-    p.style.marginRight = "10px";
 
     var button = document.createElement("button"); // add attachment
     //innerdiv3.id = "AddedAttachmentsDiv";
@@ -488,7 +504,7 @@ function AddNewActivity(day) {
 
     var maindiv = document.createElement("div");
     maindiv.id = "SearchNewActivities_ForDay_" + day;
-    maindiv.className = "padding-20 margin-top-25 d-flex justify-content-between";
+    maindiv.className = "border-decor padding-20 margin-top-25 d-flex justify-content-between";
 
     var innerdiv1 = document.createElement("div");
     innerdiv1.className = "flex-section-row-child-50 d-flex flex-column";
@@ -1041,7 +1057,7 @@ function MakeCustomModal(Title, HtmlContent, EnableSaveButton, SaveChangesFuncti
 //    //parent.appendChild(div);
 //}
 
-function RenamePlane() {
+function RenameProgram() {
     var div = document.createElement("div");
     div.id = "RenamePlanId";
     div.className = "flex-section-row justify-content-center";
@@ -1057,7 +1073,7 @@ function RenamePlane() {
         if (val == "")
             return;
         var h3 = document.createElement("h3");
-        h3.onclick = RenamePlane;
+        h3.onclick = RenameProgram;
         h3.innerHTML = val;
         document.getElementById("RenamePlanId").remove();
         document.getElementById("PlanNameId").appendChild(h3);

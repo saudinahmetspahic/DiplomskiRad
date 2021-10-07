@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qP3ark7IuvaoWXYSuOpTgwCx0eBz49gAgZTavjLSC4qzR/D/a2EVympPVUmG9vJ+WVpuJFooo4Rfjhw2ruJM8g==",
+  "dgSpecHash": "Y5KqujQUqw/j5PsGcBVOhYgX7ecZje+bN5ONE6VkyvqP3/YZrDoLQC+e8d0ExNPBq/6OqMb6xqBIMSyT4BKMbA==",
   "success": true,
   "projectFilePath": "C:\\Users\\saudi\\OneDrive\\Radna površina\\WebApp\\DiplomskiRad\\WebApp.csproj",
   "expectedPackageFiles": [
@@ -100,7 +100,8 @@
     "C:\\Users\\saudi\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\saudi\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\saudi\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\saudi\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\saudi\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\saudi\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.18\\microsoft.netcore.app.host.win-x64.3.1.18.nupkg.sha512"
   ],
   "logs": []
 }

@@ -46,6 +46,10 @@
             if (status == "success") {
                 $("#ProgramAjaxDiv").html(result);
             }
+        }).catch(function (statusCode) {
+            if (statusCode.status == 401) {
+                Message("You are not logged in.");
+            }
         });
     }
 </script>

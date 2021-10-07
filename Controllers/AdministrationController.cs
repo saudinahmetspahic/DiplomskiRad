@@ -200,9 +200,13 @@ namespace WebApp.Controllers
             var attachments = _context.ActivityAttachment.Where(w => w.ActivityId == ActivityId).ToList();
             foreach (var attachment in attachments)
             {
-                _context.ActivityAttachment.Remove(attachment);
+                var addons = _context.AttachmentAddons.Where(w => w.AttachmentId == attachment.Id).ToList();
+                _context.AttachmentAddons.RemoveRange(addons);
             }
-            await _context.SaveChangesAsync();
+            _context.ActivityAttachment.RemoveRange(attachments);
+            var rates = _context.Rate.Where(w => w.ActivityId == ActivityId).ToList();
+            _context.Rate.RemoveRange(rates);
+
             _context.Activity.Remove(activity);
             await _context.SaveChangesAsync();
             return RedirectToAction("ActivitiesOptions");
@@ -211,6 +215,8 @@ namespace WebApp.Controllers
         public async Task<IActionResult> RemoveActivityAttachment(int AttachmentId)
         {
             var attachment = await _context.ActivityAttachment.Where(w => w.Id == AttachmentId).FirstOrDefaultAsync();
+            var addons = _context.AttachmentAddons.Where(w => w.AttachmentId == attachment.Id).ToList();
+            _context.AttachmentAddons.RemoveRange(addons);
             _context.ActivityAttachment.Remove(attachment);
             await _context.SaveChangesAsync();
             return RedirectToAction("GetActivityDetails", new { ActivityId = attachment.ActivityId });
@@ -288,7 +294,7 @@ namespace WebApp.Controllers
                     {
                         model.Image.CopyTo(ms);
                     }
-                    
+
                 }
             }
             await _context.SaveChangesAsync();

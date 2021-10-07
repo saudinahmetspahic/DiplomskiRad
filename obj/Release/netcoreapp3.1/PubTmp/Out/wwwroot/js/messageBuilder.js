@@ -1,9 +1,9 @@
 ﻿
 var messageBuilder = function () {
     var message = null;
-    var header = null;
-    var p = null;
-    var footer = null;
+    var time = null;
+    var msg = null;
+    var writer = null;
 
     return {
         createMessage: function (classList) {
@@ -18,25 +18,28 @@ var messageBuilder = function () {
             message.classList.add('message')
             return this;
         },
-        withHeader: function (text) {
-            header = document.createElement("header")
-            header.appendChild(document.createTextNode(text + ':'))
+        withTime: function (text) {
+            time = document.createElement("p")
+            time.className = "message-time"
+            time.appendChild(document.createTextNode(text))
             return this;
         },
-        withParagraph: function (text) {
-            p = document.createElement("p")
-            p.appendChild(document.createTextNode(text))
+        withText: function (text) {
+            msg = document.createElement("p")
+            msg.className = "message-text"
+            msg.appendChild(document.createTextNode(text))
             return this;
         },
-        withFooter: function (text) {
-            footer = document.createElement("footer")
-            footer.appendChild(document.createTextNode(text))
+        withWriter: function (text) {
+            writer = document.createElement("p")
+            writer.className = "message-writer"
+            writer.appendChild(document.createTextNode(text))
             return this;
         },
         build: function () {
-            message.appendChild(header);
-            message.appendChild(p);
-            message.appendChild(footer);
+            message.appendChild(time);
+            message.appendChild(msg);
+            message.appendChild(writer);
             return message;
         }
     }
