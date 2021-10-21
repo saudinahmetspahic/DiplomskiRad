@@ -7,7 +7,7 @@
         @{ var image = string.IsNullOrEmpty(Model.ImageName) ? "default.jpg" : Model.ImageName; }
         <img class="w-100 max-height-400" alt="" src="~/Images/Administration/@image" />
     </div>
-    <div class="flex-section-row-child-50 padding-5 text-align-left">
+    <div class="flex-section-row-child-50 padding-5 text-align-left flex-1">
         <h4 class="activity-title">@Model.Title</h4>
         <p class="margin-left-5 text-align-justify activity-description">@Model.Description</p>
     </div>

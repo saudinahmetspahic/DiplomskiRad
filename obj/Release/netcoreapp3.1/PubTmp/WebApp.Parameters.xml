@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="https://saudin-001-site1.etempurl.com:8172/MsDeploy.axd?site=saudin-001-site1" tags="IisApp">
+  <parameter name="IIS Web Application Name" description="" value="saudin-001-site1" tags="IisApp">
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\saudi\\OneDrive\\Radna\ površina\\WebApp\\DiplomskiRad\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
+  </parameter>
+  <parameter name="WebApp.EF.MyContext" description="" value="Data Source=SQL5104.site4now.net;Initial Catalog=db_a79429_saudin;User Id=db_a79429_saudin_admin;Password=Saudin1998" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\saudi\\OneDrive\\Radna\ površina\\WebApp\\DiplomskiRad\\obj\\Release\\netcoreapp3\.1\\PubTmp\\EFSQLScripts\\WebApp\.EF\.MyContext\.sql$" />
   </parameter>
 </parameters>

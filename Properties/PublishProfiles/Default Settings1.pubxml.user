@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhfNDVUE2RkaH2YVaeXpTNwAAAAACAAAAAAAQZgAAAAEAACAAAACahuWPkW/hdCm41cTlZz9zrJbvgF5FL4SXN9KdBbL9FAAAAAAOgAAAAAIAACAAAACI1Ib/g/BPeyifWbe1lbL9HniqRPYF4mugqIhC5lOxhCAAAACa9gcbGhm+67E8/UDw+B09VL0YCNsgb+XKKgUSL40jYEAAAABIoPl99FZf1bCGY37HUGI2aWT6T6gA7IoJZj6TmzioiFxj4Q1kODKnVHHXhqB4SmsFkPxZz+6zZ7HOzAHFdBxa</EncryptedPassword>
+    <History>True|2021-10-09T16:22:56.8268258Z;True|2021-10-09T18:00:21.6725238+02:00;True|2021-10-09T17:07:32.4210423+02:00;True|2021-10-09T17:02:36.0946851+02:00;False|2021-10-09T16:54:55.6302698+02:00;False|2021-10-09T16:53:57.7217518+02:00;True|2021-10-07T17:52:15.3716463+02:00;True|2021-10-07T17:36:01.0842367+02:00;True|2021-10-07T17:33:29.8041076+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="cs">
+      <Value>Data Source=SQL5104.site4now.net%3bInitial Catalog=db_a79429_saudin%3bUser Id=db_a79429_saudin_admin%3bPassword=Saudin1998</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="WebApp.EF.MyContext">
+      <Value>Data Source=SQL5104.site4now.net%3bInitial Catalog=db_a79429_saudin%3bUser Id=db_a79429_saudin_admin%3bPassword=Saudin1998</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

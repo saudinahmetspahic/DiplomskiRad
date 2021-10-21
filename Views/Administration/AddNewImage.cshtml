@@ -2,7 +2,7 @@
 @model AddNewPhoto_VM
 
 <div id="remove" class="w-100 h-100 background-white d-flex justify-content-center align-items-center">
-    <form enctype="multipart/form-data" asp-action="AddingNewImage" method="post">
+    <form enctype="multipart/form-data" asp-action="AddingNewImage" asp-controller="Administration" method="post">
         <input hidden value="@Model.ActivityId" asp-for="ActivityId" />
         <input hidden value="@Model.AttachmentId" asp-for="AttachmentId" />
         <input hidden value="@Model.ActivityOrAttachment" asp-for="ActivityOrAttachment" />

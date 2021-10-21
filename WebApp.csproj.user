@@ -6,7 +6,7 @@
     <View_SelectedScaffolderID>RazorViewEmptyScaffolder</View_SelectedScaffolderID>
     <View_SelectedScaffolderCategoryPath>root/Common/MVC/View</View_SelectedScaffolderCategoryPath>
     <ActiveDebugProfile>WebApp</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\Properties\PublishProfiles\IISProfile2.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\saudi\OneDrive\Radna površina\WebApp\DiplomskiRad\Properties\PublishProfiles\Default Settings1.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

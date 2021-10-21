@@ -560,7 +560,7 @@ function ShowActivityDetails(e, ActivityId) {
     });
 }
 
-function AddActivityToDay(e, ActivityId, Description) {
+function AddActivityToDay(e, ActivityId) {
     var parent = e.parentElement;
     var day = parent.id.substr(parent.id.length - 1);
     var ProgramName = $("#ProgramNameID").val();

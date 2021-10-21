@@ -5,10 +5,10 @@
 
 <div class="flex-section-row align-content-around border border-secondary switch-to-column box-shadow-black">
     <div id="Activity_@Model.ActivityId" class="w-50 position-relative d-flex align-items-center max-width-400px background-purple">
-        <img class="w-100 h-auto" src="@Model.ImageSrc" alt="Image" />
+        <img class="w-100 h-auto max-height-400 object-fit-contain" src="@Model.ImageSrc" alt="Image" />
         <div onclick="javascript: AddNewPhoto('Activity_@Model.ActivityId', 'Activity', '@Model.ActivityId', 0);" class="position-absolute left0 bottom0 w-100 h-100 show-on-hover cursor text-black-50 font-weight-bold text-uppercase d-flex justify-content-center align-items-center"><p class="padding-5 background-dark text-white">Add new image</p></div>
     </div>
-    <div class="flex-1 padding-5 padding-left-50">
+    <div class="flex-1 d-flex flex-column padding-5 padding-left-50">
         <div class="flex-section-row justify-content-between">
             <h3>@Model.Title</h3>
             <h2 class="cursor" onclick="location.href = '/Administration/RemoveActivity?ActivityId=@Model.ActivityId'"><i class="bi bi-trash"></i></h2>
