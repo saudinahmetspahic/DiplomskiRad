@@ -2113,7 +2113,7 @@ footer#footer {
     background: rgb(128 128 128 / 0.8);
 }
 
-    .bg-image:before {
+    .bg-image::before {
         content: '';
         position: absolute;
         left: 0;

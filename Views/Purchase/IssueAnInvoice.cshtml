@@ -13,7 +13,7 @@
     }
 }
 
-<form class="form wide-form" asp-action="UpdateAnInvoice" asp-controller="Purchase">
+<form class="form wide-form overflow-auto" asp-action="UpdateAnInvoice" asp-controller="Purchase">
     <input class="issue-input hidden" type="number" asp-for="@Model.Invoice.Id" value="@Model.Invoice.Id" />
     <section id="content" class="box-shadow-small sectionMargin padding-20">
         @*header*@

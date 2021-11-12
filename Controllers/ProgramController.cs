@@ -350,24 +350,24 @@ namespace WebApp.Controllers
         }
 
         [Autorization(true, true, false)]
-        public async Task<IActionResult> RemoveAttachmentFromProgramActivity(string ProgramName, int ActivityId, int Day, int AttachmentId)
+        public IActionResult RemoveAttachmentFromProgramActivity(string ProgramName, int ActivityId, int Day, int AttachmentId)
         {
             if (ProgramApproved(ProgramName))
                 return StatusCode(405);
-            var program = await _context.Program.Where(w => w.Name == ProgramName).FirstOrDefaultAsync();
+            var program = _context.Program.Where(w => w.Name == ProgramName).FirstOrDefault();
             if (program == null)
                 return StatusCode(400);
 
-            var programactivity = await _context.ProgramActivity.Where(w => w.ProgramId == program.Id && w.ActivityId == ActivityId && w.DayOfProgram == Day).FirstOrDefaultAsync();
+            var programactivity = _context.ProgramActivity.Where(w => w.ProgramId == program.Id && w.ActivityId == ActivityId && w.DayOfProgram == Day).FirstOrDefault();
             if (programactivity == null)
                 return StatusCode(400);
 
-            var attachment = await _context.ProgramActivityAttachment.Where(w => w.ProgramActivityId == programactivity.Id && w.ActivityAttachmentId == AttachmentId).FirstOrDefaultAsync();
+            var attachment = _context.ProgramActivityAttachment.Where(w => w.ProgramActivityId == programactivity.Id && w.ActivityAttachmentId == AttachmentId).FirstOrDefault();
             if (attachment == null)
                 return StatusCode(400);
 
             _context.ProgramActivityAttachment.Remove(attachment);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return Ok();
         }
 

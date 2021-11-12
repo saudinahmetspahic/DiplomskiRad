@@ -619,7 +619,10 @@ function AddAttachmentToActivity(attachment, activityId, day) {
 
 function RemoveAttachmentFromActivity(e, attachment) {
     var day = e.parentElement.parentElement.id.substr(4, 1);
-    var activity = e.parentElement.parentElement.id.substr(15, 1);
+    var id = e.parentElement.parentElement.id;
+    var activity = id.substr(15);
+    activity = activity.substr(0, activity.indexOf("_"));
+    //var activity = e.parentElement.parentElement.id.substr(15, 1);
     var program = $("#ProgramNameID").val();
     $.post("/Program/RemoveAttachmentFromProgramActivity?ProgramName=" + program + "&ActivityId=" + activity + "&Day=" + day + "&AttachmentId=" + attachment, function (result, status) {
         if (status == "success") {
